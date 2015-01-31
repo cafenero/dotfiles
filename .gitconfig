@@ -1,0 +1,7 @@
+[user]
+	name = cafenero
+	email = 2006yusuke@gmail.com
+[push]
+	default = simple
+[color]
+	ui = auto
