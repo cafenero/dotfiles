@@ -15,3 +15,7 @@
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-h" 'delete-backward-char)
 
+;; make NO backup files
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+
