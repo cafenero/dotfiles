@@ -2,6 +2,6 @@
 	name = cafenero
 	email = 2006yusuke@gmail.com
 [push]
-	default = simple
+	default = matching
 [color]
 	ui = auto
