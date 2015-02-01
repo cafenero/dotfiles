@@ -8,8 +8,8 @@ fi
 # User specific aliases and functions
 alias ls='ls -G'
 alias ll='ls -lG'
-#alias sc='screen'
-alias sc='$HOME/local/bin/screen-4.2.1'
+alias sc='screen'
+#alias sc='$HOME/local/bin/screen-4.2.1'
 alias e='emacs'
 alias pu='pushd'
 alias po='popd'
