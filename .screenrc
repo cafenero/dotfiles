@@ -1,0 +1,22 @@
+defscrollback 100000
+#scrollback 500000
+startup_message off
+vbell off
+termcapinfo xterm-256color 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+escape ^Tt
+
+#hardstatus string "[screen %n%?: %t%?] %h"
+hardstatus alwayslastline "[%02c] %   %-w%{=b bw}%n %t%{-}%+w"
+
+
+defencoding utf8
+encoding utf8 utf8
+
+screen
+screen
+screen
+select 1
+select 0
+select 1
+
