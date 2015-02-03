@@ -18,3 +18,9 @@ export PATH=$PATH:/usr/local/sbin/
 
 export PS1="\[\033[1;34m\](\t) \[\033[0m\]\u@\[\033[1;34m\]\H\[\033[0m\]:\w ]\n\\$ "
 export LSCOLORS=gxfxcxdxbxegedabagacad
+
+if [ `uname`  = Linux ]; then
+	alias ls='ls -G --color'
+	alias ll='ls -lG --color'
+fi
+
