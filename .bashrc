@@ -6,8 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific aliases and functions
-alias ls='ls -G'
-alias ll='ls -lG'
+alias ll='ls -l'
 alias sc='screen'
 #alias sc='$HOME/local/bin/screen-4.2.1'
 alias e='emacs'
@@ -20,7 +19,7 @@ export PS1="\[\033[1;34m\](\t) \[\033[0m\]\u@\[\033[1;34m\]\H\[\033[0m\]:\w ]\n\
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
 if [ `uname`  = Linux ]; then
-	alias ls='ls -G --color'
-	alias ll='ls -lG --color'
+	alias ls='ls --color'
+	alias ll='ls -l --color'
 fi
 
