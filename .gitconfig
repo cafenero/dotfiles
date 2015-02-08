@@ -8,3 +8,7 @@
 [core]
 	excludesfile = /Users/yusuke/.gitignore
 	editor = vim
+[alias]
+	ci = commit
+	co = checkout
+	st = status
