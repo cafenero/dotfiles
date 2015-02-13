@@ -26,6 +26,7 @@ export PATH=$PATH:/usr/local/sbin/
 export PS1="\[\033[1;34m\](\t) \[\033[0m\]\u@\[\033[1;34m\]\H\[\033[0m\]:\w ]\n "
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export GREP_OPTIONS='--color=auto'
+export LESS="-R"
 
 
 #############################################
