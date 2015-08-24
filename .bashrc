@@ -9,6 +9,7 @@ fi
 if [ `uname`  = Darwin ]; then
     alias ls='ls -G'
     alias ll='ls -lG'
+    alias ctags='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
 fi
 if [ `uname`  = Linux ]; then
     alias ls='ls --color'
@@ -27,6 +28,7 @@ export PS1="\[\033[1;34m\](\t) \[\033[0m\]\u@\[\033[1;34m\]\H\[\033[0m\]:\w ]\n 
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export GREP_OPTIONS='--color=auto'
 export LESS="-R"
+export GOPATH=${HOME}/.go
 
 
 #############################################
