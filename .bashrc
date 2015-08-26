@@ -10,13 +10,14 @@ if [ `uname`  = Darwin ]; then
     alias ls='ls -G'
     alias ll='ls -lG'
     alias ctags='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
+    alias sc='/usr/local/Cellar/screen/4.3.0/bin/screen'
 fi
 if [ `uname`  = Linux ]; then
     alias ls='ls --color'
     alias ll='ls -l --color'
+    alias sc='screen'
 fi
 
-alias sc='screen'
 #alias sc='$HOME/local/bin/screen-4.2.1'
 alias e='emacs'
 alias pu='pushd'
