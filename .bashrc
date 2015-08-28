@@ -18,13 +18,12 @@ if [ `uname`  = Linux ]; then
     alias sc='screen'
 fi
 
-#alias sc='$HOME/local/bin/screen-4.2.1'
 alias e='emacs'
 alias pu='pushd'
 alias po='popd'
 alias diff='colordiff -u'
 
-export PATH=$PATH:/usr/local/sbin/
+export PATH=$PATH:/usr/local/sbin:/bin:/usr/texbin
 export PS1="\[\033[1;34m\](\t) \[\033[0m\]\u@\[\033[1;34m\]\H\[\033[0m\]:\w ]\n "
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export GREP_OPTIONS='--color=auto'
