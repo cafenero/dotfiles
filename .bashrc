@@ -26,7 +26,10 @@ alias diff='colordiff -u'
 export PATH=$PATH:/usr/local/sbin:/bin:/usr/texbin
 export PS1="\[\033[1;34m\](\t) \[\033[0m\]\u@\[\033[1;34m\]\H\[\033[0m\]:\w ]\n "
 export LSCOLORS=gxfxcxdxbxegedabagacad
-export GREP_OPTIONS='--color=auto'
+MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
+alias grep="grep $MY_GREP_OPTIONS"
+alias egrep="egrep $MY_GREP_OPTIONS"
+alias fgrep="fgrep $MY_GREP_OPTIONS"
 export LESS="-R"
 export GOPATH=${HOME}/.go
 
