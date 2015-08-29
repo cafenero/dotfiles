@@ -6,6 +6,8 @@ cp ./.gitignore $HOME/
 cp ./.screenrc $HOME/
 cp ./.tmux.conf $HOME/
 cp ./.vimrc $HOME/
-mkdir $HOME/.screen
+if [ ! -e $HOME/.screen ]; then
+    mkdir $HOME/.screen
+fi
 chmod 700 $HOME/.screen
 
