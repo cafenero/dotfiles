@@ -1,0 +1,10 @@
+((("verylognglongname2" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 3])
+  ("function" .
+   [2 0 0 0 0 0 0 0])
+  ("verylognglongname" .
+   [1 0 0 1 2 0 0 0 0 0 0 0 0 0 0 0 2])
+  ("test" .
+   [0 0 0 1])
+  ("var_dump" .
+   [0 0 2 1 0 0 0 0])))
