@@ -1,3 +1,5 @@
+(add-to-list 'load-path "~/.emacs.d/elisp")
+
 ;; default to unified diffs
 (setq diff-switches "-u")
 
@@ -31,7 +33,6 @@
    ))
 
 
-(add-to-list 'load-path "~/.emacs.d/elisp")
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
@@ -43,3 +44,4 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
+(require 'go-mode)
