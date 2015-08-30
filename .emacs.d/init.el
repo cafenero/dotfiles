@@ -21,6 +21,15 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
+; uncomment when you use
+;;(when(require 'auto-install nil t)
+;;  (setq auto-install-directory "~/.emacs.d/elisp/")
+;;  (auto-install-update-emacswiki-package-name t)
+;;  (auto-install-compatibility-setup))
+
+
+(load "php-mode")
+
 (add-hook 'php-mode-hook
   '(lambda()
      (setq tab-width 4)
@@ -45,3 +54,32 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 (require 'go-mode)
+
+(require 'anything)
+;; anything
+;(require 'anything-config)
+;(setq anything-sources (list anything-c-source-buffers
+;			     anything-c-source-bookmarks
+;			     anything-c-source-recentf
+;			     anything-c-source-file-name-history
+;			     anything-c-source-locate))
+(define-key anything-map (kbd "C-p") 'anything-previous-line)
+(define-key anything-map (kbd "C-n") 'anything-next-line)
+(define-key anything-map (kbd "C-v") 'anything-next-source)
+(define-key anything-map (kbd "M-v") 'anything-previous-source)
+(global-set-key (kbd "C-;") 'anything)
+
+
+
+;; C++
+(defun my-c++-mode-conf ()
+  (setq c-basic-offset 4)
+  (show-paren-mode t))
+(add-hook 'c++-mode-hook 'my-c++-mode-conf)
+
+
+; auto-complete
+(require 'auto-complete)
+(global-auto-complete-mode t)
+(define-key ac-complete-mode-map "\C-n" 'ac-next)
+(define-key ac-complete-mode-map "\C-p" 'ac-previous)
