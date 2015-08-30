@@ -31,7 +31,7 @@
    ))
 
 
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/elisp")
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
