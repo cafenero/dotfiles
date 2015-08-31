@@ -11,6 +11,7 @@ if [ `uname`  = Darwin ]; then
     alias ll='ls -lG'
     alias ctags='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
     alias sc='/usr/local/Cellar/screen/4.3.0/bin/screen'
+    export LC_CTYPE='ja_JP.UTF-8'
 fi
 if [ `uname`  = Linux ]; then
     alias ls='ls --color'
