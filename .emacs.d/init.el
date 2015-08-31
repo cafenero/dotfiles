@@ -7,6 +7,9 @@
 ;(tool-bar-mode 0)
 (menu-bar-mode -1)
 
+(global-linum-mode)
+
+
 ;;save place
 (load "saveplace")
 (setq-default save-place t)
