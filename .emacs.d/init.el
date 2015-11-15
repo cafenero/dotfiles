@@ -7,8 +7,9 @@
 ;(tool-bar-mode 0)
 (menu-bar-mode -1)
 
-(global-linum-mode)
-
+(global-linum-mode -1)
+(global-set-key [f6] 'linum-mode)
+(setq linum-format "%4d ")
 
 ;;save place
 (load "saveplace")
