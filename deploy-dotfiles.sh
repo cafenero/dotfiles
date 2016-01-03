@@ -1,5 +1,6 @@
 #!/bin/bash
 cp ./.bashrc $HOME/
+cp ./.zshrc $HOME/
 cp -r ./.emacs.d $HOME/
 cp ./.gitconfig $HOME/
 cp ./.gitignore $HOME/
