@@ -19,6 +19,11 @@ if [ `uname`  = Darwin ]; then
     if [ -f ~/.brew_api_token ];then
 	source ~/.brew_api_token
     fi
+
+    # digital ocean api token
+    if [ -f ~/.digital_ocean_token ];then
+	source ~/.digital_ocean_token
+    fi
 fi
 if [ `uname`  = Linux ]; then
     alias ls='ls --color'
