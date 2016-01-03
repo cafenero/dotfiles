@@ -4,6 +4,9 @@ compinit
 colors
 vcs_info
 
+
+
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
@@ -11,7 +14,12 @@ SAVEHIST=10000
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 #zstyle :compinstall filename '/Users/yusuke/.zshrc'
-zstyle ':completion:*:processes' menu yes select=2
+#zstyle ':completion:*:processes' menu yes select=2
+zstyle ':completion:*:default' menu select
+#zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+
+
+zstyle ':completion:*' list-separator '-->'
 
 
 
@@ -97,11 +105,9 @@ alias gd='git diff'
 alias gl='git log --graph'
 
 
-# keyboard hooks
-tcsh-backward-delete-word() {
-  local WORDCHARS="${WORDCHARS:s#/#}"
-  zle backward-delete-word
-}
-zle -N tcsh-backward-delete-word
-bindkey "^W" tcsh-backward-delete-word
+export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
+
+function cd(){
+    builtin cd $@ && ls -l;
+    }
 
