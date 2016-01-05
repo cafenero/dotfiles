@@ -5,8 +5,6 @@ colors
 vcs_info
 
 
-
-
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
@@ -17,11 +15,13 @@ SAVEHIST=10000
 #zstyle ':completion:*:processes' menu yes select=2
 zstyle ':completion:*:default' menu select
 #zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
-
-
 zstyle ':completion:*' list-separator '-->'
 
-
+# setopts
+setopt share_history
+setopt hist_reduce_blanks
+setopt hist_expand
+setopt brace_ccl
 
 #alias -s pdf=PDFNut
 
@@ -63,10 +63,12 @@ case ${OSTYPE} in
 	;;
 esac
 
-# zsh prompt
-PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@%{${fg[cyan]}%}%m%{${reset_color}%}:%~]
- "
 
+local PURPLE=$'%{\e[1;35m%}'
+local RED=$'%{\e[38;5;88m%}'
+local ENDC=$'%{\e[m%}'
+PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~]
+ "
 
 # aliases & CLI options
 alias e='emacs'
@@ -105,6 +107,7 @@ alias gd='git diff'
 alias gl='git log --graph'
 
 
+#export WORDCHARS='*?_[]~-=&;!#$%^(){}<>'
 export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
 function cd(){
