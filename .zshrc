@@ -22,6 +22,8 @@ setopt share_history
 setopt hist_reduce_blanks
 setopt hist_expand
 setopt brace_ccl
+setopt prompt_subst
+
 
 #alias -s pdf=PDFNut
 
@@ -64,11 +66,22 @@ case ${OSTYPE} in
 esac
 
 
+#local P_INFO="%(!,#,$)"
+#local P_MARK="%(?,%F{white},%F{red})%(!,#,%B$%b)%f"
+local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
+#local P_MARK="%(!,#,$)"
 local PURPLE=$'%{\e[1;35m%}'
 local RED=$'%{\e[38;5;88m%}'
 local ENDC=$'%{\e[m%}'
-PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~]
+PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~] ${P_MARK}
  "
+
+# git prompt
+zstyle ':vcs_info:*' formats '%s][* %F{green}%b%f'
+zstyle ':vcs_info:*' actionformats '%s][* %F{green}%b%f(%F{red}%a%f)'
+precmd() { vcs_info }
+RPROMPT='[${vcs_info_msg_0_}]:%~/%f '
+
 
 # aliases & CLI options
 alias e='emacs'
