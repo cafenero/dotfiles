@@ -121,7 +121,7 @@ alias gl='git log --graph'
 
 
 #export WORDCHARS='*?_[]~-=&;!#$%^(){}<>'
-export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
+export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>|'
 
 function cd(){
     builtin cd $@ && ls -l;
