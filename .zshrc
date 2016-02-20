@@ -50,6 +50,8 @@ case ${OSTYPE} in
 	alias ls='ls --color'
 	alias ll='ls -l --color'
 	alias sc='screen'
+	alias df='df -T'
+	alias top='top -c'
 
 	# unix domain socket settings for screen
 	agent="$HOME/.screen/.ssh-agent-`hostname`"
@@ -80,7 +82,7 @@ PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~] ${P
 zstyle ':vcs_info:*' formats '%s][* %F{green}%b%f'
 zstyle ':vcs_info:*' actionformats '%s][* %F{green}%b%f(%F{red}%a%f)'
 precmd() { vcs_info }
-RPROMPT='[${vcs_info_msg_0_}]:%~/%f '
+#RPROMPT='[${vcs_info_msg_0_}]:%~/%f '
 
 
 # aliases & CLI options
