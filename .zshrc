@@ -32,8 +32,8 @@ case ${OSTYPE} in
     darwin*)
 	alias ls='ls -G'
         alias ll='ls -lG'
-        alias ctags='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
-        alias sc='/usr/local/Cellar/screen/4.3.0/bin/screen'
+        alias ctags='/usr/local/bin/ctags'
+        alias sc='/usr/local/bin/screen'
         export LC_CTYPE='ja_JP.UTF-8'
 	
 	# brew api token
