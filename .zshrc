@@ -134,3 +134,6 @@ function cd(){
     builtin cd $@ && ls -l;
     }
 
+export RTE_SDK=/home/yusuke/dpdk-2.2.0
+export RTE_TARGET=x86_64-native-linuxapp-gcc
+
