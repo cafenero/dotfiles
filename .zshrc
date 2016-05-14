@@ -52,6 +52,7 @@ case ${OSTYPE} in
 	alias sc='screen'
 	alias df='df -T'
 	alias top='top -c'
+	alias sys='cd /etc/sysconfig/network-scripts'
 
 	# unix domain socket settings for screen
 	agent="$HOME/.screen/.ssh-agent-`hostname`"
