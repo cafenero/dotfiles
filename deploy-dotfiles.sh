@@ -13,5 +13,6 @@ cp ./.git-prompt.sh $HOME/
 if [ ! -e $HOME/.screen ]; then
     mkdir $HOME/.screen
 fi
+
 chmod 700 $HOME/.screen
 
