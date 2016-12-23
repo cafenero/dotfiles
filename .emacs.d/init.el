@@ -11,6 +11,10 @@
 (global-set-key [f6] 'linum-mode)
 (setq linum-format "%4d ")
 
+(column-number-mode t)
+
+
+
 ;;save place
 (load "saveplace")
 (setq-default save-place t)
@@ -32,18 +36,18 @@
 ;;  (auto-install-compatibility-setup))
 
 
-(load "php-mode")
+;; (load "php-mode")
 
-(add-hook 'php-mode-hook
-  '(lambda()
-     (setq tab-width 4)
-     (setq indent-tabs-mode t)
-     (setq c-basic-offset 4)
-     (c-set-offset 'case-label' 4)
-     (c-set-offset 'arglist-intro' 4)
-     (c-set-offset 'arglist-cont-nonempty' 4)
-     (c-set-offset 'arglist-close' 0)
-   ))
+;; (add-hook 'php-mode-hook
+;;   '(lambda()
+;;      (setq tab-width 4)
+;;      (setq indent-tabs-mode t)
+;;      (setq c-basic-offset 4)
+;;      (c-set-offset 'case-label' 4)
+;;      (c-set-offset 'arglist-intro' 4)
+;;      (c-set-offset 'arglist-cont-nonempty' 4)
+;;      (c-set-offset 'arglist-close' 0)
+;;    ))
 
 
 
@@ -90,3 +94,6 @@
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+
+
+(require 'magit)

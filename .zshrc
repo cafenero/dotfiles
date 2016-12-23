@@ -30,10 +30,13 @@ setopt prompt_subst
 # env specifics
 case ${OSTYPE} in
     darwin*)
-	alias ls='ls -G'
-        alias ll='ls -lG'
+#	alias ls='ls -G'
+#       alias ll='ls -lG'
+	alias ls='gls --color'
+	alias ll='gls -l --color'
         alias ctags='/usr/local/bin/ctags'
         alias sc='/usr/local/bin/screen'
+        alias tm='/usr/local/bin/tmux'
         export LC_CTYPE='ja_JP.UTF-8'
 	
 	# brew api token
@@ -50,8 +53,10 @@ case ${OSTYPE} in
 	alias ls='ls --color'
 	alias ll='ls -l --color'
 	alias sc='screen'
+	alias tm='tmux'
 	alias df='df -T'
 	alias top='top -c'
+	alias vmstat='vmstat -w'
 	alias sys='cd /etc/sysconfig/network-scripts'
 
 	# unix domain socket settings for screen
@@ -77,7 +82,7 @@ local PURPLE=$'%{\e[1;35m%}'
 local RED=$'%{\e[38;5;88m%}'
 local ENDC=$'%{\e[m%}'
 #PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~] ${P_MARK}
-PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~] ${P_MARK} "'${vcs_info_msg_0_}'"
+PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
  "
 
 # git prompt
@@ -134,6 +139,10 @@ function cd(){
     builtin cd $@ && ls -l;
     }
 
-export RTE_SDK=/home/yusuke/dpdk-2.2.0
-export RTE_TARGET=x86_64-native-linuxapp-gcc
+# export RTE_SDK=/home/yusuke/dpdk-2.2.0
+# export RTE_TARGET=x86_64-native-linuxapp-gcc
 
+# export DISPLAY=:0.0
+
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
