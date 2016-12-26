@@ -97,3 +97,26 @@
 
 
 (require 'magit)
+
+
+(defun find-tag-next ()
+  (interactive)
+  (find-tag last-tag t))
+
+
+(global-set-key (kbd "M-g .")   'find-tag-regexp)
+(global-set-key (kbd "C-M-.")   'find-tag-next)
+(global-set-key (kbd "M-,")     'find-tag-other-window)
+(global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
+
+
+
+;; for C
+;(setq c-auto-newline t)
+
+(defun my-c-c++-mode-init ()
+  (setq c-basic-offset 8)
+  )
+
+(add-hook 'c-mode-hook 'my-c-c++-mode-init)
+(add-hook 'c++-mode-hook 'my-c-c++-mode-init)
