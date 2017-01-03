@@ -74,6 +74,8 @@ case ${OSTYPE} in
 esac
 
 
+bindkey "^[f" emacs-forward-word
+
 #local P_INFO="%(!,#,$)"
 #local P_MARK="%(?,%F{white},%F{red})%(!,#,%B$%b)%f"
 local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
@@ -133,7 +135,8 @@ alias gl='git log --graph'
 
 
 #export WORDCHARS='*?_[]~-=&;!#$%^(){}<>'
-export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>|'
+#export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>|'
+export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
 
 function cd(){
     builtin cd $@ && ls -l;
@@ -145,4 +148,4 @@ function cd(){
 # export DISPLAY=:0.0
 
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
