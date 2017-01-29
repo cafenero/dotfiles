@@ -101,7 +101,7 @@ precmd() { vcs_info }
 alias e='emacs'
 alias pu='pushd'
 alias po='popd'
-alias diff='colordiff -u'
+# alias diff='colordiff -u'
 
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
 alias grep="grep $MY_GREP_OPTIONS"
