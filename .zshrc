@@ -114,6 +114,7 @@ export LESS="-R"
 
 # path settings
 export PATH=$PATH:/usr/local/sbin:/bin:/usr/texbin
+export PATH=$PATH:/usr/sbin
 export GOPATH=${HOME}/.go
 
 
@@ -131,6 +132,7 @@ export GOPATH=${HOME}/.go
 # git
 alias gs='git status'
 alias gd='git diff'
+#alias gd='git diff --word-diff-regex="\w+" $@'
 alias gl='git log --graph'
 
 
@@ -149,3 +151,21 @@ function cd(){
 
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+# for pyenv
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
+
+
+# ## Set path for pyenv
+# export PYENV_ROOT="${HOME}/.pyenv"
+# if [ -d "${PYENV_ROOT}" ]; then
+#     export PATH=${PYENV_ROOT}/bin:$PATH
+#     eval "$(pyenv init -)"
+#     eval "$(pyenv virtualenv-init -)"
+# fi
+
+
+#export DISPLAY=:0.0
