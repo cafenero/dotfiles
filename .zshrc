@@ -1,3 +1,4 @@
+fpath=(~/.zsh/completion $fpath)
 # load
 autoload -Uz compinit colors vcs_info
 compinit
@@ -37,6 +38,7 @@ case ${OSTYPE} in
         alias ctags='/usr/local/bin/ctags'
         alias sc='/usr/local/bin/screen'
         alias tm='/usr/local/bin/tmux'
+	alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
         export LC_CTYPE='ja_JP.UTF-8'
 	
 	# brew api token
@@ -58,6 +60,7 @@ case ${OSTYPE} in
 	alias top='top -c'
 	alias vmstat='vmstat -w'
 	alias sys='cd /etc/sysconfig/network-scripts'
+	alias sudo='sudo -E '
 
 	# unix domain socket settings for screen
 	agent="$HOME/.screen/.ssh-agent-`hostname`"
@@ -153,13 +156,14 @@ function cd(){
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 
+## uncomment for using pyenv
 # for pyenv
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
 
 
-# ## Set path for pyenv
+## Set path for pyenv
 # export PYENV_ROOT="${HOME}/.pyenv"
 # if [ -d "${PYENV_ROOT}" ]; then
 #     export PATH=${PYENV_ROOT}/bin:$PATH
@@ -168,4 +172,18 @@ function cd(){
 # fi
 
 
-#export DISPLAY=:0.0
+function mssh() {
+#tmux new-window "exec ssh $1"
+tmux new-window "exec zsh"
+shift
+for host in "$@"; do
+  tmux split-window "exec zsh"
+#  tmux select-layout even-vertical > /dev/null
+  tmux select-layout even-horizontal > /dev/null
+#  tmux select-layout tiled > /dev/null
+done
+tmux set-window-option synchronize-panes on
+tmux select-layout tiled > /dev/null
+#tmux select-layout even-vertical > /dev/null
+#tmux select-layout even-horizontal > /dev/null
+}
