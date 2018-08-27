@@ -1,5 +1,8 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
+;;(require 'dockerfile-mode)
+;(;add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+
 ;; default to unified diffs
 (setq diff-switches "-u")
 
@@ -24,6 +27,7 @@
 ;; my keybind
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-h" 'delete-backward-char)
+(global-set-key "\M-%" 'replace-string)
 
 ;; make NO backup files
 (setq make-backup-files nil)
@@ -36,18 +40,18 @@
 ;;  (auto-install-compatibility-setup))
 
 
-;; (load "php-mode")
+(load "php-mode")
 
-;; (add-hook 'php-mode-hook
-;;   '(lambda()
-;;      (setq tab-width 4)
-;;      (setq indent-tabs-mode t)
-;;      (setq c-basic-offset 4)
-;;      (c-set-offset 'case-label' 4)
-;;      (c-set-offset 'arglist-intro' 4)
-;;      (c-set-offset 'arglist-cont-nonempty' 4)
-;;      (c-set-offset 'arglist-close' 0)
-;;    ))
+(add-hook 'php-mode-hook
+  '(lambda()
+     (setq tab-width 4)
+     (setq indent-tabs-mode t)
+     (setq c-basic-offset 4)
+     (c-set-offset 'case-label' 4)
+     (c-set-offset 'arglist-intro' 4)
+     (c-set-offset 'arglist-cont-nonempty' 4)
+     (c-set-offset 'arglist-close' 0)
+   ))
 
 
 
