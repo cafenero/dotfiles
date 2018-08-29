@@ -2,6 +2,7 @@
 
 cp -r $HOME/.emacs.d $HOME/dotfiles/
 cp -r $HOME/.config  $HOME/dotfiles/
+cp -r $HOME/.hammerspoon $HOME/dotfiles/
 cp $HOME/.bashrc     $HOME/dotfiles/
 cp $HOME/.zshrc      $HOME/dotfiles/
 cp $HOME/.gitconfig  $HOME/dotfiles/

@@ -5,3 +5,6 @@ ac-comphist.dat
 .env
 *.retry
 TAGS
+filezilla
+git
+gtk-2.0
