@@ -1,0 +1,31 @@
+{
+  "title": "eisuu(single), option(combination)",
+  "rules": [
+    {
+      "description": "無変換キーを単体で押したときは無変換、組み合わせたときはoptionとする。",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "japanese_eisuu",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_option"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
