@@ -3,6 +3,7 @@
 cp -r ./.emacs.d $HOME/
 cp -r ./.config $HOME/
 cp -r ./.hammerspoon $HOME/
+cp -r ./.iterm   $HOME/
 cp ./.bashrc $HOME/
 cp ./.zshrc $HOME/
 cp ./.gitconfig $HOME/
