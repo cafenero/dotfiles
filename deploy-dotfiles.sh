@@ -1,7 +1,9 @@
 #!/bin/bash
+
+cp -r ./.emacs.d $HOME/
+cp -r ./.config $HOME/
 cp ./.bashrc $HOME/
 cp ./.zshrc $HOME/
-cp -r ./.emacs.d $HOME/
 cp ./.gitconfig $HOME/
 cp ./.gitignore $HOME/
 cp ./.screenrc $HOME/
