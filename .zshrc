@@ -40,15 +40,16 @@ case ${OSTYPE} in
         alias tm='/usr/local/bin/tmux'
 	alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
         export LC_CTYPE='ja_JP.UTF-8'
+	export PATH=$PATH:/usr/local/Cellar/git/2.18.0//share/git-core/contrib/diff-highlight
 	
 	# brew api token
         if [ -f ~/.brew_api_token ];then
-            source ~/.brew_api_token
+            source ~/tokens/.brew_api_token
         fi
 
         # digital ocean api token
         if [ -f ~/.digital_ocean_token ];then
-            source ~/.digital_ocean_token
+            source ~/tokens/.digital_ocean_token
         fi
     ;;
     linux*)
