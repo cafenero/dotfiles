@@ -1,3 +1,4 @@
+## dotfile directory
 declare -a dotfile_dir=(
     ".emacs.d"
     ".config"
@@ -5,6 +6,7 @@ declare -a dotfile_dir=(
     ".iterm"
 )
 
+## dotfiles
 declare -a dotfile=(
     ".bashrc"
     ".zshrc"
