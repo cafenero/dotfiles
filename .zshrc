@@ -41,6 +41,11 @@ case ${OSTYPE} in
 	alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
         export LC_CTYPE='ja_JP.UTF-8'
 	export PATH=$PATH:/usr/local/Cellar/git/2.18.0//share/git-core/contrib/diff-highlight
+	export PATH=$PATH:/Users/yusuke/.nodebrew/current/bin
+
+	export ANDROID_HOME=$HOME/Library/Android/sdk
+	export PATH=$PATH:$ANDROID_HOME/tools
+	export PATH=$PATH:$ANDROID_HOME/platform-tools
 	
 	# brew api token
         if [ -f ~/.brew_api_token ];then
