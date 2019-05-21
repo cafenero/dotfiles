@@ -18,12 +18,38 @@ zstyle ':completion:*:default' menu select
 #zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*' list-separator '-->'
 
+bindkey "^[f" emacs-forward-word
+
 # setopts
 setopt share_history
 setopt hist_reduce_blanks
 setopt hist_expand
 setopt brace_ccl
 setopt prompt_subst
+
+
+# funcitons
+function mssh() {
+#tmux new-window "exec ssh $1"
+tmux new-window "exec zsh"
+shift
+for host in "$@"; do
+  tmux split-window "exec zsh"
+#  tmux select-layout even-vertical > /dev/null
+  tmux select-layout even-horizontal > /dev/null
+#  tmux select-layout tiled > /dev/null
+done
+tmux set-window-option synchronize-panes on
+tmux select-layout tiled > /dev/null
+#tmux select-layout even-vertical > /dev/null
+#tmux select-layout even-horizontal > /dev/null
+}
+
+function cd(){
+    builtin cd $@ && ls -l;
+    }
+
+
 
 
 #alias -s pdf=PDFNut
@@ -40,8 +66,17 @@ case ${OSTYPE} in
         alias tm='/usr/local/bin/tmux'
 	alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
         export LC_CTYPE='ja_JP.UTF-8'
-	export PATH=$PATH:/usr/local/Cellar/git/2.18.0//share/git-core/contrib/diff-highlight
+#	export PATH=$PATH:/usr/local/Cellar/git/2.18.0//share/git-core/contrib/diff-highlight
+	export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+
+## debug	
+	##	export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
+## debug(add)
+#	export PATH=$PATH:/usr/local/sbin
+#	export PATH="/usr/local/sbin:$PATH"
 	export PATH=$PATH:/Users/yusuke/.nodebrew/current/bin
+	export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 
 	export ANDROID_HOME=$HOME/Library/Android/sdk
 	export PATH=$PATH:$ANDROID_HOME/tools
@@ -83,7 +118,7 @@ case ${OSTYPE} in
 esac
 
 
-bindkey "^[f" emacs-forward-word
+
 
 #local P_INFO="%(!,#,$)"
 #local P_MARK="%(?,%F{white},%F{red})%(!,#,%B$%b)%f"
@@ -122,8 +157,8 @@ export LESS="-R"
 
 
 # path settings
-export PATH=$PATH:/usr/local/sbin:/bin:/usr/texbin
-export PATH=$PATH:/usr/sbin
+#export PATH=$PATH:/usr/local/sbin:/bin:/usr/texbin
+#export PATH=$PATH:/usr/sbin
 export GOPATH=${HOME}/.go
 
 
@@ -149,9 +184,6 @@ alias gl='git log --graph'
 #export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>|'
 export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
 
-function cd(){
-    builtin cd $@ && ls -l;
-    }
 
 # export RTE_SDK=/home/yusuke/dpdk-2.2.0
 # export RTE_TARGET=x86_64-native-linuxapp-gcc
@@ -178,18 +210,4 @@ function cd(){
 # fi
 
 
-function mssh() {
-#tmux new-window "exec ssh $1"
-tmux new-window "exec zsh"
-shift
-for host in "$@"; do
-  tmux split-window "exec zsh"
-#  tmux select-layout even-vertical > /dev/null
-  tmux select-layout even-horizontal > /dev/null
-#  tmux select-layout tiled > /dev/null
-done
-tmux set-window-option synchronize-panes on
-tmux select-layout tiled > /dev/null
-#tmux select-layout even-vertical > /dev/null
-#tmux select-layout even-horizontal > /dev/null
-}
+
