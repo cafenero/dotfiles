@@ -22,3 +22,6 @@
 
 [includeIf "gitdir:/Users/"]
   path = ~/.gitconfig-mac
+[pager]
+  branch = cat
+  tag = cat
