@@ -174,7 +174,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSFontPanelAttributes</key>
-	<string>1, 2</string>
+	<string>1, 1</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/iterm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -216,7 +216,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1129 496 602 272 0 0 2560 1577 </string>
+	<string>1867 700 602 138 0 0 3840 2137 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>407 333 606 456 0 0 2560 1577 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
@@ -224,15 +224,15 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>1610 1308 620 392 0 0 3840 2137 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>2554 749 796 486 0 0 3840 2137 </string>
+	<string>1215 488 918 514 0 0 3840 2137 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>229 993 592 584 0 0 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>64 0 2160 2137 0 0 3840 2137 </string>
+	<string>29 23 3626 2114 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>212 86 2640 2051 0 0 3840 2137 </string>
+	<string>212 1437 1930 677 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>92 4 1130 1573 0 0 2560 1577 </string>
+	<string>174 1028 1930 677 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>344 190 1130 876 0 0 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
@@ -244,6 +244,8 @@
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
+			<key>ASCII Ligatures</key>
+			<false/>
 			<key>AWDS Pane Directory</key>
 			<string></string>
 			<key>AWDS Pane Option</key>
@@ -851,11 +853,11 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>Monaco 16</string>
+			<string>Monaco 13</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Monaco 16</string>
+			<string>Monaco 13</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1040,6 +1042,8 @@
 	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>0</integer>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
+	<true/>
 	<key>NoSyncHaveShownPromoWithId_4</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
@@ -1130,7 +1134,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-08-28T13:31:21Z</date>
+	<date>2019-04-13T17:10:42Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1184,7 +1188,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.0</string>
+	<string>3.2.8</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
