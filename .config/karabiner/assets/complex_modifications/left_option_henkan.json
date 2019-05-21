@@ -1,0 +1,31 @@
+{
+  "title": "left option to henkan(single), option(mutiple)",
+  "rules": [
+    {
+      "description": "左optionを単体（変換キー）、複数（option）とする。",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_option",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_option"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "japanese_kana"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
