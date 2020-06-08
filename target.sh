@@ -18,4 +18,6 @@ declare -a dotfile=(
     ".vimrc"
     ".git-completion.bash"
     ".git-prompt.sh"
+    ".docker/config.json"
+    ".docker/daemon.json"
 )

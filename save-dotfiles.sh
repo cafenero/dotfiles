@@ -7,5 +7,5 @@ for str in ${dotfile_dir[@]}; do
 done
 
 for str in ${dotfile[@]}; do
-    cp $HOME/${str} $HOME/dotfiles/
+    cp $HOME/${str} $HOME/dotfiles/${str}
 done
