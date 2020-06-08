@@ -1,5 +1,8 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
+;; 文末空白を表示
+(setq-default show-trailing-whitespace t)
+
 ;;(require 'dockerfile-mode)
 ;(;add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
@@ -40,18 +43,18 @@
 ;;  (auto-install-compatibility-setup))
 
 
-(load "php-mode")
+;; (load "php-mode")
 
-(add-hook 'php-mode-hook
-  '(lambda()
-     (setq tab-width 4)
-     (setq indent-tabs-mode t)
-     (setq c-basic-offset 4)
-     (c-set-offset 'case-label' 4)
-     (c-set-offset 'arglist-intro' 4)
-     (c-set-offset 'arglist-cont-nonempty' 4)
-     (c-set-offset 'arglist-close' 0)
-   ))
+;; (add-hook 'php-mode-hook
+;;   '(lambda()
+;;      (setq tab-width 4)
+;;      (setq indent-tabs-mode t)
+;;      (setq c-basic-offset 4)
+;;      (c-set-offset 'case-label' 4)
+;;      (c-set-offset 'arglist-intro' 4)
+;;      (c-set-offset 'arglist-cont-nonempty' 4)
+;;      (c-set-offset 'arglist-close' 0)
+;;    ))
 
 
 
@@ -66,6 +69,27 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 (require 'go-mode)
+(require 'go-mode-autoloads)
+; Preparetion.
+;; go get -u github.com/dougm/goflymake
+;; go get -u github.com/golang/lint/golint
+;; go get golang.org/x/tools/cmd/goimports
+;; export PATH=$PATH:${HOME}/.go/bin
+ (add-hook 'before-save-hook 'gofmt-before-save)
+ (let ((goimports (executable-find "goimports")))
+   (if goimports (setq gofmt-command goimports)))
+
+;; ;; go get golang.org/x/tools/cmd/goimports
+;; (setq gofmt-command "goimports")
+;; ;;(add-hook 'before-save-hook #'gofmt-before-save)
+;; (add-hook 'before-save-hook 'gofmt-before-save)
+;; (add-hook 'go-mode-hook
+;; 	  '(lambda ()
+;; 	  (setq tab-width 4)
+;; 	  ))
+
+
+
 
 (require 'anything)
 ;; anything
