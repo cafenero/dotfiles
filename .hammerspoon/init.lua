@@ -7,12 +7,24 @@ hs.hotkey.bind({"cmd"}, "i", function()
    hour = math.floor(sec_all / 60 / 60)
    min = math.floor((sec_all - (hour * 60 * 60)) / 60)
    sec = math.floor(sec_all % 60 % 60)
-   timestring = hour .. ":" .. min
---   timestring = hour .. ":" .. min .. " " .. sec
+--   timestring = string.format("%02d",hour) .. ":" .. string.format("%02d",min)
+   timestring = string.format("%02d",hour) .. ":" .. string.format("%02d",min) .. ":" .. string.format("%02d",sec)
+
 --   hs.alert.show(timestring, hs.screen.mainScreen(), {textStyle=10}, 10)
 --   hs.alert.show(timestring, {fillColor = {red = 1}}, 10)
-   hs.alert.show(timestring, {textSize = 300}, 5)
- end)
+   hs.alert.show(timestring, {textSize = 300}, 4.5)
+end)
+
+hs.hotkey.bind({"cmd"}, "l", function()
+      for k, v in pairs(hs.hotkey.getHotkeys()) do
+	 if k == 5 then
+	    hs.alert.show("HITTTTTTTTTTTTTTTT")
+	 end
+	 hs.alert.show(k)
+	 hs.alert.show(v)
+	 hs.alert.show(v.msg)
+      end
+end)
 
 local function keyCode(key, modifiers)
    modifiers = modifiers or {}
@@ -29,7 +41,16 @@ end
 
 local function disableAllHotkeys()
    for k, v in pairs(hs.hotkey.getHotkeys()) do
-      v['_hk']:disable()
+      --hs.alert.show(hs.hotkey.showHotkeys(v))
+      --hs.alert.show(k)
+      --hs.alert.show(v)
+--      hs.alert.show(v['_hk'])
+      -- keycode 34
+	 if k == 5 then
+	    -- don't disable hs.hotkey.bind({"cmd"}, "i")
+	 else
+	    v['_hk']:disable()
+	 end
    end
 end
 
@@ -75,15 +96,15 @@ remapKey({'ctrl'}, 'p', keyCode('up'))
 -- remapKey({'ctrl'}, 'y', keyCode('v', {'cmd'}))
 
 -- コマンド
-remapKey({'ctrl'}, 's', keyCode('f', {'cmd'}))
-remapKey({'ctrl'}, '/', keyCode('z', {'cmd'}))
-remapKey({'ctrl'}, 'g', keyCode('escape'))
+-- remapKey({'ctrl'}, 's', keyCode('f', {'cmd'}))
+-- remapKey({'ctrl'}, '/', keyCode('z', {'cmd'}))
+-- remapKey({'ctrl'}, 'g', keyCode('escape'))
 
 -- ページスクロール
-remapKey({'ctrl'}, 'v', keyCode('pagedown'))
-remapKey({'alt'}, 'v', keyCode('pageup'))
-remapKey({'cmd', 'shift'}, ',', keyCode('home'))
-remapKey({'cmd', 'shift'}, '.', keyCode('end'))
+-- remapKey({'ctrl'}, 'v', keyCode('pagedown'))
+-- remapKey({'alt'}, 'v', keyCode('pageup'))
+-- remapKey({'cmd', 'shift'}, ',', keyCode('home'))
+-- remapKey({'cmd', 'shift'}, '.', keyCode('end'))
 
 -- adding option modify
 -- remapKey({'alt'}, '2', keyCode('2'))
