@@ -12,7 +12,12 @@ hs.hotkey.bind({"cmd"}, "i", function()
 
 --   hs.alert.show(timestring, hs.screen.mainScreen(), {textStyle=10}, 10)
 --   hs.alert.show(timestring, {fillColor = {red = 1}}, 10)
-   hs.alert.show(timestring, {textSize = 300}, 4.5)
+--   hs.alert.show(timestring, {textSize = 300}, 4.5)
+   --   hs.alert.show(timestring, hs.screen.mainScreen(), {textSize = 300}, 4.5)
+
+   for k, v in pairs(hs.screen.allScreens()) do
+      hs.alert.show(timestring, {textSize = 300}, v, 4.5)
+   end
 end)
 
 hs.hotkey.bind({"cmd"}, "l", function()
