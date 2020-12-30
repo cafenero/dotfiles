@@ -2,13 +2,24 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
   hs.alert.show("Hello World!")
 end)
 
+hs.hotkey.bind({"cmd"}, "i", function()
+   sec_all = hs.timer.localTime()
+   hour = math.floor(sec_all / 60 / 60)
+   min = math.floor((sec_all - (hour * 60 * 60)) / 60)
+   sec = math.floor(sec_all % 60 % 60)
+   timestring = hour .. ":" .. min
+--   timestring = hour .. ":" .. min .. " " .. sec
+--   hs.alert.show(timestring, hs.screen.mainScreen(), {textStyle=10}, 10)
+--   hs.alert.show(timestring, {fillColor = {red = 1}}, 10)
+   hs.alert.show(timestring, {textSize = 300}, 5)
+ end)
 
 local function keyCode(key, modifiers)
    modifiers = modifiers or {}
    return function()
       hs.eventtap.event.newKeyEvent(modifiers, string.lower(key), true):post()
       hs.timer.usleep(1000)
-      hs.eventtap.event.newKeyEvent(modifiers, string.lower(key), false):post()      
+      hs.eventtap.event.newKeyEvent(modifiers, string.lower(key), false):post()
    end
 end
 
@@ -76,6 +87,3 @@ remapKey({'cmd', 'shift'}, '.', keyCode('end'))
 
 -- adding option modify
 -- remapKey({'alt'}, '2', keyCode('2'))
-
-
-

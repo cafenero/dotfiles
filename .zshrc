@@ -35,28 +35,31 @@ setopt prompt_subst
 
 
 
-# funcitons
-function mssh() {
-#tmux new-window "exec ssh $1"
-tmux new-window "exec zsh"
-shift
-for host in "$@"; do
-  tmux split-window "exec zsh"
-#  tmux select-layout even-vertical > /dev/null
-  tmux select-layout even-horizontal > /dev/null
-#  tmux select-layout tiled > /dev/null
-done
-tmux set-window-option synchronize-panes on
-tmux select-layout tiled > /dev/null
-#tmux select-layout even-vertical > /dev/null
-#tmux select-layout even-horizontal > /dev/null
-}
+# # funcitons
+# function mssh() {
+# #tmux new-window "exec ssh $1"
+# tmux new-window "exec zsh"
+# shift
+# for host in "$@"; do
+#   tmux split-window "exec zsh"
+# #  tmux select-layout even-vertical > /dev/null
+#   tmux select-layout even-horizontal > /dev/null
+# #  tmux select-layout tiled > /dev/null
+# done
+# tmux set-window-option synchronize-panes on
+# tmux select-layout tiled > /dev/null
+# #tmux select-layout even-vertical > /dev/null
+# #tmux select-layout even-horizontal > /dev/null
+# }
 
 
 precmd() { vcs_info }
 
 
 #alias -s pdf=PDFNut
+
+
+
 
 # env specifics
 case ${OSTYPE} in
@@ -74,12 +77,20 @@ case ${OSTYPE} in
 	export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 #	export PATH=$PATH:/usr/local/opt
 	export PATH=$PATH:${HOME}/.go/bin
+
+	alias python=/usr/local/bin/python3
+	alias pip=/usr/local/bin/pip3
+	#	alias mssh="xpanes -c 'ping {}' $1"
+
+	function mssh() {
+	    command xpanes -c 'ssh {}' `cat $1`
+	}
+
 	## debug
 
 	##	export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
 ## debug(add)
 #	export PATH=$PATH:/usr/local/sbin
-#	export PATH="/usr/local/sbin:$PATH"
 	export PATH=$PATH:/Users/yusuke/.nodebrew/current/bin
 	export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
@@ -90,6 +101,7 @@ case ${OSTYPE} in
 
 	# for golang
 	export GOPATH=$HOME/go
+
 
 	# brew api token
         if [ -f ~/.brew_api_token ];then
@@ -105,6 +117,9 @@ case ${OSTYPE} in
 	    builtin cd $@ && gls -l --color;
 	    #builtin cd $@ && ll;
 	}
+
+	# needed at END line ?
+	export PATH="/usr/local/sbin:$PATH"
     ;;
     linux*)
 	alias ls='ls --color'
@@ -183,7 +198,10 @@ local ENDC=$'%{\e[m%}'
 
 #PROMPT="%{${fg[cyan]}%}()%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
 
-PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
+
+## いつもの
+#PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} %n@${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
+PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
  "
 
 

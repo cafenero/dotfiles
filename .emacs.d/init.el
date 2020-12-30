@@ -184,3 +184,24 @@
                (throw 'end-flag t)))))))
 
 (global-set-key "\C-c\C-r" 'window-resizer)
+
+;; So the idea is that you copy/paste this code into your *scratch* buffer,
+;; hit C-j, and you have a working el-get.
+;; (url-retrieve
+;;  "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
+;;  (lambda (s)
+;;    (goto-char (point-max))
+;;    (eval-print-last-sexp)))
+
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+
