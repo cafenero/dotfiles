@@ -20,4 +20,5 @@ declare -a dotfile=(
     ".git-prompt.sh"
     ".docker/config.json"
     ".docker/daemon.json"
+    ".tigrc"
 )
