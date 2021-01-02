@@ -20,16 +20,16 @@ hs.hotkey.bind({"cmd"}, "i", function()
    end
 end)
 
-hs.hotkey.bind({"cmd"}, "l", function()
-      for k, v in pairs(hs.hotkey.getHotkeys()) do
-	 if k == 5 then
-	    hs.alert.show("HITTTTTTTTTTTTTTTT")
-	 end
-	 hs.alert.show(k)
-	 hs.alert.show(v)
-	 hs.alert.show(v.msg)
-      end
-end)
+-- hs.hotkey.bind({"cmd"}, "l", function()
+--       for k, v in pairs(hs.hotkey.getHotkeys()) do
+-- 	 if k == 5 then
+-- 	    hs.alert.show("HITTTTTTTTTTTTTTTT")
+-- 	 end
+-- 	 hs.alert.show(k)
+-- 	 hs.alert.show(v)
+-- 	 hs.alert.show(v.msg)
+--       end
+-- end)
 
 local function keyCode(key, modifiers)
    modifiers = modifiers or {}
