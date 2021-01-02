@@ -3,7 +3,7 @@
 . target.sh
 
 for str in ${dotfile_dir[@]}; do
-    cp -r $HOME/${str} $HOME/dotfiles/
+    rsync -a $HOME/${str} $HOME/dotfiles/
 done
 
 for str in ${dotfile[@]}; do
