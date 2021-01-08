@@ -10,3 +10,4 @@ git
 gtk-2.0
 automatic_backups
 .config/configstore
+.emacs.d/el-get/

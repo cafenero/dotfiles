@@ -2,19 +2,9 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
   hs.alert.show("Hello World!")
 end)
 
+dotw_a = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
 hs.hotkey.bind({"cmd"}, "i", function()
-   sec_all = hs.timer.localTime()
-   hour = math.floor(sec_all / 60 / 60)
-   min = math.floor((sec_all - (hour * 60 * 60)) / 60)
-   sec = math.floor(sec_all % 60 % 60)
---   timestring = string.format("%02d",hour) .. ":" .. string.format("%02d",min)
-   timestring = string.format("%02d",hour) .. ":" .. string.format("%02d",min) .. ":" .. string.format("%02d",sec)
-
---   hs.alert.show(timestring, hs.screen.mainScreen(), {textStyle=10}, 10)
---   hs.alert.show(timestring, {fillColor = {red = 1}}, 10)
---   hs.alert.show(timestring, {textSize = 300}, 4.5)
-   --   hs.alert.show(timestring, hs.screen.mainScreen(), {textSize = 300}, 4.5)
-
+   timestring = os.date("%Y-%m-%d") .. " (" .. dotw_a[tonumber(os.date("%w")) + 1] .. ")" .. "\n         " ..  os.date("%H:%M:%S")
    for k, v in pairs(hs.screen.allScreens()) do
       hs.alert.show(timestring, {textSize = 300}, v, 4.5)
    end
@@ -23,7 +13,7 @@ end)
 -- hs.hotkey.bind({"cmd"}, "l", function()
 --       for k, v in pairs(hs.hotkey.getHotkeys()) do
 -- 	 if k == 5 then
--- 	    hs.alert.show("HITTTTTTTTTTTTTTTT")
+-- 	    hs.alert.show("HIT")
 -- 	 end
 -- 	 hs.alert.show(k)
 -- 	 hs.alert.show(v)
