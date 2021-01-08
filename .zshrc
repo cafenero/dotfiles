@@ -72,11 +72,14 @@ case ${OSTYPE} in
         alias sc='/usr/local/bin/screen'
         alias tm='/usr/local/bin/tmux'
 	alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
+	alias rsync='/usr/local/bin/rsync'
         export LC_CTYPE='ja_JP.UTF-8'
 #	export PATH=$PATH:/usr/local/Cellar/git/2.18.0//share/git-core/contrib/diff-highlight
 	export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 #	export PATH=$PATH:/usr/local/opt
 	export PATH=$PATH:${HOME}/.go/bin
+
+
 
 	alias python=/usr/local/bin/python3
 	alias pip=/usr/local/bin/pip3
@@ -111,6 +114,10 @@ case ${OSTYPE} in
         # digital ocean api token
         if [ -f ~/.digital_ocean_token ];then
             source ~/tokens/.digital_ocean_token
+        fi
+        # digital ocean api token
+        if [ -f ~/tokens/.dockerhub_token ];then
+            source ~/tokens/.dockerhub_token
         fi
 
 	function cd(){

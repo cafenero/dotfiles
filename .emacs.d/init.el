@@ -193,8 +193,9 @@
 ;;    (goto-char (point-max))
 ;;    (eval-print-last-sexp)))
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
+
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
