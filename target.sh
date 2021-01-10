@@ -12,7 +12,6 @@ declare -a dotfile=(
     ".zshrc"
     ".gitconfig"
     ".gitconfig-mac"
-    ".gitignore"
     ".screenrc"
     ".tmux.conf"
     ".vimrc"

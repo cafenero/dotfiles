@@ -1,0 +1,12 @@
+.DS_Store
+*~
+places
+ac-comphist.dat
+.env
+*.retry
+TAGS
+filezilla
+git
+gtk-2.0
+automatic_backups
+.config/configstore
