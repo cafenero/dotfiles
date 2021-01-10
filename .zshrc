@@ -77,7 +77,7 @@ case ${OSTYPE} in
 #	export PATH=$PATH:/usr/local/Cellar/git/2.18.0//share/git-core/contrib/diff-highlight
 	export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 #	export PATH=$PATH:/usr/local/opt
-	export PATH=$PATH:${HOME}/.go/bin
+	export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
 
 
 

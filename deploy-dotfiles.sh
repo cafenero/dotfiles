@@ -9,6 +9,7 @@ done
 for str in ${dotfile[@]}; do
     cp ./${str} $HOME/
 done
+cp ./saved_dot_ignore $HOME/.gitignore
 
 if [ ! -e $HOME/.screen ]; then
     mkdir $HOME/.screen
