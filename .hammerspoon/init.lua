@@ -2,13 +2,30 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
   hs.alert.show("Hello World!")
 end)
 
-dotw_a = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
-hs.hotkey.bind({"cmd"}, "i", function()
-   timestring = os.date("%Y-%m-%d") .. " (" .. dotw_a[tonumber(os.date("%w")) + 1] .. ")" .. "\n         " ..  os.date("%H:%M:%S")
+local dotw_a = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
+
+local function showDataTime()
+   local timestring = os.date("%Y-%m-%d") .. " (" .. dotw_a[tonumber(os.date("%w")) + 1] .. ")" .. "\n         " ..  os.date("%H:%M:%S")
    for k, v in pairs(hs.screen.allScreens()) do
-      hs.alert.show(timestring, {textSize = 300}, v, 4.5)
+      hs.alert.show(timestring, {textSize = 250}, v, 4.5)
    end
+end
+
+
+hs.hotkey.bind({"cmd"}, "i", function()
+   showDataTime()
 end)
+
+
+-- gloval variable is needed!!!
+showDataTimeViaMouse = hs.eventtap.new({hs.eventtap.event.types.otherMouseDown},
+   function(eventobj)
+      if eventobj:getButtonState(5) then
+	 showDataTime()
+      end
+   end
+)
+showDataTimeViaMouse:start()
 
 -- hs.hotkey.bind({"cmd"}, "l", function()
 --       for k, v in pairs(hs.hotkey.getHotkeys()) do
