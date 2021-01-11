@@ -25,6 +25,10 @@ showDataTimeViaMouse = hs.eventtap.new({hs.eventtap.event.types.otherMouseDown},
       if eventobj:getButtonState(5) then
 	 showDataTime()
       end
+      if eventobj:getButtonState(8) then
+	 -- bind enter
+	 return true, { hs.eventtap.event.newKeyEvent(hs.keycodes.map[36], true) }
+      end
    end
 )
 showDataTimeViaMouse:start()
