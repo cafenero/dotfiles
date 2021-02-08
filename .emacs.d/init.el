@@ -2,7 +2,6 @@
 ;; comment: 範囲選択してからM-;
 ;; eval: C-x C-e
 
-
 (add-to-list 'load-path	"~/.emacs.d/elisp")
 
 ;; 文末空白を表示
@@ -255,3 +254,11 @@
 
 ;; (add-hook 'before-save-hook 'hogehoge-function)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+(define-key global-map (kbd "C-c 8")
+  (lambda ()
+    (interactive)
+    (save-buffer)
+    (load-file "~/.emacs.d/init.el")
+     (message "load ~/.emacs.d/init.el succeeded!" )))
