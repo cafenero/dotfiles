@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d/elisp")
+(add-to-list 'load-path	"~/.emacs.d/elisp")
 
 ;; 文末空白を表示
 (setq-default show-trailing-whitespace t)
@@ -36,11 +36,21 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
+
+;; (add-to-list 'load-path "~/.emacs.d/elisp/auto-install.el")
 ; uncomment when you use
-;;(when(require 'auto-install nil t)
-;;  (setq auto-install-directory "~/.emacs.d/elisp/")
-;;  (auto-install-update-emacswiki-package-name t)
-;;  (auto-install-compatibility-setup))
+;; (when(require 'auto-install nil t)
+;;   (setq auto-install-directory "~/.emacs.d/elisp/")
+;;   (auto-install-update-emacswiki-package-name t)
+;;   (auto-install-compatibility-setup))
+
+(when (require 'auto-install nil t)
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+  (auto-install-update-emacswiki-package-name t)
+  (auto-install-compatibility-setup))
+
+
+
 
 
 ;; (load "php-mode")
@@ -205,4 +215,36 @@
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(undo-tree)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+(when (require 'redo+ nil t)
+  (global-set-key (kbd "C-.") 'redo)
+  )
+
+
+;; (add-hook 'before-save-hook 'hogehoge-function)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+
+;; (add-hook 'txt-mode-hook
+;;           '(lambda ()
+;;              (set (make-local-variable 'whitespace-action) nil)))
+
+
 

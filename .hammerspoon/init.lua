@@ -10,7 +10,7 @@ dotw_a = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
 function showDataTime()
    local timestring = os.date("%Y-%m-%d") .. " (" .. dotw_a[tonumber(os.date("%w")) + 1] .. ")" .. "\n         " ..  os.date("%H:%M:%S")
    for k, v in pairs(hs.screen.allScreens()) do
-      hs.alert.show(timestring, {textSize = 250}, v, 4.5)
+      hs.alert.show(timestring, {textSize = 250}, v, 3.0)
    end
 end
 
