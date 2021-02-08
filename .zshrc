@@ -80,10 +80,11 @@ case ${OSTYPE} in
 	export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
 
 
-
-	alias python=/usr/local/bin/python3
-	alias pip=/usr/local/bin/pip3
-	#	alias mssh="xpanes -c 'ping {}' $1"
+## disable for pyenv
+#	alias python=/usr/local/bin/python3
+#	alias pip=/usr/local/bin/pip3
+	alias python=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/python3
+	alias pip=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/pip3
 
 	function mssh() {
 	    command xpanes -c 'ssh {}' `cat $1`
@@ -167,7 +168,8 @@ esac
 
 # common alias
 # aliases & CLI options
-alias e='emacs'
+#alias e='emacs'
+alias e='emacsclient -t'
 alias pu='pushd'
 alias po='popd'
 # alias diff='colordiff -u'
@@ -247,11 +249,25 @@ PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MA
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 
+
+#####
+# export PATH="$HOME/.pyenv/bin:$PATH"
+# export PATH="/usr/local/bin:$PATH"
+
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+# export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+# export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
+
+
+
+
+
 ## uncomment for using pyenv
 # for pyenv
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 
 ## Set path for pyenv
