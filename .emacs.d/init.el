@@ -1,3 +1,8 @@
+;; undo: C-/
+;; comment: 範囲選択してからM-;
+;; eval: C-x C-e
+
+
 (add-to-list 'load-path	"~/.emacs.d/elisp")
 
 ;; 文末空白を表示
@@ -13,11 +18,22 @@
 ;(tool-bar-mode 0)
 (menu-bar-mode -1)
 
-(global-linum-mode -1)
-(global-set-key [f6] 'linum-mode)
-(setq linum-format "%4d ")
 
-(column-number-mode t)
+; 行番号表示をトグル
+(defun toggle-linum-lines ()
+  "toggle display line number"
+  (interactive)
+  (setq linum-format "%4d ")
+  (linum-mode
+   (if linum-mode -1 1)))
+(define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
+
+
+;; (global-linum-mode -1)
+;; (global-set-key [f6] 'linum-mode)
+;; (setq linum-format "%4d ")
+;; (define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
+;; (column-number-mode t)
 
 
 
@@ -239,12 +255,3 @@
 
 ;; (add-hook 'before-save-hook 'hogehoge-function)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-
-
-;; (add-hook 'txt-mode-hook
-;;           '(lambda ()
-;;              (set (make-local-variable 'whitespace-action) nil)))
-
-
-
