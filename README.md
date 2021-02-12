@@ -1,19 +1,10 @@
 # dotfiles
-## save dotfiles
-```
- ./save-dotfiles.sh
- git status
- git diff
- git add .
- git commit -v "hoge"
- git push origin master
-```
 ## deploy dotfiles
 ```
- ./deploy-dotfiles.sh
+ sh ./make_symbolic_link.sh
 ```
 ## add new dotfile
-add target dotfiles (or dotfile directory) to array
+add target dotfiles (or dotfile directory) to the array in
 ```
-  emacs target.sh
-  ```
+ emacs target.sh
+```
