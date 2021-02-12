@@ -2,18 +2,20 @@
 
 . target.sh
 
+PWD=$(pwd)
+
 for str in ${dotfile_dir[@]}; do
-    cp -r ./${str} $HOME/
+    #echo "ln -s ${PWD}/${str} $HOME"
+    ln -s ${PWD}/${str} $HOME
 done
 
 for str in ${dotfile[@]}; do
-    cp ./${str} $HOME/
+    #echo "ln -s ${PWD}/${str} $HOME"
+    ln -s ${PWD}/${str} $HOME
 done
-cp ./saved_dot_ignore $HOME/.gitignore
 
 if [ ! -e $HOME/.screen ]; then
     mkdir $HOME/.screen
 fi
 
 chmod 700 $HOME/.screen
-
