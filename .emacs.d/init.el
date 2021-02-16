@@ -5,7 +5,11 @@
 ;; C-;をコメントアウトにしたい
 ;; -> できないっぽい。。
 
-(add-to-list 'load-path	"~/.emacs.d/elisp")
+(add-to-list 'load-path "~/.emacs.d/elisp")
+
+
+;; experimental
+(setq-default tab-width 20)
 
 ;; (use-package all-the-icons)
 ;; (require 'all-the-icons)
@@ -22,8 +26,7 @@
 
 ;; for GUI
 (setq inhibit-splash-screen t)
-
-;; 起動時のフレーム設定
+;; 起動時のフレーム設定 for GUI
 (if (boundp 'window-system)
   (setq default-frame-alist
     (append (list
@@ -172,34 +175,48 @@
 
 
 
-(require 'anything)
-;; anything
-;(require 'anything-config)
-;(setq anything-sources (list anything-c-source-buffers
-;			     anything-c-source-bookmarks
-;			     anything-c-source-recentf
-;			     anything-c-source-file-name-history
-;			     anything-c-source-locate))
-(define-key anything-map (kbd "C-p") 'anything-previous-line)
-(define-key anything-map (kbd "C-n") 'anything-next-line)
-(define-key anything-map (kbd "C-v") 'anything-next-source)
-(define-key anything-map (kbd "M-v") 'anything-previous-source)
-(global-set-key (kbd "C-;") 'anything)
+;; (require 'anything)
+;; ;; anything
+;; ;(require 'anything-config)
+;; ;(setq anything-sources (list anything-c-source-buffers
+;; ;			     anything-c-source-bookmarks
+;; ;			     anything-c-source-recentf
+;; ;			     anything-c-source-file-name-history
+;; ;			     anything-c-source-locate))
+;; (define-key anything-map (kbd "C-p") 'anything-previous-line)
+;; (define-key anything-map (kbd "C-n") 'anything-next-line)
+;; (define-key anything-map (kbd "C-v") 'anything-next-source)
+;; (define-key anything-map (kbd "M-v") 'anything-previous-source)
+;; (global-set-key (kbd "C-;") 'anything)
 
 
 
-;; C++
-(defun my-c++-mode-conf ()
-  (setq c-basic-offset 4)
-  (show-paren-mode t))
-(add-hook 'c++-mode-hook 'my-c++-mode-conf)
+;; ;; C++
+;; (defun my-c++-mode-conf ()
+;; ;  (setq c-basic-offset 4)
+;;   (setq c-basic-offset 2)
+;;   (show-paren-mode t))
+;; (add-hook 'c++-mode-hook 'my-c++-mode-conf)
+
+;; ;; C-mode
+;; (defun my-mode-conf ()
+;;   ;; (c-set-style "ellemtel")
+;;   ;; (setq c-basic-offset 2)
+;;   ;; (setq c-tab-always-indent nil)
+;;   ;; (show-paren-mode t)
+;;   )
+;; (add-hook 'c-mode-hook 'my-mode-conf)
+
+;; ;; (setq c-basic-offset 4)
 
 
-; auto-complete
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(define-key ac-complete-mode-map "\C-n" 'ac-next)
-(define-key ac-complete-mode-map "\C-p" 'ac-previous)
+;; ; auto-complete
+;; (require 'auto-complete)
+;; (global-auto-complete-mode t)
+;; (define-key ac-complete-mode-map "\C-n" 'ac-next)
+;; (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+
+
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
@@ -222,16 +239,17 @@
 
 ;; for C
 ;(setq c-auto-newline t)
+;; (defun my-c-c++-mode-init ()
+;;   (setq c-basic-offset 8)
+;;   )
 
-(defun my-c-c++-mode-init ()
-  (setq c-basic-offset 8)
-  )
-
-(add-hook 'c-mode-hook 'my-c-c++-mode-init)
-(add-hook 'c++-mode-hook 'my-c-c++-mode-init)
+;; (add-hook 'c-mode-hook 'my-c-c++-mode-init)
+;; (add-hook 'c++-mode-hook 'my-c-c++-mode-init)
 
 
-(define-key mode-specific-map "c" 'compile)
+
+
+;; (define-key mode-specific-map "c" 'compile)
 
 
 
@@ -263,16 +281,8 @@
               (t
                (message "Quit")
                (throw 'end-flag t)))))))
-
 (global-set-key "\C-c\C-r" 'window-resizer)
 
-;; So the idea is that you copy/paste this code into your *scratch* buffer,
-;; hit C-j, and you have a working el-get.
-;; (url-retrieve
-;;  "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
-;;  (lambda (s)
-;;    (goto-char (point-max))
-;;    (eval-print-last-sexp)))
 
 
 
@@ -287,19 +297,7 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(package-selected-packages
-;;    '(nyan-mode use-package use-package-chords use-package-el-get use-package-ensure-system-package use-package-hydra dired-sidebar all-the-icons-dired all-the-icons-gnus all-the-icons-ibuffer all-the-icons-ivy all-the-icons-ivy-rich all-the-icons neotree undo-tree)))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  )
+
 
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
@@ -309,10 +307,9 @@
   )
 
 
-;; (add-hook 'before-save-hook 'hogehoge-function)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-
+;; reload .init.el
 (define-key global-map (kbd "C-c 8")
   (lambda ()
     (interactive)
@@ -322,59 +319,13 @@
 
 
 
-
-;; ;; neotree
-;; (use-package neotree
-;;   :init
-;;   (setq-default neo-keymap-style 'concise)
-;;   :config
-;;   (setq neo-smart-open t)
-;;   (setq neo-create-file-auto-open t)
-;;   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-;;   (bind-key [f8] 'neotree-toggle)
-;;   (bind-key "RET" 'neotree-enter-hide neotree-mode-map)
-;;   (bind-key "a" 'neotree-hidden-file-toggle neotree-mode-map)
-;;   (bind-key "<left>" 'neotree-select-up-node neotree-mode-map)
-;;   (bind-key "<right>" 'neotree-change-root neotree-mode-map))
-
-
-;; ;; Change neotree's font size
-;; ;; Tips from https://github.com/jaypei/emacs-neotree/issues/218
-;; (defun neotree-text-scale ()
-;;   "Text scale for neotree."
-;;   (interactive)
-;;   (text-scale-adjust 0)
-;;   (text-scale-decrease 1)
-;;   (message nil))
-;; (add-hook 'neo-after-create-hook
-;;       (lambda (_)
-;;         (call-interactively 'neotree-text-scale)))
-
-;; ;; neotree enter hide
-;; ;; Tips from https://github.com/jaypei/emacs-neotree/issues/77
-;; (defun neo-open-file-hide (full-path &optional arg)
-;;   "Open file and hiding neotree.
-;; The description of FULL-PATH & ARG is in `neotree-enter'."
-;;   (neo-global--select-mru-window arg)
-;;   (find-file full-path)
-;;   (neotree-hide))
-
-;; (defun neotree-enter-hide (&optional arg)
-;;   "Neo-open-file-hide if file, Neo-open-dir if dir.
-;; The description of ARG is in `neo-buffer--execute'."
-;;   (interactive "P")
-;;   (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir))
-
-
-
-
-
-
 ;; MELPA package installer
 ;; C-x package-list-packages
 ;; i x
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
+
+
 
 (setq vc-follow-symlinks t)
 ;(setq vc-follow-symlinks nil)
@@ -382,7 +333,6 @@
 
 ;; no-use
 ;(require 'buffer-menu-color)
-
 (define-key global-map [remap list-buffers] 'buffer-menu-other-window)
 
 
@@ -395,6 +345,7 @@
 (setq minimap-window-location 'right); windowの位置
 (setq minimap-update-delay 0.2); 表示を更新する時間
 (setq minimap-minimum-width 20); 幅の長さ
+;; (global-set-key (kbd "C-x m") 'minimap-mode); toggle
 ;; 有効にしたいモード
 (setq minimap-major-modes '(latex-mode
                             LaTeX-mode
@@ -405,13 +356,12 @@
                             html-mode
                             fundamental-mode
                             csv-mode))
-;; (global-set-key (kbd "C-x m") 'minimap-mode); toggle
 
 
 
 
-(nyan-mode 1)
-;(nyan-mode nil)
+;(nyan-mode 1)
+(nyan-mode nil)
 
 
 ;; (custom-set-variables
@@ -510,17 +460,25 @@
 ;;     (unless result
 ;;       (direx:jump-to-directory-other-window)))))
 
-;; (use all-the-icons)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(quickrun monokai-alt-theme monokai-pro-theme monokai-theme popwin all-the-icons dired-toggle dired-toggle-sudo direx minimap use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords undo-tree nyan-mode neotree dired-sidebar all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-ibuffer all-the-icons-gnus all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+
+
+
+;; ;; (use all-the-icons)
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(package-selected-packages
+;;    '(yasnippet quickrun monokai-alt-theme monokai-pro-theme monokai-theme popwin all-the-icons dired-toggle dired-toggle-sudo direx minimap use-package-hydra use-package-ensure-system-package use-package-el-get use-package-chords undo-tree nyan-mode neotree dired-sidebar all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-ibuffer all-the-icons-gnus all-the-icons-dired)))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
+
+
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
