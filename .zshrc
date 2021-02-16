@@ -60,6 +60,8 @@ precmd() { vcs_info }
 
 
 
+alias ked="emacsclient -e '(kill-emacs)'"
+alias E="emacs --daemon"
 
 # env specifics
 case ${OSTYPE} in
