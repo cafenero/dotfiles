@@ -5,6 +5,7 @@ compinit
 colors
 vcs_info
 
+stty stop undef
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -56,12 +57,12 @@ setopt prompt_subst
 precmd() { vcs_info }
 
 
-#alias -s pdf=PDFNut
-
-
-
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
+#alias e='emacsclient -t'
+#alias e='emacsclient -nw -a ""'
+alias e='emacsclient -t -a ""'
+alias wa='watch -c -n 1 -d '
 
 # env specifics
 case ${OSTYPE} in
@@ -171,7 +172,6 @@ esac
 # common alias
 # aliases & CLI options
 #alias e='emacs'
-alias e='emacsclient -t'
 alias pu='pushd'
 alias po='popd'
 # alias diff='colordiff -u'
@@ -181,7 +181,7 @@ alias grep="grep $MY_GREP_OPTIONS"
 alias egrep="egrep $MY_GREP_OPTIONS"
 alias fgrep="fgrep $MY_GREP_OPTIONS"
 alias gs='git status'
-alias gd='git diff'
+alias gd='git diff --color'
 alias gl='git log --graph'
 #alias gd='git diff --word-diff-regex="\w+" $@'
 

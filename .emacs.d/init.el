@@ -21,12 +21,46 @@
   (load custom-file))
 
 
+;; experimantal
+;;
+
+;; https://syohex.hatenablog.com/entry/20120125/1327504194
+;; repeat yank. Because C-y can't accept `C-u Number' prefix
+(defun repeat-yank (num)
+  (interactive "NRepeat Count > ")
+  (dotimes (i num)
+    (yank)
+    (insert "\n")))
+(global-set-key (kbd "M-g y") 'repeat-yank)
+
+
+(require 'saveplace)
+(save-place-mode 1)
+(setq save-place-file "~/.saved-places")
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
+
+(defface my-hl-line-face
+		 '(
+		   (( (class color) (background dark))
+			(:background "NavyBlue" t))
+		   (((class color) (background light) )
+			 (:background "LightGoldenrodYellow" t))
+		   (t (:bold t)))
+		 "hl-line's my face")
+(setq hl-line-face 'my-hl-line-face)
+(global-hl-line-mode t)
+
+
 
 ;;;; for UI
 ;; (tool-bar-mode 0)
 (menu-bar-mode -1)
 (column-number-mode t)
-
 (setq vc-follow-symlinks t)
 
 ;; (load-theme 'monokai t)
@@ -69,6 +103,11 @@
 (global-set-key (kbd "M-,")     'find-tag-other-window)
 (global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
 (global-set-key (kbd "\C-c i") 'quickrun)
+(global-set-key (kbd "\C-c l") 'rotate-layout)
+(global-set-key (kbd "\C-c C-l") 'rotate-layout)
+(global-set-key (kbd "\C-c w") 'rotate-window)
+
+
 (define-key global-map [remap list-buffers] 'buffer-menu-other-window)
 
 (defun find-tag-next ()
@@ -81,10 +120,10 @@
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
-(when (require 'redo+ nil t)
-  (global-set-key (kbd "C-.") 'redo))
+;; (when (require 'redo+ nil t)
+;;   (global-set-key (kbd "C-.") 'redo))
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 
 (define-key global-map (kbd "C-c 8")
   (lambda ()
@@ -97,14 +136,13 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
-(load "saveplace")
-(setq-default save-place t)
 
 
 
-;;;; coding
+;;;; coding general
 ;; experimental
-;;(setq-default tab-width 20)
+
+(setq-default tab-width 4)
 ;; 文末空白を表示
 (setq-default show-trailing-whitespace t)
 ;; default to unified diffs
@@ -119,11 +157,14 @@
 (define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
 
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'prog-mode-hook 'yafolding-mode)
 
 
 
 
-;;;; mode
+
+;;;; coding mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
@@ -171,12 +212,13 @@
 ;; (add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook
 	  '(lambda ()
-	  (setq tab-width 4)
+		 (setq tab-width 4)
+;;		 (save-place-mode 1)
 	  ))
 
 
-(nyan-mode nil)
-;(nyan-mode 1)
+;; (nyan-mode nil)
+;; (nyan-mode 1)
 
 ;; ;; C++
 ;; (defun my-c++-mode-conf ()
@@ -186,9 +228,22 @@
 ;; (add-hook 'c++-mode-hook 'my-c++-mode-conf)
 
 ;; ;; C-mode
+(require 'flymake)
 (defun my-c-mode-conf ()
-  (setq tab-width 20)
+  ;; (setq tab-width 20)
+  (setq indent-tabs-mode nil)
+
+  ;; (flymake-mode t)
+
   ;; (c-set-style "ellemtel")
+  (c-set-style "gnu")
+
+  (setq show-paren-delay 0)
+  (show-paren-mode t)
+  (setq show-paren-style 'expression)
+  (set-face-background 'show-paren-match-face nil)
+  (set-face-underline-p 'show-paren-match-face "blue")
+
   ;; (setq c-basic-offset 2)
   ;; (setq c-tab-always-indent nil)
   ;; (show-paren-mode t)
