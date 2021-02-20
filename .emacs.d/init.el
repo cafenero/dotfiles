@@ -8,7 +8,6 @@
 
 
 ;;;; General
-
 (package-initialize)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -20,9 +19,8 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-
 ;; experimantal
-;;
+
 
 ;; https://syohex.hatenablog.com/entry/20120125/1327504194
 ;; repeat yank. Because C-y can't accept `C-u Number' prefix
@@ -162,7 +160,9 @@
 
 
 
-
+;;;; operation mode
+(require 'pcap-mode)
+(bind-key "RET" 'pcap-mode-view-pkt-contents pcap-mode-map)
 
 ;;;; coding mode
 (require 'yaml-mode)
@@ -279,8 +279,7 @@
 (global-set-key "\C-q" 'neotree-toggle)
 ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (setq neo-theme 'icons)
-;; (setq neo-theme 'arrow)
-
+(bind-key "r" 'neotree-refresh neotree-mode-map)
 
 
 
