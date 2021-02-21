@@ -8,11 +8,11 @@
 
 
 ;;;; General
-(package-initialize)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
+(package-initialize)
 
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -20,7 +20,69 @@
   (load custom-file))
 
 ;; experimantal
+(winner-mode)
+(global-set-key "\M-p" 'winner-undo)
+(global-set-key "\M-n" 'winner-redo)
+;; (global-set-key "\M-p" 'previous-buffer)
+;; (global-set-key "\M-n" 'next-buffer)
 
+;; experimantal
+;; ElScreen
+;; (require 'elscreen)
+;; ;; (setq elscreen-prefix-key (kbd "C-c o"))      ;; これは任意
+;; (setq elscreen-prefix-key (kbd "C-z"))      ;; これは任意
+;; (setq elscreen-display-tab nil)             ;; タブを消す
+;; (setq elscreen-tab-display-kill-screen nil) ;; タブ全消しをしない
+;; (setq elscreen-tab-display-control nil)
+;; (bind-key* "C-<tab>" 'elscreen-next)
+;; (bind-key* "<C-iso-lefttab>" 'elscreen-previous)
+;; (elscreen-start)
+;; (elscreen-create)
+
+
+
+;; experimantal
+(require 'zoom-window)
+(global-set-key (kbd "C-x 1") 'zoom-window-zoom)
+(setq zoom-window-mode-line-color "DarkGreen")
+
+;; experimantal
+;; (desktop-save-mode 1)
+
+;; (require 'desktop)
+;; ;; (setq desktop-restore-forces-onscreen nil)
+;; (if (not (daemonp))
+;;     (desktop-save-mode 1)
+;;   (defun restore-desktop (frame)
+;;     "Restores desktop and cancels hook after first frame opens.
+;;      So the daemon can run at startup and it'll still work"
+;;     (with-selected-frame frame
+;;       (desktop-save-mode 1)
+;;       (desktop-read)
+;;       (remove-hook 'after-make-frame-functions 'restore-desktop)))
+;;   (add-hook 'after-make-frame-functions 'restore-desktop))
+
+
+;; experimantal
+(global-anzu-mode +1)
+(set-face-attribute 'anzu-mode-line nil
+                    ;;:foreground "brightblack" :background "white" :weight 'bold)
+                    :foreground "black" :background "white" :weight 'bold)
+                    ;; :foreground "white" :background "black" :weight 'bold)
+                    ;; :foreground "gold" :background "black" :weight 'bold)
+
+
+;; experimantal
+(defadvice kill-line (after kill-end-of-line activate)
+;;  "When point is end of line, join this line to next and fix up whitespace at join."
+  (if (and (not (bolp)) (not (eolp)))
+      (save-excursion
+	(fixup-whitespace))))
+
+
+
+(global-set-key (kbd "C-x g") 'magit-status)
+;; (global-set-key (kbd "M-g") 'magit-status)
 
 ;; https://syohex.hatenablog.com/entry/20120125/1327504194
 ;; repeat yank. Because C-y can't accept `C-u Number' prefix
