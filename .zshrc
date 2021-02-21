@@ -58,44 +58,44 @@ alias fgrep="fgrep $MY_GREP_OPTIONS"
 
 case ${OSTYPE} in
     darwin*)
-		alias ls='gls --color'
-		alias ll='gls -l --color'
+        alias ls='gls --color'
+        alias ll='gls -l --color'
         alias ctags='/usr/local/bin/ctags'
         alias sc='/usr/local/bin/screen'
         alias tm='/usr/local/bin/tmux'
-		alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
-		alias rsync='/usr/local/bin/rsync'
+        alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
+        alias rsync='/usr/local/bin/rsync'
         export LC_CTYPE='ja_JP.UTF-8'
-		export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
-		export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
+        export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+        export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
 
 
-		## disable for pyenv
-		# alias python=/usr/local/bin/python3
-		# alias pip=/usr/local/bin/pip3
-		alias python=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/python3
-		alias pip=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/pip3
+        ## disable for pyenv
+        # alias python=/usr/local/bin/python3
+        # alias pip=/usr/local/bin/pip3
+        alias python=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/python3
+        alias pip=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/pip3
 
-		function mssh() {
-			command xpanes -c 'ssh {}' `cat $1`
-		}
+        function mssh() {
+            command xpanes -c 'ssh {}' `cat $1`
+        }
 
-		## debug
-		## export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
-		## debug(add)
-		## export PATH=$PATH:/usr/local/sbin
-		export PATH=$PATH:/Users/yusuke/.nodebrew/current/bin
-		export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+        ## debug
+        ## export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
+        ## debug(add)
+        ## export PATH=$PATH:/usr/local/sbin
+        export PATH=$PATH:/Users/yusuke/.nodebrew/current/bin
+        export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 
-		export ANDROID_HOME=$HOME/Library/Android/sdk
-		export PATH=$PATH:$ANDROID_HOME/tools
-		export PATH=$PATH:$ANDROID_HOME/platform-tools
+        export ANDROID_HOME=$HOME/Library/Android/sdk
+        export PATH=$PATH:$ANDROID_HOME/tools
+        export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-		# for golang
-		export GOPATH=$HOME/go
+        # for golang
+        export GOPATH=$HOME/go
 
-		# brew api token
+        # brew api token
         if [ -f ~/.brew_api_token ];then
             source ~/tokens/.brew_api_token
         fi
@@ -109,46 +109,46 @@ case ${OSTYPE} in
             source ~/tokens/.dockerhub_token
         fi
 
-		function cd(){
-			builtin cd $@ && gls -l --color;
-		}
+        function cd(){
+            builtin cd $@ && gls -l --color;
+        }
 
-		# needed at END line ?
-		export PATH="/usr/local/sbin:$PATH"
-		;;
+        # needed at END line ?
+        export PATH="/usr/local/sbin:$PATH"
+        ;;
     linux*)
-		alias ls='ls --color'
-		alias ll='ls -l --color'
-		alias sc='screen'
-		alias tm='tmux'
-		alias df='df -T'
-		alias top='top -c'
-		alias vmstat='vmstat -w'
-		alias sys='cd /etc/sysconfig/network-scripts'
-		alias sudo='sudo -E '
+        alias ls='ls --color'
+        alias ll='ls -l --color'
+        alias sc='screen'
+        alias tm='tmux'
+        alias df='df -T'
+        alias top='top -c'
+        alias vmstat='vmstat -w'
+        alias sys='cd /etc/sysconfig/network-scripts'
+        alias sudo='sudo -E '
 
-		export LC_ALL=C.UTF-8
+        export LC_ALL=C.UTF-8
 
-		# for golang
-		export PATH=$PATH:/usr/local/go/bin
-		export GOPATH=$HOME/go
-		export PATH=$GOPATH/bin:$PATH
+        # for golang
+        export PATH=$PATH:/usr/local/go/bin
+        export GOPATH=$HOME/go
+        export PATH=$GOPATH/bin:$PATH
 
-		function cd(){
-			builtin cd $@ && ls -l --color;
-		}
-		# unix domain socket settings for screen
-		agent="$HOME/.ssh-agent-`hostname`"
-		if [ `uname`  = Linux ]; then
+        function cd(){
+            builtin cd $@ && ls -l --color;
+        }
+        # unix domain socket settings for screen
+        agent="$HOME/.ssh-agent-`hostname`"
+        if [ `uname`  = Linux ]; then
             if [ -S "$agent" ]; then
-				export SSH_AUTH_SOCK=$agent
+                export SSH_AUTH_SOCK=$agent
             elif [ ! -S "$SSH_AUTH_SOCK" ]; then
-				export SSH_AUTH_SOCK=$agent
+                export SSH_AUTH_SOCK=$agent
             elif [ ! -L "$SSH_AUTH_SOCK" ]; then
-				ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
+                ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
             fi
-		fi
-		;;
+        fi
+        ;;
 esac
 
 export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
