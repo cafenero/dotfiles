@@ -63,6 +63,7 @@ alias E="emacs --daemon"
 #alias e='emacsclient -nw -a ""'
 alias e='emacsclient -t -a ""'
 alias wa='watch -c -n 1 -d '
+alias termshark='export LC_CTYPE= ; ${HOME}/go/bin/termshark'
 
 # env specifics
 case ${OSTYPE} in
