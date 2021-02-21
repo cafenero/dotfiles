@@ -42,7 +42,7 @@ alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias e='emacsclient -t -a ""'
 alias wa='watch -c -n 1 -d '
-alias termshark='export LC_CTYPE= ; ${HOME}/go/bin/termshark'
+alias termshark='export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark'
 alias pu='pushd'
 alias po='popd'
 alias gs='git status'
