@@ -41,6 +41,7 @@ precmd() { vcs_info }
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias e='emacsclient -t -a ""'
+# alias e='emacs -nw '
 alias wa='watch -c -n 1 -d '
 alias termshark='export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark'
 alias pu='pushd'
