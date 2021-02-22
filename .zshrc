@@ -49,13 +49,15 @@ alias po='popd'
 alias gs='git status'
 alias gd='git diff --color'
 alias gl='git log --graph'
-
+alias pwdd='_pwdd'
 
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
 alias grep="grep $MY_GREP_OPTIONS"
 alias egrep="egrep $MY_GREP_OPTIONS"
 alias fgrep="fgrep $MY_GREP_OPTIONS"
 
+alias pwdd='_pwdd'
+function _pwdd() { ls -d $PWD/$1; }
 
 case ${OSTYPE} in
     darwin*)
