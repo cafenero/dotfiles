@@ -1,3 +1,11 @@
+;;; init.el --- My init.el  -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;; My init.el.
+
+;;; Code:
+
 ;; memo
 ;; undo: C-/
 ;; comment: 範囲選択してからM-;
@@ -5,7 +13,8 @@
 ;; C-x goto-line
 ;; tabify
 ;; untabify
-
+;; C-u C-SPC : back to implicit position
+;; describe-mode
 
 ;;;; General
 (setq package-archives
@@ -14,10 +23,97 @@
         ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+
+
+;; experimantal
+(setq-default show-trailing-whitespace t)
+
+;;experimantal
+(add-hook 'view-mode-hook
+          '(lambda()
+             (setq show-trailing-whitespace nil)
+             ;; (setq indent-tabs-mode nil)
+             ))
+
+;; (add-hook 'Buffer-menu-mode-hook
+;;           '(lambda()
+;;              (setq show-trailing-whitespace nil)
+;;              ;; (setq indent-tabs-mode nil)
+;;              ))
+
+;; or
+
+;; https://qiita.com/tadsan/items/df73c711f921708facdc
+(defun my/disable-trailing-mode-hook ()
+  "Disable show tail whitespace."
+  (setq show-trailing-whitespace nil))
+(defvar my/disable-trailing-modes
+  '(comint-mode
+    eshell-mode
+    eww-mode
+    term-mode
+    buffer-mode
+    view-mode
+    Buffer-menu-mode
+    help-mode
+    twittering-mode))
+(mapc
+ (lambda (mode)
+   (add-hook (intern (concat (symbol-name mode) "-hook"))
+             'my/disable-trailing-mode-hook))
+ my/disable-trailing-modes)
+
+
+
+
+;; experimantal
+(require 'markdown-preview-mode)
+;; $ brew install pandoc
+(setq markdown-command "/usr/local/bin/pandoc -s --self-contained -t html5 --metadata title=markdown-preview-mode")
+(setq markdown-preview-stylesheets
+      (list
+       "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"
+       "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/styles/tomorrow.min.css"
+       ))
+(setq markdown-preview-javascript
+      (list
+       "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/highlight.min.js"
+       "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+       ))
+
+;; experimantal
+;; Does this need to me???
+(require 'point-stack)
+(global-set-key (kbd "C-c 5") 'point-stack-push)
+(global-set-key (kbd "C-c 6") 'point-stack-pop)
+(global-set-key (kbd "C-c 7") 'point-stack-forward-stack-pop)
+;; (global-set-key "\C-c-5" 'point-stack-push)
+;; (global-set-key "\C-c 6" 'point-stack-pop)
+;; (global-set-key "\C-c 7" 'point-stack-forward-stack-pop)
+
+;; experimantal
+(leaf autorevert
+  :doc "revert buffers when files on disk change"
+  :tag "builtin"
+  :custom ((auto-revert-interval . 1))
+  :global-minor-mode global-auto-revert-mode)
+
+;; experimantal
+(leaf flycheck
+  :doc "On-the-fly syntax checking"
+  :req "dash-2.12.1" "pkg-info-0.4" "let-alist-1.0.4" "seq-1.11" "emacs-24.3"
+  :tag "minor-mode" "tools" "languages" "convenience" "emacs>=24.3"
+  :url "http://www.flycheck.org"
+  :emacs>= 24.3
+  :ensure t
+  ;; :bind (("M-n" . flycheck-next-error)
+  ;;        ("M-p" . flycheck-previous-error))
+  :global-minor-mode global-flycheck-mode)
+;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
 
 ;; experimantal
 (winner-mode)
@@ -38,7 +134,6 @@
 ;; (bind-key* "<C-iso-lefttab>" 'elscreen-previous)
 ;; (elscreen-start)
 ;; (elscreen-create)
-
 
 
 ;; experimantal
@@ -74,7 +169,7 @@
 
 ;; experimantal
 (defadvice kill-line (after kill-end-of-line activate)
-;;  "When point is end of line, join this line to next and fix up whitespace at join."
+  ;;  "When point is end of line, join this line to next and fix up whitespace at join."
   (if (and (not (bolp)) (not (eolp)))
       (save-excursion
 	(fixup-whitespace))))
@@ -203,8 +298,6 @@
 ;; experimental
 
 (setq-default tab-width 4)
-;; 文末空白を表示
-(setq-default show-trailing-whitespace t)
 ;; default to unified diffs
 (setq diff-switches "-u")
 ;; 行番号表示をトグル
@@ -233,6 +326,13 @@
 (require 'dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
+
+;; (add-to-list 'auto-mode-alist '("\\.txt\\'" . text-mode))
+(add-hook 'text-mode-hook
+          '(lambda()
+             ;; (setq show-trailing-whitespace t)
+             (setq indent-tabs-mode nil)
+             ))
 
 (require 'php-mode)
 
@@ -275,9 +375,17 @@
 (add-hook 'go-mode-hook
 	  '(lambda ()
 		 (setq tab-width 4)
-;;		 (save-place-mode 1)
+         ;;	 (save-place-mode 1)
+         ;; (setq show-trailing-whitespace t)
 	  ))
 
+
+;; (add-hook 'shell-script-mode-hook
+(add-hook 'shell-script-mode-hook
+          '(lambda ()
+             ;; (setq tab-width 40)
+             ;; (setq show-trailing-whitespace t)
+             ))
 
 ;; (nyan-mode nil)
 ;; (nyan-mode 1)
@@ -289,11 +397,17 @@
 ;;   (show-paren-mode t))
 ;; (add-hook 'c++-mode-hook 'my-c++-mode-conf)
 
+
+
+
 ;; ;; C-mode
-(require 'flymake)
+;; (require 'flymake)
 (defun my-c-mode-conf ()
   ;; (setq tab-width 20)
   (setq indent-tabs-mode nil)
+
+  ;; 文末空白を表示
+  ;; (setq show-trailing-whitespace t)
 
   ;; (flymake-mode t)
 
@@ -401,3 +515,11 @@
 
 ;;;; Filer.4
 ;; (require 'dirtree)
+
+(provide 'init)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
+;;; init.el ends here
