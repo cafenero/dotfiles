@@ -27,6 +27,19 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+
+;; experimantal
+(require 'resize-window)
+(define-key global-map (kbd "C-c C-r") 'resize-window)
+
+
+
+;; experimantal
+;; https://takezoe.hatenablog.com/?page=1440124057
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+
 ;; experimantal
 ;; $ GO111MODULE=on go get golang.org/x/tools/gopls@latest
 ;; (setq lsp-keymap-prefix "s-l")
@@ -298,10 +311,10 @@
 (if (boundp 'window-system)
   (setq default-frame-alist
     (append (list
-      '(top . 100) ;ウィンドウの表示位置(Y座標)
-      '(left . 100) ;ウィンドウの表示位置(X座標）
-      '(width . 480) ;ウィンドウ幅
-      '(height . 120) ;ウィンドウ高
+      '(top . 100)
+      '(left . 100)
+      '(width . 480)
+      '(height . 120)
     )
     default-frame-alist)
   )
@@ -324,8 +337,8 @@
 (global-set-key (kbd "M-,")     'find-tag-other-window)
 (global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
 (global-set-key (kbd "\C-c l") 'rotate-layout)
-;; (global-set-key (kbd "\C-c C-l") 'rotate-layout)
-;; (global-set-key (kbd "\C-c w") 'rotate-window)
+(global-set-key (kbd "\C-c C-l") 'rotate-layout)
+(global-set-key (kbd "\C-c w") 'rotate-window)
 
 ;; (global-set-key (kbd "\C-c i") 'quickrun)
 
@@ -525,10 +538,20 @@
 (require 'all-the-icons)
 (require 'neotree)
 (setq neo-show-hidden-files t)
+(setq neo-window-width 50)
+
 (global-set-key "\C-q" 'neotree-toggle)
 ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (setq neo-theme 'icons)
 (bind-key "r" 'neotree-refresh neotree-mode-map)
+(define-key neotree-mode-map (kbd "i") #'neotree-enter-horizontal-split)
+(define-key neotree-mode-map (kbd "2") #'neotree-enter-horizontal-split)
+
+(define-key neotree-mode-map (kbd "I") #'neotree-enter-vertical-split)
+(define-key neotree-mode-map (kbd "3") #'neotree-enter-vertical-split)
+(define-key neotree-mode-map (kbd "RET") #'neotree-enter-vertical-split)
+;; (or (and (equal name 'open)  (funcall n-insert-symbol "📂 "))
+;;     (and (equal name 'close) (funcall n-insert-symbol "🗂  ")))))))
 
 
 
