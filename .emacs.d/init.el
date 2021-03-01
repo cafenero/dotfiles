@@ -30,7 +30,16 @@
 
 ;; experimantal
 (require 'resize-window)
-(define-key global-map (kbd "C-c C-r") 'resize-window)
+(define-key global-map (kbd "C-c r") 'resize-window)
+;; (define-key global-map (kbd "C-c C-r") 'resize-window)
+(push '(?h ?b) resize-window-alias-list)
+(push '(?H ?B) resize-window-alias-list)
+(push '(?l ?f) resize-window-alias-list)
+(push '(?L ?F) resize-window-alias-list)
+(push '(?j ?n) resize-window-alias-list)
+(push '(?J ?N) resize-window-alias-list)
+(push '(?k ?p) resize-window-alias-list)
+(push '(?K ?P) resize-window-alias-list)
 
 
 
