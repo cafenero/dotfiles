@@ -58,6 +58,49 @@ alias fgrep="fgrep $MY_GREP_OPTIONS"
 
 alias pwdd='_pwdd'
 function _pwdd() { ls -d $PWD/$1; }
+# -> use realpath command
+
+
+alias mssh='_mssh'
+function _mssh() {
+	if [ -e $1 ]; then
+		# __mssh $(cat $1)
+		# or
+		__mssh `cat $1`
+	else
+		__mssh  $*
+	fi
+}
+function __mssh() {
+	COUNT=0
+	tmux new-window "exec ssh $1"
+	shift
+	for host in "$@"; do
+		tmux split-window -h "exec ssh $1"
+		# sleep 0.05
+
+		# tmux select-layout even-horizontal > /dev/null
+		# sleep 0.5
+		tmux resize-pane -L 100 > /dev/null
+		# sleep 0.05
+
+		# tmux select-layout even-vertical > /dev/null
+		# tmux select-layout tiled > /dev/null
+
+		# tmux split-window "exec zsh"
+		# tmux select-layout tiled > /dev/null
+		# sleep 0.5
+		(( COUNT ++ ))
+		if [ $(( $COUNT % 5 )) -eq 0 ]; then
+			tmux select-layout tiled > /dev/null
+		fi
+	done
+	tmux set-window-option synchronize-panes on
+	tmux select-layout tiled > /dev/null
+	#tmux select-layout even-vertical > /dev/null
+	#tmux select-layout even-horizontal > /dev/null
+}
+
 
 case ${OSTYPE} in
     darwin*)
@@ -79,9 +122,9 @@ case ${OSTYPE} in
         alias python=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/python3
         alias pip=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/pip3
 
-        function mssh() {
-            command xpanes -c 'ssh {}' `cat $1`
-        }
+        # function mssh() {
+        #     command xpanes -c 'ssh {}' `cat $1`
+        # }
 
         ## debug
         ## export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
