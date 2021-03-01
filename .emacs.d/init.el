@@ -27,18 +27,90 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; experimantal
+;; $ GO111MODULE=on go get golang.org/x/tools/gopls@latest
+;; (setq lsp-keymap-prefix "s-l")
+(setq lsp-keymap-prefix "C-c C-l")
+
+
+;; (require 'lsp-mode)
+;; (add-hook 'go-mode-hook #'lsp)
+
+;; or
+(use-package lsp-mode
+  :ensure t
+  :hook (
+         (go-mode . lsp-deferred)
+         (c-mode . lsp-deferred)
+         )
+  :commands (lsp lsp-deferred))
+
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+
+
+
+;; (use-package lsp-mode
+;;   :ensure t ;自動インストール
+;;   :custom ((lsp-inhibit-message t)
+;;          (lsp-message-project-root-warning t)
+;;          (create-lockfiles nil))
+;;   :hook
+;;   (prog-major-mode . lsp-prog-major-mode-enable)
+;;   :config
+;;   (setq lsp-response-timeout 5))
+;; (add-hook 'hack-local-variables-hook
+;;           (lambda () (when (derived-mode-p 'go-mode) (lsp))))
+
+
+;; ;; experimantal
+;; ((nil . ((flycheck-clang-language-standard . "c++11") ; このプロジェクトはC++11に対応している
+;;          (flycheck-clang-include-path . ("."          ; インクルードパスを設定する
+;;                                          "src"
+;;                                          "include"
+;;                                          ))
+;;          )
+;;       ))
+
+
+
+;; experimantal
+;; Saving buffer list to file.
+;; Restoring buffer when restart emacs.
+(require 'save-visited-files)
+(turn-on-save-visited-files-mode)
+
+
+;; experimantal
+;; (desktop-save-mode 1)
+
+;; (require 'desktop)
+;; ;; (setq desktop-restore-forces-onscreen nil)
+;; (if (not (daemonp))
+;;     (desktop-save-mode 1)
+;;   (defun restore-desktop (frame)
+;;     "Restores desktop and cancels hook after first frame opens.
+;;      So the daemon can run at startup and it'll still work"
+;;     (with-selected-frame frame
+;;       (desktop-save-mode 1)
+;;       (desktop-read)
+;;       (remove-hook 'after-make-frame-functions 'restore-desktop)))
+;;   (add-hook 'after-make-frame-functions 'restore-desktop))
+
 
 
 ;; experimantal
 (setq-default show-trailing-whitespace t)
 
-;;experimantal
-(add-hook 'view-mode-hook
-          '(lambda()
-             (setq show-trailing-whitespace nil)
-             ;; (setq indent-tabs-mode nil)
-             ))
-
+;; ;; experimantal
+;; (add-hook 'view-mode-hook
+;;           '(lambda()
+;;              (setq show-trailing-whitespace nil)
+;;              ;; (setq indent-tabs-mode nil)
+;;              ))
 ;; (add-hook 'Buffer-menu-mode-hook
 ;;           '(lambda()
 ;;              (setq show-trailing-whitespace nil)
@@ -60,14 +132,14 @@
     view-mode
     Buffer-menu-mode
     help-mode
+    view-mode
+    quickrun--mode
     twittering-mode))
 (mapc
  (lambda (mode)
    (add-hook (intern (concat (symbol-name mode) "-hook"))
              'my/disable-trailing-mode-hook))
  my/disable-trailing-modes)
-
-
 
 
 ;; experimantal
@@ -141,22 +213,6 @@
 (global-set-key (kbd "C-x 1") 'zoom-window-zoom)
 (setq zoom-window-mode-line-color "DarkGreen")
 
-;; experimantal
-;; (desktop-save-mode 1)
-
-;; (require 'desktop)
-;; ;; (setq desktop-restore-forces-onscreen nil)
-;; (if (not (daemonp))
-;;     (desktop-save-mode 1)
-;;   (defun restore-desktop (frame)
-;;     "Restores desktop and cancels hook after first frame opens.
-;;      So the daemon can run at startup and it'll still work"
-;;     (with-selected-frame frame
-;;       (desktop-save-mode 1)
-;;       (desktop-read)
-;;       (remove-hook 'after-make-frame-functions 'restore-desktop)))
-;;   (add-hook 'after-make-frame-functions 'restore-desktop))
-
 
 ;; experimantal
 (global-anzu-mode +1)
@@ -169,7 +225,7 @@
 
 ;; experimantal
 (defadvice kill-line (after kill-end-of-line activate)
-  ;;  "When point is end of line, join this line to next and fix up whitespace at join."
+  "When point is end of line, join this line to next and fix up whitespace at join."
   (if (and (not (bolp)) (not (eolp)))
       (save-excursion
 	(fixup-whitespace))))
@@ -182,8 +238,13 @@
 ;; https://syohex.hatenablog.com/entry/20120125/1327504194
 ;; repeat yank. Because C-y can't accept `C-u Number' prefix
 (defun repeat-yank (num)
+  "Repeet-yank NUM times."
   (interactive "NRepeat Count > ")
+  ;; (interactive)
+  ;; (message "NRepeat Count > ")
+  ;; (setq i 0)
   (dotimes (i num)
+    (message i)
     (yank)
     (insert "\n")))
 (global-set-key (kbd "M-g y") 'repeat-yank)
@@ -196,7 +257,10 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (cua-mode t)
+;; NG
+;; (defvar 'cua-enable-cua-keys nil)
 (setq cua-enable-cua-keys nil)
+
 (define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
 
 (defface my-hl-line-face
@@ -206,8 +270,10 @@
 		   (((class color) (background light) )
 			 (:background "LightGoldenrodYellow" t))
 		   (t (:bold t)))
-		 "hl-line's my face")
-(setq hl-line-face 'my-hl-line-face)
+		 "hl-line's my face"
+         :group 'my-line-mode)
+
+(defvar hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
 
 
@@ -257,17 +323,20 @@
 (global-set-key (kbd "C-M-.")   'find-tag-next)
 (global-set-key (kbd "M-,")     'find-tag-other-window)
 (global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
-(global-set-key (kbd "\C-c i") 'quickrun)
 (global-set-key (kbd "\C-c l") 'rotate-layout)
-(global-set-key (kbd "\C-c C-l") 'rotate-layout)
-(global-set-key (kbd "\C-c w") 'rotate-window)
+;; (global-set-key (kbd "\C-c C-l") 'rotate-layout)
+;; (global-set-key (kbd "\C-c w") 'rotate-window)
+
+;; (global-set-key (kbd "\C-c i") 'quickrun)
 
 
 (define-key global-map [remap list-buffers] 'buffer-menu-other-window)
 
 (defun find-tag-next ()
+  "Find tag next."
   (interactive)
-  (find-tag last-tag t))
+  (xref-find-definitions 'last-tag t))
+;; (find-tag last-tag t))
 
 
 (require 'quickrun)
@@ -300,19 +369,20 @@
 (setq-default tab-width 4)
 ;; default to unified diffs
 (setq diff-switches "-u")
+
 ;; 行番号表示をトグル
 (defun toggle-linum-lines ()
-  "toggle display line number"
+  "Toggle display line number."
   (interactive)
-  (setq linum-format "%4d ")
+  (defvar linum-format "%4d ")
   (linum-mode
-   (if linum-mode -1 1)))
+   (if linum-mode 0 t)))
+
 (define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
 
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; (add-hook 'prog-mode-hook 'yafolding-mode)
-
 
 
 ;;;; operation mode
@@ -403,6 +473,8 @@
 ;; ;; C-mode
 ;; (require 'flymake)
 (defun my-c-mode-conf ()
+  "My c mode conf."
+
   ;; (setq tab-width 20)
   (setq indent-tabs-mode nil)
 
@@ -414,11 +486,12 @@
   ;; (c-set-style "ellemtel")
   (c-set-style "gnu")
 
-  (setq show-paren-delay 0)
+  (defvar show-paren-delay 0)
   (show-paren-mode t)
-  (setq show-paren-style 'expression)
+  (defvar show-paren-style 'expression)
   (set-face-background 'show-paren-match-face nil)
   (set-face-underline-p 'show-paren-match-face "blue")
+  ;; (set-face-underline 'show-paren-match-face "blue")
 
   ;; (setq c-basic-offset 2)
   ;; (setq c-tab-always-indent nil)
