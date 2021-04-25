@@ -29,17 +29,25 @@
 
 
 ;; experimantal
+;; (set-language-environment "Japanese") ;; NG!!!
+(set-language-environment "English")
+
+;; experimantal
+(require 'expand-region)
+(global-set-key (kbd "C-c =") 'er/expand-region)
+
+;; experimantal
 (require 'resize-window)
 (define-key global-map (kbd "C-c r") 'resize-window)
 ;; (define-key global-map (kbd "C-c C-r") 'resize-window)
-(push '(?h ?b) resize-window-alias-list)
-(push '(?H ?B) resize-window-alias-list)
-(push '(?l ?f) resize-window-alias-list)
-(push '(?L ?F) resize-window-alias-list)
-(push '(?j ?n) resize-window-alias-list)
-(push '(?J ?N) resize-window-alias-list)
-(push '(?k ?p) resize-window-alias-list)
-(push '(?K ?P) resize-window-alias-list)
+(push '(?H ?b) resize-window-alias-list)
+(push '(?h ?B) resize-window-alias-list)
+(push '(?L ?f) resize-window-alias-list)
+(push '(?l ?F) resize-window-alias-list)
+(push '(?J ?n) resize-window-alias-list)
+(push '(?j ?N) resize-window-alias-list)
+(push '(?K ?p) resize-window-alias-list)
+(push '(?k ?P) resize-window-alias-list)
 
 
 
@@ -155,7 +163,7 @@
     Buffer-menu-mode
     help-mode
     view-mode
-    quickrun--mode
+    ;; quickrun--mode
     twittering-mode))
 (mapc
  (lambda (mode)
@@ -345,9 +353,20 @@
 (global-set-key (kbd "C-M-.")   'find-tag-next)
 (global-set-key (kbd "M-,")     'find-tag-other-window)
 (global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
-(global-set-key (kbd "\C-c l") 'rotate-layout)
-(global-set-key (kbd "\C-c C-l") 'rotate-layout)
+
 (global-set-key (kbd "\C-c w") 'rotate-window)
+(global-set-key (kbd "\C-c t") 'rotate:tiled)
+(global-set-key (kbd "\C-c l") 'rotate-layout)
+(global-set-key (kbd "\C-c v") 'rotate:even-vertical)
+(global-set-key (kbd "\C-c h") 'rotate:even-horizontal)
+(setq rotate-functions
+'(rotate:even-horizontal
+  rotate:even-vertical
+  ;; rotate:main-horizontal
+  ;; rotate:main-vertical
+  rotate:tiled)
+)
+
 
 ;; (global-set-key (kbd "\C-c i") 'quickrun)
 
@@ -361,7 +380,7 @@
 ;; (find-tag last-tag t))
 
 
-(require 'quickrun)
+;; (require 'quickrun)
 
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
@@ -621,6 +640,7 @@
 ;;;; Filer.4
 ;; (require 'dirtree)
 
+
 (provide 'init)
 
 ;; Local Variables:
@@ -628,3 +648,4 @@
 ;; End:
 
 ;;; init.el ends here
+(global-set-key (kbd "C--") 'er/expand-region)
