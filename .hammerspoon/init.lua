@@ -14,9 +14,9 @@ function showDataTime()
    end
 end
 
-hs.hotkey.bind({"cmd"}, "i", function()
-   showDataTime()
-end)
+-- hs.hotkey.bind({"cmd"}, "i", function()
+--    showDataTime()
+-- end)
 
 
 -- gloval variable is needed!!!
