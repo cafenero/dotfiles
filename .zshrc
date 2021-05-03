@@ -51,6 +51,11 @@ alias gd='git diff --color'
 alias gl='git log --graph'
 alias pwdd='_pwdd'
 
+## use Esc+. or M-.
+# alias cdd="_cdd"
+# #alias cdd="cd !$"
+# function _cdd() { cd !$ ; }
+
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
 alias grep="grep $MY_GREP_OPTIONS"
 alias egrep="egrep $MY_GREP_OPTIONS"
@@ -60,6 +65,28 @@ alias pwdd='_pwdd'
 function _pwdd() { ls -d $PWD/$1; }
 # -> use realpath command
 
+function set_tmux_bgcolor_bg_white() {
+	tmux select-pane -P 'bg=white,fg=black'
+}
+function set_tmux_bgcolor_default() {
+	tmux select-pane -P 'default'
+}
+
+function set_iterm_bgcolor(){
+  local R=$1
+  local G=$2
+  local B=$3
+  /usr/bin/osascript <<EOF
+	tell application "iTerm"
+	  tell current session of current window
+	      set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
+	  end tell
+	end tell
+EOF
+}
+function set_ibgcolor_black(){
+	set_term_bgcolor 0 0 0
+}
 
 alias mssh='_mssh'
 function _mssh() {
@@ -173,6 +200,7 @@ case ${OSTYPE} in
         alias sys='cd /etc/sysconfig/network-scripts'
         alias sudo='sudo -E '
 
+        export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight
         export LC_ALL=C.UTF-8
 
         # for golang

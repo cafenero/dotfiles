@@ -14,6 +14,8 @@
 ;; tabify
 ;; untabify
 ;; C-u C-SPC : back to implicit position
+;; C-M-p backward-list
+;; C-M-n forward-list
 ;; describe-mode
 
 ;;;; General
@@ -29,6 +31,24 @@
 
 
 ;; experimantal
+(require 'mozc)
+(setq default-input-method "japanese-mozc")
+(custom-set-variables '(mozc-leim-title "あ"))
+
+(defun off-input-method ()
+  (interactive)
+  (deactivate-input-method))
+(defun on-input-method ()
+  (interactive)
+  (activate-input-method default-input-method))
+(global-set-key "\M-9" 'on-input-method)
+(global-set-key "\M-0" 'off-input-method)
+
+(use-package mozc-popup
+  :ensure t
+  :config
+  (setq mozc-candidate-style 'popup))
+
 ;; (set-language-environment "Japanese") ;; NG!!!
 (set-language-environment "English")
 
@@ -418,7 +438,6 @@
   (defvar linum-format "%4d ")
   (linum-mode
    (if linum-mode 0 t)))
-
 (define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
 
 
