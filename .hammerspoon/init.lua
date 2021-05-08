@@ -105,26 +105,6 @@ end
 
 
 
-L = 1500
-l = 45
-
-function xAdd(angle)
-   return math.floor(L * math.sin(angle)) + 1
-end
-
-function yAdd(angle)
-   return math.floor(L * math.cos(angle)) + 1
-end
-
-function xSAdd(angle)
-   return math.floor(l * math.sin(angle)) + 1
-end
-
-function ySAdd(angle)
-   return math.floor(l * math.cos(angle)) + 1
-end
-
-
 -- org 02 random!!! chaos!
 -- function xAdd(n)
 --    angle = math.random() * 2*math.pi
@@ -169,7 +149,36 @@ end
 
 
 
-arraysize=100
+L = 1500
+-- L = 3000 -- 危険！
+l = 45
+ll = 30
+function xAdd(angle)
+   return math.floor(L * math.sin(angle)) + 1
+end
+
+function yAdd(angle)
+   return math.floor(L * math.cos(angle)) + 1
+end
+
+function xSAdd(angle, r)
+   -- return math.floor(l * math.sin(angle))
+   -- return math.floor(l * math.sin(angle)) + 1
+   -- return math.floor(math.random() * l * math.sin(angle)) + 1
+   -- return math.floor(r * l * math.sin(angle)) + 1
+   return math.floor(r * ll * math.sin(angle)) + math.floor(l * math.sin(angle))
+end
+
+function ySAdd(angle, r)
+   -- return math.floor(l * math.cos(angle))
+   -- return math.floor(l * math.cos(angle)) + 1
+   -- return math.floor(math.random() * l * math.cos(angle)) + 1
+   -- return math.floor(r * l * math.cos(angle)) + 1
+   return math.floor(r * ll * math.cos(angle)) +  math.floor(l * math.cos(angle))
+end
+
+-- arraysize=300 -- looks good!
+arraysize=150
 mouseCircle = {}
 for i = 1, arraysize do
    table.insert(mouseCircle, "")
@@ -197,17 +206,69 @@ function mytest3()
 		 -- mouseCircle[i] = hs.drawing.line( {x=mousepoint.x, y=mousepoint.y} , {x=(mousepoint.x+xAdd(i-1)) , y=(mousepoint.y+yAdd(i-1))})
 		 -- mouseCircle[i] = hs.drawing.line( {x=(mousepoint.x+xSAdd(i)) , y=(mousepoint.y+ySAdd(i))} , {x=(mousepoint.x+xAdd(i)) , y=(mousepoint.y+yAdd(i))})
 		 angle = math.random() * 2 * math.pi
-		 mouseCircle[i] = hs.drawing.line( {x=(mousepoint.x+xSAdd(angle)) , y=(mousepoint.y+ySAdd(angle))} , {x=(mousepoint.x+xAdd(angle)) , y=(mousepoint.y+yAdd(angle))})
+		 r = math.random()
+		 -- mouseCircle[i] = hs.drawing.line( {x=(mousepoint.x+xSAdd(angle)) , y=(mousepoint.y+ySAdd(angle))} , {x=(mousepoint.x+xAdd(angle)) , y=(mousepoint.y+yAdd(angle))})
+		 mouseCircle[i] = hs.drawing.line( {x=(mousepoint.x+xSAdd(angle, r)) , y=(mousepoint.y+ySAdd(angle, r))} , {x=(mousepoint.x+xAdd(angle)) , y=(mousepoint.y+yAdd(angle))})
 
-		 mouseCircle[i]:setStrokeColor({["red"]=0.9,["blue"]=0.9,["green"]=0.9,["alpha"]=0.7})
-		 mouseCircle[i]:setStrokeWidth(2)
+		 depth = math.random()
+		 -- mouseCircle[i]:setStrokeColor({["red"]=0.9,["blue"]=0.9,["green"]=0.9,["alpha"]=0.7})
+		 mouseCircle[i]:setStrokeColor({["red"]=depth,["blue"]=depth,["green"]=depth,["alpha"]=depth})
+
+		 width = math.random() * 3
+		 -- mouseCircle[i]:setStrokeWidth(2)
+		 mouseCircle[i]:setStrokeWidth(width)
 		 mouseCircle[i]:show()
 	  end
 	  displayflag = true
    end
 end
-hs.hotkey.bind({"cmd"}, "/", mytest3)
+-- hs.hotkey.bind({"cmd"}, "/", mytest3)
 
+
+
+
+
+--
+function str(x)
+  return x .. ""
+end
+
+c = require("hs.canvas")
+mousefocus = nil
+mousefocusflag = false
+function buildElement(mousex, mousey)
+   mousefocus = c.new{x=0, y=0, h=displaysize.h, w=displaysize.w}
+   mousefocus:appendElements(
+	  {
+		 action = "build", padding = 0, radius = ".025", reversePath = true, type = "circle",
+		 center = { x = mousex, y = mousey },
+	  },
+	  {
+		 action = "fill",
+		 fillColor = { alpha = 0.5, red = 0.5, green = 0.5, blue = 0.5},
+		 frame = { x = "0", y = "0", h = "1.0", w = "1.0", },
+		 type = "rectangle",
+		 withShadow = true,
+	  }
+   )
+end
+
+function toggle_mousefocus()
+   if mousefocusflag then
+	  mousefocus:hide()
+	  mousefocusflag = false
+   else
+	  sc = hs.screen.mainScreen()
+	  displaysize = sc:fullFrame()
+
+	  mousepoint = hs.mouse.getAbsolutePosition()
+	  buildElement(str(mousepoint.x/displaysize.w), str(mousepoint.y/displaysize.h))
+	  mousefocus:show()
+	  mousefocusflag = true
+   end
+end
+
+hs.hotkey.bind({"cmd"}, "/", toggle_mousefocus)
 
 
 hs.hotkey.bind({"cmd"}, "`", function()
@@ -234,8 +295,10 @@ showDataTimeViaMouse = hs.eventtap.new({hs.eventtap.event.types.otherMouseDown},
 	 showDataTime()
       end
       if eventobj:getButtonState(8) then
+	 toggle_mousefocus()
+	 -- mytest3()
 	 -- bind enter
-	 return true, { hs.eventtap.event.newKeyEvent(hs.keycodes.map[36], true) }
+	 -- return true, { hs.eventtap.event.newKeyEvent(hs.keycodes.map[36], true) }
       end
    end
 )
