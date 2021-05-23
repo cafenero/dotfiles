@@ -16,6 +16,9 @@
 ;; C-u C-SPC : back to implicit position
 ;; C-M-p backward-list
 ;; C-M-n forward-list
+;; "\M-p" 'winner-undo
+;; "\M-n" 'winner-redo
+
 ;; describe-mode
 
 ;;;; General
@@ -29,11 +32,31 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(setq org-startup-folded t)
+
+
+;; experimantal
+(defun insert-current-date (&optional diff)
+  "現在年月日をカレントバッファに出力します。引数Nを与えるとN日前を出力します。"
+  (interactive "P")
+  (insert
+   (shell-command-to-string
+    (format
+     ;; "echo -n $(LC_ALL=ja_JP date -v-%dd +'%%Y/%%m/%%d (%%a)')"
+     "echo -n $(LC_ALL=ja_JP date -v-%dd +'* %%Y/%%m/%%d (%%a)')"
+     (or diff 0)))))
+(define-key global-map (kbd "C-c d") 'insert-current-date)
+
+;; experimantal
+;; (setq org-indent-indentation-per-level 4)
+;; ;; (setq org-startup-indented nil)
+;; (setq org-indent-mode nil)
+
 
 ;; experimantal
 (require 'mozc)
 (setq default-input-method "japanese-mozc")
-(custom-set-variables '(mozc-leim-title "あ"))
+(custom-set-variables '(mozc-leim-title "も"))
 
 (defun off-input-method ()
   (interactive)
