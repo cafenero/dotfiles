@@ -170,17 +170,17 @@ case ${OSTYPE} in
         export GOPATH=$HOME/go
 
         # brew api token
-        if [ -f ~/.brew_api_token ];then
-            source ~/tokens/.brew_api_token
+        if [ -f ~/tokens/token_brew_api ];then
+            source ~/tokens/token_brew_api
         fi
 
         # digital ocean api token
-        if [ -f ~/.digital_ocean_token ];then
-            source ~/tokens/.digital_ocean_token
+        if [ -f ~/API_tokens/token_digital_ocean ];then
+            source ~/API_tokens/token_digital_ocean
         fi
         # digital ocean api token
-        if [ -f ~/tokens/.dockerhub_token ];then
-            source ~/tokens/.dockerhub_token
+        if [ -f ~/API_tokens/token_dockerhub ];then
+            source ~/API_tokens/token_dockerhub
         fi
 
         function cd(){
