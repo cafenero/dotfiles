@@ -3,6 +3,36 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
 end)
 
 
+-- for iTerm
+hs.hotkey.bind({"cmd"}, "2", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  delta = 20
+  f.x = max.x + delta
+  f.y = max.y
+  f.w = max.w - delta
+  f.h = max.h
+  win:setFrame(f)
+end)
+
+-- for Safari
+hs.hotkey.bind({"cmd"}, "3", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  -- 3840 * 2160 => 1920 * 1080
+  f.x = max.w / 4
+  f.y = max.h / 4
+  f.w = max.w * (2/4)
+  f.h = max.h * (2/4)
+  win:setFrame(f)
+end)
+
 -- mouseCircle = nil
 mouseCircleTimer = nil
 
