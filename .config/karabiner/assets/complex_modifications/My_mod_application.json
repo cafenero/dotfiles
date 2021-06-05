@@ -1,0 +1,131 @@
+{
+	"title": "Launch apps",
+	"rules": [
+		{
+			"description": "Launch apps F13 -> Activity Monitor",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f13",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F14 -> lamp-on",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f14",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/Users/yusuke/Library/Mobile Documents/com~apple~Automator/Documents/lamp-on.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F15 -> lamp-off",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f15",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/Users/yusuke/Library/Mobile Documents/com~apple~Automator/Documents/lamp-off.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F16 -> Twitter.app",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f16",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/Users/yusuke/Applications/Chrome Apps.localized/Twitter.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F17 -> Safari.app",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f17",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/Applications/Safari.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F18 -> .",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f18",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+						}
+					]
+				}
+			]
+		}
+	]
+}
