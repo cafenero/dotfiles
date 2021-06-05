@@ -3,23 +3,23 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
 end)
 
 
--- for iTerm
-hs.hotkey.bind({"cmd"}, "2", function()
+function resize_window_4()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
 
-  delta = 20
+  -- delta = 20
+  delta = 0
   f.x = max.x + delta
   f.y = max.y
   f.w = max.w - delta
   f.h = max.h
   win:setFrame(f)
-end)
+end
+hs.hotkey.bind({"cmd"}, "4", resize_window_4)
 
--- for Safari
-hs.hotkey.bind({"cmd"}, "3", function()
+function resize_window_5()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
@@ -31,7 +31,8 @@ hs.hotkey.bind({"cmd"}, "3", function()
   f.w = max.w * (2/4)
   f.h = max.h * (2/4)
   win:setFrame(f)
-end)
+end
+hs.hotkey.bind({"cmd"}, "5", resize_window_5)
 
 -- mouseCircle = nil
 mouseCircleTimer = nil
@@ -386,8 +387,12 @@ local function handleGlobalAppEvent(name, event, app)
 --      hs.alert.show(name)
       if name == "iTerm2" then
          disableAllHotkeys()
+      elseif name == "terminus" then
+         disableAllHotkeys()
       elseif name == "cool-retro-term" then
          disableAllHotkeys()
+      -- elseif name == "Preview" then
+      --    disableAllHotkeys()
 --      elseif name == "PDF Expert" then
 --         disableAllHotkeys()
 --         enableAllHotkeys()
@@ -413,6 +418,7 @@ remapKey({'ctrl'}, 'n', keyCode('down'))
 remapKey({'ctrl'}, 'p', keyCode('up'))
 
 -- テキスト編集
+remapKey({'alt'}, 'd', keyCode('forwarddelete', {'alt'}))
 -- remapKey({'ctrl'}, 'w', keyCode('x', {'cmd'}))
 -- remapKey({'ctrl'}, 'y', keyCode('v', {'cmd'}))
 
