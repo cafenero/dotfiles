@@ -213,7 +213,7 @@
 				<key>Blue Component</key>
 				<real>0.0</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
 				<real>0.0</real>
 				<key>Red Component</key>
@@ -371,13 +371,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.14532470703125</real>
+				<real>0.28349629040000002</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.25538924340000002</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.2315306664</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -403,7 +403,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>9.6820867703045685</real>
+			<real>10.532157873115459</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -477,13 +477,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.94901960784313721</real>
+				<real>0.94901961088180542</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.94901960784313721</real>
+				<real>0.94901961088180542</real>
 				<key>Red Component</key>
-				<real>0.94901960784313721</real>
+				<real>0.94901961088180542</real>
 			</dict>
 			<key>Guid</key>
 			<string>ACE1D48D-B25E-4110-8CCE-BAED7141599E</string>
@@ -987,7 +987,7 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
-			<true/>
+			<false/>
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
@@ -1779,7 +1779,7 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
-			<true/>
+			<false/>
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
@@ -1872,7 +1872,7 @@
 	<key>SuppressRestartAnnouncement</key>
 	<true/>
 	<key>SwitchTabModifier</key>
-	<integer>4</integer>
+	<integer>9</integer>
 	<key>SwitchWindowModifier</key>
 	<integer>6</integer>
 	<key>TabStyle</key>
@@ -1883,6 +1883,10 @@
 	<integer>0</integer>
 	<key>TabsHaveCloseButton</key>
 	<false/>
+	<key>TerminalMargin</key>
+	<integer>10</integer>
+	<key>TerminalVMargin</key>
+	<integer>4</integer>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>ThrottleMetalConcurrentFrames</key>
@@ -1928,6 +1932,8 @@
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>5</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
+	<key>kCPKUseSystemColorPicker</key>
 	<false/>
 	<key>metalMaximizeThroughput</key>
 	<false/>
