@@ -14,3 +14,9 @@ automatic_backups
 .emacs.d/elpa
 .emacs.d/font/
 .emacs.d/.*
+.emacs.d/emacs-visited-files
+.emacs.d/misc/
+.emacs.d/persp-confs/persp-auto-save
+.emacs.d/persp-confs/
+.emacs.d/transient/history.el
+.emacs.d/url/cookies
