@@ -65,6 +65,7 @@ alias gdd="gd | delta"
 alias pwdd='_pwdd'
 function _pwdd() { ls -d $PWD/$1; }
 # -> use realpath command
+alias rp='realpath'
 
 function set_tmux_bgcolor_bg_white() {
 	tmux select-pane -P 'bg=white,fg=black'
