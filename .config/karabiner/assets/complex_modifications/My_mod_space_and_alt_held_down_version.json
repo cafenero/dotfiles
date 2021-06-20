@@ -1,0 +1,35 @@
+{
+	"title": "My mod: space and alt.",
+    "rules": [
+        {
+            "description": "spaceキー単独ならspace、複数ならaltとする。helo_down version",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "spacebar",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+					"parameters": {
+						"basic.to_if_alone_timeout_milliseconds": 100,
+						"basic.to_if_held_down_threshold_milliseconds": 150
+					},
+					"to_if_alone": [
+						{
+                            "key_code": "spacebar"
+						}
+					],
+                    "to_if_held_down": [
+                        {
+                            "key_code": "left_option"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}
