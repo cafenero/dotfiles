@@ -16,132 +16,6 @@
                 },
                 "rules": [
                     {
-                        "description": "Launch apps F13 -> Activity Monitor",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "f13",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Launch apps F14 -> lamp-on",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "f14",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open '/Users/yusuke/Library/Mobile Documents/com~apple~Automator/Documents/lamp-on.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Launch apps F15 -> lamp-off",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "f15",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open '/Users/yusuke/Library/Mobile Documents/com~apple~Automator/Documents/lamp-off.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Launch apps F16 -> Twitter.app",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "f16",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open '/Users/yusuke/Applications/Chrome Apps.localized/Twitter.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Launch apps F17 -> .",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "f17",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open '/Applications/Safari.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Launch apps F18 -> .",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "f18",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "右shift単独ならカーソルキー（上）、複数ならshiftとする。",
                         "manipulators": [
                             {
@@ -306,11 +180,53 @@
                         ]
                     },
                     {
-                        "description": "spaceキー単独ならspace、複数ならaltとする。",
+                        "description": "Launch apps F13 -> Activity Monitor",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "spacebar",
+                                    "key_code": "f13",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Launch apps F14 -> lamp-on",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f14",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "open '/Users/yusuke/Library/Mobile Documents/com~apple~Automator/Documents/lamp-on.app'"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Launch apps F15 -> left_option (Alt).",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f15",
                                     "modifiers": {
                                         "optional": [
                                             "any"
@@ -322,9 +238,67 @@
                                         "key_code": "left_option"
                                     }
                                 ],
-                                "to_if_alone": [
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Launch apps F16 -> Twitter.app",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f16",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
                                     {
-                                        "key_code": "spacebar"
+                                        "shell_command": "open '/Users/yusuke/Applications/Chrome Apps.localized/Twitter.app'"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Launch apps F17 -> Safari.app",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f17",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "open '/Applications/Safari.app'"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Launch apps F18 -> left_option (Alt).",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f18",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_option"
                                     }
                                 ],
                                 "type": "basic"

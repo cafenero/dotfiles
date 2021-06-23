@@ -44,7 +44,7 @@
 			]
 		},
 		{
-			"description": "Launch apps F15 -> lamp-off",
+			"description": "Launch apps F15 -> left_option (Alt).",
 			"manipulators": [
 				{
 					"type": "basic",
@@ -58,7 +58,7 @@
 					},
 					"to": [
 						{
-							"shell_command": "open '/Users/yusuke/Library/Mobile Documents/com~apple~Automator/Documents/lamp-off.app'"
+							"key_code": "left_option"
 						}
 					]
 				}
@@ -107,7 +107,7 @@
 			]
 		},
 		{
-			"description": "Launch apps F18 -> .",
+			"description": "Launch apps F18 -> left_option (Alt).",
 			"manipulators": [
 				{
 					"type": "basic",
@@ -121,7 +121,7 @@
 					},
 					"to": [
 						{
-							"shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+							"key_code": "left_option"
 						}
 					]
 				}
