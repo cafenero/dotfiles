@@ -1,5 +1,5 @@
 {
-	"title": "My mod: left-ccmd right-option key for iterm or not.",
+	"title": "My mod: right/left option key for iterm or not.",
     "rules": [
         {
             "description": "iTerm2以外は右optionキーを変換キー(japanese_kana)とする。",
@@ -31,7 +31,7 @@
             ]
         },
         {
-            "description": "iTerm2以外は左commandを単体で打った場合のみ英数キーとする。",
+            "description": "iTerm2以外は左optionを単体で打った場合のみ英数キーとする。",
             "manipulators": [
                 {
                     "conditions": [
@@ -43,7 +43,7 @@
                         }
                     ],
                     "from": {
-                        "key_code": "left_command",
+                        "key_code": "left_option",
                         "modifiers": {
                             "optional": [
                                 "any"
@@ -52,7 +52,7 @@
                     },
                     "to": [
                         {
-                            "key_code": "left_command"
+                            "key_code": "left_option"
                         }
                     ],
                     "to_if_alone": [
@@ -65,7 +65,7 @@
             ]
         },
         {
-            "description": "iTerm2では右optionキーをmozc Japanese on (M-9)とする。",
+            "description": "iTerm2では右optionキーをmozc Japanese on (C-9)とする。",
             "manipulators": [
                 {
                     "conditions": [
@@ -100,7 +100,7 @@
             ]
         },
         {
-            "description": "iTerm2では左commandを単体で打った場合のみmozc Japanese off (M-0)とする。",
+            "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0)とする。",
             "manipulators": [
                 {
                     "conditions": [
@@ -112,7 +112,7 @@
                         }
                     ],
                     "from": {
-                        "key_code": "left_command",
+                        "key_code": "left_option",
                         "modifiers": {
                             "optional": [
                                 "any"
@@ -121,7 +121,7 @@
                     },
                     "to": [
                         {
-                            "key_code": "left_command"
+                            "key_code": "left_option"
                         }
                     ],
                     "to_if_alone": [
