@@ -140,9 +140,11 @@ case ${OSTYPE} in
         alias tm='/usr/local/bin/tmux'
         alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
         alias rsync='/usr/local/bin/rsync'
+        alias s='send.sh'
         export LC_CTYPE='ja_JP.UTF-8'
         export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
         export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
+        export PATH=$PATH:${HOME}/bin
 
 
         ## disable for pyenv
