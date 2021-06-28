@@ -171,40 +171,6 @@
                         ]
                     },
                     {
-                        "description": "chromeでは左optionをCmdとする。",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.google\\.Chrome"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "left_option",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_command"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "japanese_eisuu"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "iTerm2では右optionキーをmozc Japanese on (C-9)とする。",
                         "manipulators": [
                             {
@@ -277,7 +243,7 @@
                         ]
                     },
                     {
-                        "description": "それら以外は右optionキーを変換キー(japanese_kana)とする。",
+                        "description": "それ以外は右optionキーを変換キー(japanese_kana)とする。",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -306,7 +272,7 @@
                         ]
                     },
                     {
-                        "description": "それら以外は左optionを単体で打った場合のみ英数キーとする。",
+                        "description": "それ以外は左optionを単体で打った場合のみ英数キーとする。",
                         "manipulators": [
                             {
                                 "conditions": [
