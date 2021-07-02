@@ -1,4 +1,5 @@
 fpath=(~/.zsh/completion $fpath)
+
 # load
 autoload -Uz compinit colors vcs_info
 compinit
@@ -7,23 +8,12 @@ vcs_info
 
 stty stop undef
 
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-#zstyle :compinstall filename '/Users/yusuke/.zshrc'
-#zstyle ':completion:*:processes' menu yes select=2
-#zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:default' menu select
 zstyle ':completion:*' list-separator '-->'
-# git prompt
-#zstyle ':vcs_info:*' formats '%s][* %F{green}%b%f'
-#zstyle ':vcs_info:*' actionformats '%s][* %F{green}%b%f(%F{red}%a%f)'
-
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
-
 
 bindkey "^[f" emacs-forward-word
 
@@ -33,15 +23,13 @@ setopt hist_reduce_blanks
 setopt hist_expand
 setopt brace_ccl
 setopt prompt_subst
-
-
 precmd() { vcs_info }
 
 
+# common alias
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias e='emacsclient -t -a ""'
-# alias e='emacs -nw '
 alias wa='watch -c -n 1 -d '
 alias termshark='export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark'
 alias pu='pushd'
@@ -50,22 +38,44 @@ alias gs='git status'
 alias gd='git diff --color'
 alias gl='git log --graph'
 alias pwdd='_pwdd'
+alias s='send.sh'
+alias d="docker"
 
-## use Esc+. or M-.
-# alias cdd="_cdd"
-# #alias cdd="cd !$"
-# function _cdd() { cd !$ ; }
+if type kubectl > /dev/null 2>&1 ; then
+	alias k="kubectl"
+	alias kg="kubectl get"
+	alias kgpo="kubectl get pod"
+	alias kgpoa="kubectl get pod --all-namespaces"
+	source <(kubectl completion zsh)
+fi
+alias vs="sudo ovs-vsctl"
+alias of="sudo ovs-ofctl"
 
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
 alias grep="grep $MY_GREP_OPTIONS"
 alias egrep="egrep $MY_GREP_OPTIONS"
 alias fgrep="fgrep $MY_GREP_OPTIONS"
 alias gdd="gd | delta"
-
 alias pwdd='_pwdd'
-function _pwdd() { ls -d $PWD/$1; }
-# -> use realpath command
 alias rp='realpath'
+alias mssh='_mssh'
+
+# common export
+export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export LESS="-R"
+export PATH=$PATH:${HOME}/bin
+
+## prompt
+local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
+local PURPLE=$'%{\e[1;35m%}'
+local RED=$'%{\e[38;5;88m%}'
+local ENDC=$'%{\e[m%}'
+PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
+ "
+
+
+function _pwdd() { ls -d $PWD/$1; }
 
 function set_tmux_bgcolor_bg_white() {
 	tmux select-pane -P 'bg=white,fg=black'
@@ -90,11 +100,8 @@ function set_ibgcolor_black(){
 	set_term_bgcolor 0 0 0
 }
 
-alias mssh='_mssh'
 function _mssh() {
 	if [ -e $1 ]; then
-		# __mssh $(cat $1)
-		# or
 		__mssh `cat $1`
 	else
 		__mssh  $*
@@ -106,19 +113,7 @@ function __mssh() {
 	shift
 	for host in "$@"; do
 		tmux split-window -h "exec ssh $1"
-		# sleep 0.05
-
-		# tmux select-layout even-horizontal > /dev/null
-		# sleep 0.5
 		tmux resize-pane -L 100 > /dev/null
-		# sleep 0.05
-
-		# tmux select-layout even-vertical > /dev/null
-		# tmux select-layout tiled > /dev/null
-
-		# tmux split-window "exec zsh"
-		# tmux select-layout tiled > /dev/null
-		# sleep 0.5
 		(( COUNT ++ ))
 		if [ $(( $COUNT % 5 )) -eq 0 ]; then
 			tmux select-layout tiled > /dev/null
@@ -140,22 +135,14 @@ case ${OSTYPE} in
         alias tm='/usr/local/bin/tmux'
         alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
         alias rsync='/usr/local/bin/rsync'
-        alias s='send.sh'
         export LC_CTYPE='ja_JP.UTF-8'
         export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
         export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
-        export PATH=$PATH:${HOME}/bin
 
 
         ## disable for pyenv
-        # alias python=/usr/local/bin/python3
-        # alias pip=/usr/local/bin/pip3
         alias python=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/python3
         alias pip=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/pip3
-
-        # function mssh() {
-        #     command xpanes -c 'ssh {}' `cat $1`
-        # }
 
         ## debug
         ## export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
@@ -228,18 +215,3 @@ case ${OSTYPE} in
         fi
         ;;
 esac
-
-export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
-export LSCOLORS=gxfxcxdxbxegedabagacad
-export LESS="-R"
-
-
-local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
-#local P_MARK="%(!,#,$)"
-local PURPLE=$'%{\e[1;35m%}'
-local RED=$'%{\e[38;5;88m%}'
-local ENDC=$'%{\e[m%}'
-
-## いつもの
-PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
- "
