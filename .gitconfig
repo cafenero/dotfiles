@@ -1,12 +1,11 @@
-[user]
-	name = cafenero
-	email = 2006yusuke@gmail.com
+[include]
+    path = .gitconfig.local
 [push]
 	default = matching
 [color]
 	ui = auto
 [core]
-	excludesfile = /Users/yusuke/.gitignore
+	excludesfile = ~/.gitignore
 	editor = vim
 [alias]
 	ci = commit
@@ -14,8 +13,8 @@
 	st = status
 	br = branch
 	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
-        lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-        lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 [tig "bind"]
   generic = g move-first-line
   generic = G move-last-line
