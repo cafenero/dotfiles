@@ -23,7 +23,7 @@
 			]
 		},
 		{
-			"description": "Launch apps F14 -> lamp-on",
+			"description": "Launch apps F14 -> left_option",
 			"manipulators": [
 				{
 					"type": "basic",
@@ -37,14 +37,14 @@
 					},
 					"to": [
 						{
-							"shell_command": "open '/Users/yusuke/Library/Mobile Documents/com~apple~Automator/Documents/lamp-on.app'"
+							"key_code": "left_option"
 						}
 					]
 				}
 			]
 		},
 		{
-			"description": "Launch apps F15 -> left_option (Alt).",
+			"description": "Launch apps F15 -> left_option.",
 			"manipulators": [
 				{
 					"type": "basic",
@@ -86,7 +86,7 @@
 			]
 		},
 		{
-			"description": "Launch apps F17 -> Safari.app",
+			"description": "Launch apps F17 -> Google Chrome.app",
 			"manipulators": [
 				{
 					"type": "basic",
@@ -100,14 +100,14 @@
 					},
 					"to": [
 						{
-							"shell_command": "open '/Applications/Safari.app'"
+							"shell_command": "open '/Applications/Google Chrome.app'"
 						}
 					]
 				}
 			]
 		},
 		{
-			"description": "Launch apps F18 -> left_option (Alt).",
+			"description": "Launch apps F18 -> iTerm.app.",
 			"manipulators": [
 				{
 					"type": "basic",
@@ -121,7 +121,67 @@
 					},
 					"to": [
 						{
-							"key_code": "left_option"
+							"shell_command": "open '/Applications/iTerm.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F19 -> iTerm.app.",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f19",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/Applications/iTerm.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F20 -> Chrome.app.",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f20",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/Applications/Google Chrome.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "Launch apps F21 -> iTerm.app.",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f21",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+							"shell_command": "open '/Applications/iTerm.app'"
 						}
 					]
 				}
