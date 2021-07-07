@@ -1,0 +1,135 @@
+{
+	"title": "My mod: option + 12345 to apps.",
+    "rules": [
+        {
+            "description": "option + 1 ->  iTerm",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "1",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+							// "shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+							// "shell_command": "open '/System/Applications/System Preferences.app/Contents/MacOS/System Preferences.app'"
+							"shell_command": "open '/Applications/iTerm.app'"
+							// "shell_command": "open '/Applications/Google Chrome.app'"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+
+        {
+            "description": "option + 2 ->  Chrome",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "2",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+							// "shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+							// "shell_command": "open '/System/Applications/System Preferences.app/Contents/MacOS/System Preferences.app'"
+							// "shell_command": "open '/Applications/iTerm.app'"
+							"shell_command": "open '/Applications/Google Chrome.app'"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+
+        {
+            "description": "option + 3 ->  Slack",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "3",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+							// "shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+							// "shell_command": "open '/System/Applications/System Preferences.app/Contents/MacOS/System Preferences.app'"
+							// "shell_command": "open '/Applications/iTerm.app'"
+							// "shell_command": "open '/Applications/Google Chrome.app'"
+							// "shell_command": "open '/Applications/Slack.app/Contents/MacOS/Slack.app'"
+							"shell_command": "open '/Applications/Slack.app'"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+
+        {
+            "description": "option + 4 ->  System Preference",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "4",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+							// "shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+							"shell_command": "open '/System/Applications/System Preferences.app'"
+							// "shell_command": "open '/System/Applications/System Preferences.app/Contents/MacOS/System Preferences.app'"
+							// "shell_command": "open '/Applications/iTerm.app'"
+							// "shell_command": "open '/Applications/Google Chrome.app'"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+
+
+        {
+            "description": "option + 5 ->  Activity Monitor",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "5",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+							"shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+							// "shell_command": "open '/System/Applications/System Preferences.app/Contents/MacOS/System Preferences.app'"
+							// "shell_command": "open '/Applications/iTerm.app'"
+							// "shell_command": "open '/Applications/Google Chrome.app'"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+
+
+    ]
+}
