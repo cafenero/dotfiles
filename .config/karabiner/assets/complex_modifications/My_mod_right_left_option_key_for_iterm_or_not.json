@@ -2,7 +2,7 @@
 	"title": "My mod: right/left option key for iterm or not.",
     "rules": [
         {
-            "description": "iTerm2では右optionキーをmozc Japanese on (C-9)とする。",
+            "description": "iTerm2では右optionキーをmozc Japanese on (C-9) -> (C-\\) -> f22 -> f1とする。",
             "manipulators": [
                 {
                     "conditions": [
@@ -18,18 +18,12 @@
                     },
                     "to": [
                         {
-                            "key_code": "9",
-                            "modifiers": [
-                                "right_option"
-                            ]
+                            "key_code": "right_option"
                         }
                     ],
                     "to_if_alone": [
                         {
-                            "key_code": "9",
-                            "modifiers": [
-                                "right_option"
-                            ]
+                            "key_code": "f1"
                         }
                     ],
                     "type": "basic"
@@ -37,7 +31,7 @@
             ]
         },
         {
-            "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0)とする。",
+            "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0) -> f23 -> f2とする。",
             "manipulators": [
                 {
                     "conditions": [
@@ -63,10 +57,7 @@
                     ],
                     "to_if_alone": [
                         {
-                            "key_code": "0",
-                            "modifiers": [
-                                "left_option"
-                            ]
+                            "key_code": "f2"
                         }
                     ],
                     "type": "basic"

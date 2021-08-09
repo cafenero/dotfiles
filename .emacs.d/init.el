@@ -36,7 +36,7 @@
 
 
 ;; experimantal
-(selectrum-mode +1)
+;; (selectrum-mode +1)
 
 
 ;; experimantal
@@ -89,8 +89,10 @@
 (defun on-input-method ()
   (interactive)
   (activate-input-method default-input-method))
-(global-set-key "\M-9" 'on-input-method)
-(global-set-key "\M-0" 'off-input-method)
+;; (global-set-key "\M-9" 'on-input-method)
+(global-set-key [f1] 'on-input-method)
+;; (global-set-key "\M-0" 'off-input-method)
+(global-set-key [f2] 'off-input-method)
 
 (use-package mozc-popup
   :ensure t
