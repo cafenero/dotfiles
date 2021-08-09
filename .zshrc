@@ -15,7 +15,15 @@ zstyle ':completion:*:default' menu select
 zstyle ':completion:*' list-separator '-->'
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
 
-bindkey "^[f" emacs-forward-word
+
+
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars ' -_/=;@:{}[]()<>,|.'
+zstyle ':zle:*' word-style unspecified
+
+
+# bindkey "^[f" emacs-forward-word
 
 # setopts
 setopt share_history
