@@ -36,6 +36,10 @@
 
 
 ;; experimantal
+(define-key isearch-mode-map (kbd "C-h") 'isearch-del-char)
+;; 'delete-backward-char) ;; 本文の文字が削除されてしまう。。
+
+;; experimantal
 ;; (selectrum-mode +1)
 
 
