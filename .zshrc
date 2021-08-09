@@ -200,7 +200,8 @@ case ${OSTYPE} in
         alias sudo='sudo -E '
 
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight
-        export LC_ALL=C.UTF-8
+        # export LC_ALL=C.UTF-8
+        export LC_ALL=en_US.UTF-8
 
         # for golang
         export PATH=$PATH:/usr/local/go/bin
