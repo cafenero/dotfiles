@@ -1,0 +1,152 @@
+{
+	"title": "Macbook pro keyremap",
+	"rules": [
+		{
+
+
+               },
+               {
+                   "disable_built_in_keyboard_if_exists": false,
+                   "fn_function_keys": [],
+                   "identifiers": {
+                       "is_keyboard": true,
+                       "is_pointing_device": false,
+                       "product_id": 632,
+                       "vendor_id": 1452
+                   },
+                   "ignore": false,
+                   "manipulate_caps_lock_led": true,
+                   "simple_modifications": [
+                       {
+                           "from": {
+                               "key_code": "left_command"
+                           },
+                           "to": [
+                               {
+                                   "key_code": "left_option"
+                               }
+                           ]
+                       },
+                       {
+                           "from": {
+                               "key_code": "left_option"
+                           },
+                           "to": [
+                               {
+                                   "key_code": "left_command"
+                               }
+                           ]
+                       },
+                       {
+                           "from": {
+                               "key_code": "right_command"
+                           },
+                           "to": [
+                               {
+                                   "key_code": "right_option"
+                               }
+                           ]
+                       },
+                       {
+                           "from": {
+                               "key_code": "right_option"
+                           },
+                           "to": [
+                               {
+                                   "key_code": "right_command"
+                               }
+                           ]
+                       }
+                   ]
+
+
+
+
+
+
+			"description": "left option -> left cmd",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f13",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/System/Applications/Utilities/Activity Monitor.app'"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "left cmd -> left option",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f14",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"key_code": "left_option"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "right cmd -> right option",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f15",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"key_code": "left_option"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "right option -> right cmd",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "f16",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "open '/Users/yusuke/Applications/Chrome Apps.localized/Twitter.app'"
+						}
+					]
+				}
+			]
+		}
+
+	]
+}
