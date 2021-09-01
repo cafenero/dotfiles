@@ -9,8 +9,8 @@ vcs_info
 stty stop undef
 
 HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000000
+SAVEHIST=1000000
 zstyle ':completion:*:default' menu select
 zstyle ':completion:*' list-separator '-->'
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
