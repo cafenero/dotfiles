@@ -641,7 +641,22 @@
 (setq neo-show-hidden-files t)
 (setq neo-window-width 50)
 
-(global-set-key "\C-q" 'neotree-toggle)
+
+
+
+;; (global-set-key "\C-c q" 'neotree-toggle)
+;; ;; (global-set-key "\C-\;" 'neotree-toggle)
+;; (global-set-key [?\C-\;] 'neotree-toggle)
+;; ;;;;
+;; (global-set-key (kbd "C-1") 'neotree-toggle)
+;; (global-set-key (kbd "C-:") 'neotree-toggle)
+;; (global-set-key (kbd "C-\;") 'neotree-toggle)
+;; (global-set-key  (kbd "\C-1") 'neotree-toggle)
+(global-set-key  (kbd "\C-c q") 'neotree-toggle)
+
+
+
+
 ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (setq neo-theme 'icons)
 (bind-key "r" 'neotree-refresh neotree-mode-map)
