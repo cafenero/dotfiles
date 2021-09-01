@@ -155,8 +155,8 @@ case ${OSTYPE} in
 
 
         ## disable for pyenv
-        alias python=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/python3
-        alias pip=/usr/local/bin/../Cellar/python@3.8/3.8.6_2/bin/pip3
+        alias python=/usr/local/bin/python3
+        alias pip=/usr/local/bin/pip3
 
         ## debug
         ## export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
