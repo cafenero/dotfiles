@@ -74,6 +74,12 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export LESS="-R"
 export PATH=$PATH:${HOME}/bin
 
+# use jump command
+output=$(jump)
+if [ $? -ne 0 ]; then
+	eval "$(jump shell --bind=z)"
+fi
+
 ## prompt
 local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
 local PURPLE=$'%{\e[1;35m%}'
