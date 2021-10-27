@@ -223,7 +223,7 @@ case ${OSTYPE} in
         fi
 
         function cd(){
-            builtin cd $@ && gls -l --color;
+            builtin cd $@ && gls -l --color && pwd;
         }
 
         # needed at END line ?
@@ -250,7 +250,7 @@ case ${OSTYPE} in
         export PATH=$GOPATH/bin:$PATH
 
         function cd(){
-            builtin cd $@ && ls -l --color;
+            builtin cd $@ && ls -l --color && pwd;
         }
         # unix domain socket settings for screen
         agent="$HOME/.ssh-agent-`hostname`"
