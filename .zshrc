@@ -160,7 +160,8 @@ function __mssh() {
 	tmux new-window "exec ssh $1"
 	shift
 	for host in "$@"; do
-		tmux split-window -h "exec ssh $1"
+		# tmux split-window -h "exec ssh $1"
+		tmux split-window -h "exec ssh $host"
 		tmux resize-pane -L 100 > /dev/null
 		(( COUNT ++ ))
 		if [ $(( $COUNT % 5 )) -eq 0 ]; then
