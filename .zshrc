@@ -75,9 +75,10 @@ export LESS="-R"
 export PATH=$PATH:${HOME}/bin
 
 # use jump command
-output=$(jump)
-if [ $? -ne 0 ]; then
+output=$(jump 2> /dev/null)
+if [ $? -eq 0 ]; then
 	eval "$(jump shell --bind=z)"
+	# alias z="jump"
 fi
 
 
