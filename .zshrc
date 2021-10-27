@@ -31,7 +31,7 @@ setopt hist_reduce_blanks
 setopt hist_expand
 setopt brace_ccl
 setopt prompt_subst
-precmd() { vcs_info }
+# precmd() { vcs_info }
 
 
 # common alias
@@ -80,13 +80,46 @@ if [ $? -ne 0 ]; then
 	eval "$(jump shell --bind=z)"
 fi
 
+
+
+# ----------------------------------------------------------------
 ## prompt
+# ----------------------------------------------------------------
 local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
 local PURPLE=$'%{\e[1;35m%}'
 local RED=$'%{\e[38;5;88m%}'
 local ENDC=$'%{\e[m%}'
-PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
+# PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
+#  "
+function myspwd() {
+    sed -e 's/\(\/.\)[^\/]*/\1/g'
+}
+
+export MY_OPTION_SHORTEN_PATH=1
+function short() {
+    export MY_OPTION_SHORTEN_PATH=1
+}
+function sho() {
+    export MY_OPTION_SHORTEN_PATH=1
+}
+function long() {
+    export MY_OPTION_SHORTEN_PATH=0
+}
+function lo() {
+    export MY_OPTION_SHORTEN_PATH=0
+}
+
+function precmd() {
+ vcs_info
+ if [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
+        PROMPT=$(print -P "%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/" | sed -e 's/\(\/.\)[^\/]*/\1/g')
+        PROMPT="$PROMPT ${P_MARK} ${vcs_info_msg_0_}
  "
+    else
+        PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
+ "
+    fi
+}
 
 
 function _pwdd() { ls -d $PWD/$1; }
