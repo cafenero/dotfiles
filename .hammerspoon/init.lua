@@ -407,7 +407,7 @@ appsWatcher:start()
 
 -- Caps key to left ctrl
 -- looks not working
-remapKey({}, 'capslock', keyCode('ctrl'))
+-- remapKey({}, 'capslock', keyCode('ctrl'))
 
 
 
