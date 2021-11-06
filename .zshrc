@@ -92,34 +92,50 @@ local RED=$'%{\e[38;5;88m%}'
 local ENDC=$'%{\e[m%}'
 # PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
 #  "
-function myspwd() {
-    sed -e 's/\(\/.\)[^\/]*/\1/g'
-}
+
 
 export MY_OPTION_SHORTEN_PATH=1
 function short() {
-    export MY_OPTION_SHORTEN_PATH=1
+	sho
 }
 function sho() {
+    export MY_OPTION_SHORTEN_PATH=0
+}
+function middle() {
+	mi
+}
+function mi() {
     export MY_OPTION_SHORTEN_PATH=1
 }
 function long() {
-    export MY_OPTION_SHORTEN_PATH=0
+	lo
 }
 function lo() {
-    export MY_OPTION_SHORTEN_PATH=0
+    export MY_OPTION_SHORTEN_PATH=2
+}
+
+function MyPwdShorten() {
+	echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g'
+}
+function MyPwdLastDir() {
+	echo $1 | sed -e 's/.*\///g'
+}
+function MyPwdWithoutLastDir() {
+	_ret=$(echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g')
+	echo ${_ret:0:-1}
 }
 
 function precmd() {
- vcs_info
- if [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
-        PROMPT=$(print -P "%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/" | sed -e 's/\(\/.\)[^\/]*/\1/g')
-        PROMPT="$PROMPT ${P_MARK} ${vcs_info_msg_0_}
- "
-    else
-        PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
- "
+	vcs_info
+	if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
+		MYPWD=$(MyPwdShorten `print -P "%~"`)
+	elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
+		MYPWD=$(MyPwdWithoutLastDir `print -P "%~"`)$(MyPwdLastDir `print -P "%~"`)
+	else
+		MYPWD=$(print -P "%~")
     fi
+		PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} "'${vcs_info_msg_0_}
+ '
 }
 
 
