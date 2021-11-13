@@ -78,7 +78,6 @@ export PATH=$PATH:${HOME}/bin
 output=$(jump 2> /dev/null)
 if [ $? -eq 0 ]; then
 	eval "$(jump shell --bind=z)"
-	# alias z="jump"
 fi
 
 
@@ -90,9 +89,6 @@ local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
 local PURPLE=$'%{\e[1;35m%}'
 local RED=$'%{\e[38;5;88m%}'
 local ENDC=$'%{\e[m%}'
-# PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:%~/ ${P_MARK} "'${vcs_info_msg_0_}'"
-#  "
-
 
 export MY_OPTION_SHORTEN_PATH=1
 function short() {
@@ -134,10 +130,10 @@ function precmd() {
 	else
 		MYPWD=$(print -P "%~")
     fi
-		PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} "'${vcs_info_msg_0_}
- '
-}
+		PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
+ "
 
+}
 
 function _pwdd() { ls -d $PWD/$1; }
 
