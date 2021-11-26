@@ -4,6 +4,7 @@ declare -a dotfile_dir=(
     ".config"
     ".hammerspoon"
     ".iterm"
+    ".docker"
 )
 
 ## dotfiles
@@ -17,7 +18,5 @@ declare -a dotfile=(
     ".vimrc"
     ".git-completion.bash"
     ".git-prompt.sh"
-    ".docker/config.json"
-    ".docker/daemon.json"
     ".tigrc"
 )
