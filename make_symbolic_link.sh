@@ -1,21 +1,42 @@
 #!/bin/bash
 
-. target.sh
-
+. ./target.sh
 PWD=$(pwd)
+FLAG_FORCED=0
 
-for str in ${dotfile_dir[@]}; do
-    #echo "ln -s ${PWD}/${str} $HOME"
-    ln -s ${PWD}/${str} $HOME
+while getopts fad:h OPT
+do
+    case $OPT in
+        f)  FLAG_FORCED=1
+            ;;
+    esac
 done
 
+# file
 for str in ${dotfile[@]}; do
-    #echo "ln -s ${PWD}/${str} $HOME"
-    ln -s ${PWD}/${str} $HOME
+    if [ ${FLAG_FORCED} == 1 ]; then
+	echo "forced!!!"
+	rm $HOME/${str}
+	ln -s ${PWD}/${str} $HOME
+    else
+	ln -s ${PWD}/${str} $HOME
+    fi
 done
 
+# directory
+for str in ${dotfile_dir[@]}; do
+    if [ ${FLAG_FORCED} == 1 ]; then
+	echo "forced!!!"
+	rm -rf $HOME/${str}
+	ln -s ${PWD}/${str} $HOME
+    else
+	ln -s ${PWD}/${str} $HOME
+    fi
+done
+
+
+# etc
 if [ ! -e $HOME/.screen ]; then
     mkdir $HOME/.screen
+    chmod 700 $HOME/.screen
 fi
-
-chmod 700 $HOME/.screen
