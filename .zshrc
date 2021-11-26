@@ -253,6 +253,7 @@ case ${OSTYPE} in
         alias sudo='sudo -E '
 
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight
+        export PATH=$PATH:`find /usr/share/doc/git* -type d | grep diff-highlight | xargs echo | sed -e 's/ /:/g'`
         # export LC_ALL=C.UTF-8
         export LC_ALL=en_US.UTF-8
 
