@@ -23,7 +23,7 @@ zstyle ':zle:*' word-chars ' -_/=;@:{}[]()<>,|.'
 zstyle ':zle:*' word-style unspecified
 
 
-# bindkey "^[f" emacs-forward-word
+bindkey "^[f" emacs-forward-word
 
 # setopts
 setopt share_history
