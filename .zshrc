@@ -277,3 +277,45 @@ case ${OSTYPE} in
         fi
         ;;
 esac
+
+
+
+## experimental
+
+# alias gcd='ghq look `ghq list |fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
+# alias g='ghq get --look `ghq list |fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
+# alias g='ghq get --look `ghq list |fzf --preview `'
+
+# 使えるけど少し重い。しかも新しいシェルを開いてしまう。。
+# alias ga='ghq get --look `ghq list | fzf`'
+
+# OK
+# alias g='cd $(ghq root)/$(ghq list | fzf )'
+
+# export FZF_DEFAULT_OPTS='
+#   --color fg:124,bg:16,hl:202,fg+:214,bg+:52,hl+:231
+#   --color info:52,prompt:196,spinner:208,pointer:196,marker:208
+# '
+
+# OK
+# alias g='cd $(ghq root)/$(ghq list | fzf --preview "glow $(ghq root)/{}/README.*" )'
+# alias g='cd $(ghq root)/$(ghq list | fzf --preview "cat $(ghq root)/{}/README.*" )'
+alias g='cd $(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
+# alias g='cd $(ghq root)/$(ghq list | fzf --color=light,fg:232,bg:255,bg+:116,info:27 --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
+
+###### alias g='cd $(ghq root)/$(ghq list | peco)'
+
+
+## ghe.corpを開きたいのだが、、
+## github.comが開かれてしまう。
+# alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+
+
+
+# if (which zprof > /dev/null 2>&1) ;then
+#   zprof
+# fi
+
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
