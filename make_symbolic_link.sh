@@ -12,25 +12,30 @@ do
     esac
 done
 
+
+if [ ${FLAG_FORCED} == 1 ]; then
+	echo  "Forced overwrite!!! "
+fi
+
 # file
 for str in ${dotfile[@]}; do
+	echo "ln -s ${PWD}/${str} $HOME"
     if [ ${FLAG_FORCED} == 1 ]; then
-	echo "forced!!!"
-	rm $HOME/${str}
-	ln -s ${PWD}/${str} $HOME
+		rm $HOME/${str}
+		ln -s ${PWD}/${str} $HOME
     else
-	ln -s ${PWD}/${str} $HOME
+		ln -s ${PWD}/${str} $HOME
     fi
 done
 
 # directory
 for str in ${dotfile_dir[@]}; do
+	echo "ln -s ${PWD}/${str} $HOME"
     if [ ${FLAG_FORCED} == 1 ]; then
-	echo "forced!!!"
-	rm -rf $HOME/${str}
-	ln -s ${PWD}/${str} $HOME
+		rm -rf $HOME/${str}
+		ln -s ${PWD}/${str} $HOME
     else
-	ln -s ${PWD}/${str} $HOME
+		ln -s ${PWD}/${str} $HOME
     fi
 done
 
