@@ -106,6 +106,16 @@ function gw() {
 }
 
 
+# https://girigiribauer.com/tech/20170208/
+# function print_date() {
+function d() {
+  # zle -U `date "+%Y-%m-%d"`
+  zle -U `date "+%Y-%m-%d-%H-%M"`
+}
+zle -N d
+bindkey "^Xd" d
+
+
 # ----------------------------------------------------------------
 ## prompt
 # ----------------------------------------------------------------
