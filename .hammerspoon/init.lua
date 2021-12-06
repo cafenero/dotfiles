@@ -386,7 +386,7 @@ local function handleGlobalAppEvent(name, event, app)
    if event == hs.application.watcher.activated then
 --      hs.alert.show(name)
       if name == "iTerm2" then
-         disableAllHotkeys()
+--         disableAllHotkeys()
       elseif name == "terminus" then
          disableAllHotkeys()
       elseif name == "cool-retro-term" then
