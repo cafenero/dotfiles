@@ -2,7 +2,7 @@
 	"title": "My mod: right space to enter.",
     "rules": [
         {
-            "description": "右のキーボードのみ、spaceキーをenterキーとする。",
+            "description": "右のキーボードのみ、spaceキーを単独で押した場合はenterキーとする。",　
             "manipulators": [
                 {
 					"conditions": [
@@ -19,14 +19,14 @@
 						}
 					],
                     "from": {
-                        "key_code": "spacebar",
-                        "modifiers": {
-                            "optional": [
-                                "any"
-                            ]
-                        }
+                        "key_code": "spacebar"
                     },
                     "to": [
+                        {
+                            "key_code": "spacebar"
+                        }
+                    ],
+					"to_if_alone": [
                         {
                             "key_code": "return_or_enter"
                         }
