@@ -1,0 +1,46 @@
+
+
+
+// bc
+// c
+// commbcnd + control + Q
+
+{
+	"title": "My mod: sleep mac.",
+    "rules": [
+        {
+            "description": "Sleep mac: a -> b and c",
+            "manipulators": [
+                {
+					"type": "basic",
+                    "from": {
+							"key_code": "y",
+							"modifiers": {
+								"mandatory": ["left_command"]
+							}
+					},
+                    "to": [
+                        {
+                            "key_code": "b"
+                        },
+
+
+                        {
+							"key_code": "q",
+							"modifiers": {
+								"mandatory": ["left_command", "control"]
+							}
+
+                        },
+                        {
+                            "key_code": "c"
+                        }
+
+                    ]
+                }
+            ]
+        }
+
+
+    ]
+}

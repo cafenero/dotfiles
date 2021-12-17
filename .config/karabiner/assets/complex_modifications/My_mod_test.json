@@ -1,0 +1,26 @@
+{
+	"title": "Launch apps",
+	"rules": [
+		{
+			"description": "AAA test y -> date",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "y",
+						"modifiers": {
+							"optional": [
+								"any"
+							]
+						}
+					},
+					"to": [
+						{
+							"shell_command": "date'"
+						}
+					]
+				}
+			]
+		}
+	]
+}
