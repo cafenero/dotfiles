@@ -699,14 +699,14 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "spacebar",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
+                                    "key_code": "spacebar"
                                 },
                                 "to": [
+                                    {
+                                        "key_code": "spacebar"
+                                    }
+                                ],
+                                "to_if_alone": [
                                     {
                                         "key_code": "return_or_enter"
                                     }
