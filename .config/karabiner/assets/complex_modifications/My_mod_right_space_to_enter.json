@@ -1,0 +1,39 @@
+{
+	"title": "My mod: right space to enter.",
+    "rules": [
+        {
+            "description": "右のキーボードのみ、spaceキーをenterキーとする。",
+            "manipulators": [
+                {
+					"conditions": [
+						{
+
+							"type": "device_if",
+							"identifiers": [
+								{
+									"vendor_id": 1155,
+									"product_id": 20778,
+									"description": "66EC-S"
+								}
+							]
+						}
+					],
+                    "from": {
+                        "key_code": "spacebar",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "return_or_enter"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}
