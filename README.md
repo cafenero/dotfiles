@@ -1,7 +1,7 @@
 # dotfiles
 ## deploy dotfiles
 ```
- sh ./make_symbolic_link.sh
+./make_symbolic_link.sh
 ```
 ## add new dotfile
 add target dotfiles (or dotfile directory) to the array in
