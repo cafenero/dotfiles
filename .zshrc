@@ -337,7 +337,14 @@ esac
 # OK
 # alias g='cd $(ghq root)/$(ghq list | fzf --preview "glow $(ghq root)/{}/README.*" )'
 # alias g='cd $(ghq root)/$(ghq list | fzf --preview "cat $(ghq root)/{}/README.*" )'
-alias g='cd $(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
+
+if type bat > /dev/null 2>&1 ; then
+	alias g='cd $(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
+else
+	alias g='cd $(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )'
+fi
+
+
 # alias g='cd $(ghq root)/$(ghq list | fzf --color=light,fg:232,bg:255,bg+:116,info:27 --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
 
 ###### alias g='cd $(ghq root)/$(ghq list | peco)'
