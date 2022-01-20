@@ -583,6 +583,16 @@
 
 
 
+;; python
+(custom-set-variables
+  '(py-indent-offset 4)
+)
+(add-hook 'python-mode-hook
+  '(lambda()
+    (setq tab-width 4)
+    (setq indent-tabs-mode nil)
+  )
+)
 
 ;; ;; C-mode
 ;; (require 'flymake)
