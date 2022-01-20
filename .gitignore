@@ -21,3 +21,4 @@ gh/
 .emacs.d/persp-confs/
 .emacs.d/transient/history.el
 .emacs.d/url/cookies
+.emacs.d/network-security.data
