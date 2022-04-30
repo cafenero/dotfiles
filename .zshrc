@@ -67,6 +67,12 @@ alias gdd="gd | delta"
 alias pwdd='_pwdd'
 alias rp='realpath'
 alias mssh='_mssh'
+alias gp="git pull"
+
+# tweek aliases
+alias P4i='xvfb-run p4i'
+alias Tar="_Tar"
+
 
 # common export
 export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
@@ -148,7 +154,12 @@ function MyPwdShorten() {
 	echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g'
 }
 function MyPwdLastDir() {
-	echo $1 | sed -e 's/.*\///g'
+	if [[ "$1" == "/" ]]; then
+		# do nothing
+	else
+		echo $1 | sed -e 's/.*\///g'
+	fi
+
 }
 function MyPwdWithoutLastDir() {
 	_ret=$(echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g')
@@ -166,7 +177,6 @@ function precmd() {
     fi
 		PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
  "
-
 }
 
 function _pwdd() { ls -d $PWD/$1; }
@@ -219,7 +229,9 @@ function __mssh() {
 	#tmux select-layout even-vertical > /dev/null
 	#tmux select-layout even-horizontal > /dev/null
 }
-
+function _Tar() {
+    tar zcvf ${1}.tar.gz ${1}
+}
 
 case ${OSTYPE} in
     darwin*)
@@ -253,6 +265,10 @@ case ${OSTYPE} in
 
         # for golang
         export GOPATH=$HOME/go
+		export GO111MODULE=on
+
+		# for X11
+		export DISPLAY=:0
 
         # brew api token
         if [ -f ~/tokens/token_brew_api ];then
@@ -296,7 +312,18 @@ case ${OSTYPE} in
         # for golang
         export PATH=$PATH:/usr/local/go/bin
         export GOPATH=$HOME/go
+		export GO111MODULE=on
+
+
+
         export PATH=$GOPATH/bin:$PATH
+
+		# for my bin/
+		export PATH=$HOME/bin:$PATH
+
+		# for my dev env
+		export SDE=/home/ytatsumi/bf-sde-9.8.0
+
 
         function cd(){
             builtin cd $@ && ls -l --color && pwd;
@@ -317,40 +344,26 @@ esac
 
 
 
-## experimental
-
-# alias gcd='ghq look `ghq list |fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
-# alias g='ghq get --look `ghq list |fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
-# alias g='ghq get --look `ghq list |fzf --preview `'
-
-# 使えるけど少し重い。しかも新しいシェルを開いてしまう。。
-# alias ga='ghq get --look `ghq list | fzf`'
-
-# OK
-# alias g='cd $(ghq root)/$(ghq list | fzf )'
+## fzf
+export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf'
+if type bat > /dev/null 2>&1 ; then
+	alias g='cd $(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
+	# alias g='cd $(ghq root)/$(ghq list | fzf --preview  "export COLUMNS=$(($COLUMNS/4-2)); rich-readme.py $(ghq root)/{}/README.md" ) '
+else
+  	alias g='cd $(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )'
+	alias g='ghq get --look `ghq list |fzf --preview "cat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
+	# alias g='ghq get --look `ghq list |fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
+	# alias g='ghq get --look `ghq list |fzf --preview "glow --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
+	# alias g='ghq get --look `ghq list |fzf --preview `'
+fi
 
 # export FZF_DEFAULT_OPTS='
 #   --color fg:124,bg:16,hl:202,fg+:214,bg+:52,hl+:231
 #   --color info:52,prompt:196,spinner:208,pointer:196,marker:208
 # '
 
-# OK
-# alias g='cd $(ghq root)/$(ghq list | fzf --preview "glow $(ghq root)/{}/README.*" )'
-# alias g='cd $(ghq root)/$(ghq list | fzf --preview "cat $(ghq root)/{}/README.*" )'
 
-if type bat > /dev/null 2>&1 ; then
-	alias g='cd $(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
-else
-	alias g='cd $(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )'
-fi
-
-
-# alias g='cd $(ghq root)/$(ghq list | fzf --color=light,fg:232,bg:255,bg+:116,info:27 --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
-
-###### alias g='cd $(ghq root)/$(ghq list | peco)'
-
-
-## ghe.corpを開きたいのだが、、
+## gheを開きたいのだが、、
 ## github.comが開かれてしまう。
 # alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 
@@ -361,5 +374,8 @@ fi
 # fi
 
 
+if [ -f ~/.office.zsh ];then
+	source ~/.office.zsh
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

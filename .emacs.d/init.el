@@ -141,18 +141,83 @@
 ;; (add-hook 'go-mode-hook #'lsp)
 
 ;; or
-(use-package lsp-mode
-  :ensure t
-  :hook (
-         (go-mode . lsp-deferred)
-         (c-mode . lsp-deferred)
-         )
-  :commands (lsp lsp-deferred))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook (
+;;          (go-mode . lsp-deferred)
+;;          (c-mode . lsp-deferred)
+;;          )
+;;   :commands (lsp lsp-deferred))
 
 
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :commands lsp-ui-mode)
+
+
+
+
+
+(use-package lsp-mode)
+(use-package lsp-ui)
+
+(defun lsp-mode-init ()
+  (lsp)
+  (global-set-key (kbd "M-*") 'xref-pop-marker-stack)
+  (global-set-key (kbd "M-.") 'xref-find-definitions-other-window)
+  (global-set-key (kbd "M-/") 'xref-find-references)
+  )
+(add-hook 'go-mode-hook 'lsp-mode-init)
+
+;; lsp-ui config
+(setq lsp-ui-doc-enable t)
+(setq lsp-ui-doc-header t)
+(setq lsp-ui-doc-include-signature t)
+(setq lsp-ui-doc-max-width 150)
+(setq lsp-ui-doc-max-height 30)
+(setq lsp-ui-peek-enable t)
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
+
+;; (use-package ccls)
+;; (add-hook 'c-mode-hook 'lsp-mode-init)
+
+
+(use-package lsp-mode :commands lsp)
+(use-package lsp-ui :commands lsp-ui-mode)
+;; (use-package company-lsp :commands company-lsp)
+
+
+(setq ccls-executable "/usr/local/bin/ccls")
+
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
+;; (use-package ccls
+;;   :hook ((c-mode c++-mode objc-mode cuda-mode) .
+;;          (lambda () (require 'ccls) (lsp))))
+
+
+
+
+;; (use-package go-mode
+;;   :ensure t
+;;   :mode (("\\.go\\'" . go-mode))
+;;   :init
+;;   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
+
+;; ;; Language Server
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook
+;;   (go-mode . lsp-deferred)
+;;   :commands (lsp lsp-deferred))
+
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :commands lsp-ui-mode)
+
 
 
 
@@ -271,25 +336,35 @@
 ;; (global-set-key "\C-c 6" 'point-stack-pop)
 ;; (global-set-key "\C-c 7" 'point-stack-forward-stack-pop)
 
-;; experimantal
+
+
+;; not used.
+;; ;; experimantal
 (leaf autorevert
   :doc "revert buffers when files on disk change"
   :tag "builtin"
   :custom ((auto-revert-interval . 1))
   :global-minor-mode global-auto-revert-mode)
 
+;; (global-auto-revert-mode 1)
+
+
+
+
+
+
 ;; experimantal
-(leaf flycheck
-  :doc "On-the-fly syntax checking"
-  :req "dash-2.12.1" "pkg-info-0.4" "let-alist-1.0.4" "seq-1.11" "emacs-24.3"
-  :tag "minor-mode" "tools" "languages" "convenience" "emacs>=24.3"
-  :url "http://www.flycheck.org"
-  :emacs>= 24.3
-  :ensure t
-  ;; :bind (("M-n" . flycheck-next-error)
-  ;;        ("M-p" . flycheck-previous-error))
-  :global-minor-mode global-flycheck-mode)
-;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+;; (leaf flycheck
+;;   :doc "On-the-fly syntax checking"
+;;   :req "dash-2.12.1" "pkg-info-0.4" "let-alist-1.0.4" "seq-1.11" "emacs-24.3"
+;;   :tag "minor-mode" "tools" "languages" "convenience" "emacs>=24.3"
+;;   :url "http://www.flycheck.org"
+;;   :emacs>= 24.3
+;;   :ensure t
+;;   ;; :bind (("M-n" . flycheck-next-error)
+;;   ;;        ("M-p" . flycheck-previous-error))
+;;   :global-minor-mode global-flycheck-mode)
+;; ;; (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
 
 ;; experimantal
 (winner-mode)
@@ -423,10 +498,13 @@
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-%" 'replace-string)
-(global-set-key (kbd "M-g .")   'find-tag-regexp)
-(global-set-key (kbd "C-M-.")   'find-tag-next)
-(global-set-key (kbd "M-,")     'find-tag-other-window)
-(global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
+
+
+;; use lsp-mode !
+;; (global-set-key (kbd "M-g .")   'find-tag-regexp)
+;; (global-set-key (kbd "C-M-.")   'find-tag-next)
+;; (global-set-key (kbd "M-,")     'find-tag-other-window)
+;; (global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
 
 (global-set-key (kbd "\C-c w") 'rotate-window)
 (global-set-key (kbd "\C-c t") 'rotate:tiled)
@@ -613,9 +691,18 @@
   (defvar show-paren-delay 0)
   (show-paren-mode t)
   (defvar show-paren-style 'expression)
+
+
+
+
+
+  ;; error on start emacs, why???
   (set-face-background 'show-paren-match-face nil)
   (set-face-underline-p 'show-paren-match-face "blue")
   ;; (set-face-underline 'show-paren-match-face "blue")
+
+
+
 
   ;; (setq c-basic-offset 2)
   ;; (setq c-tab-always-indent nil)
@@ -667,8 +754,8 @@
 
 
 
-;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(setq neo-theme 'icons)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+;; (setq neo-theme 'icons)
 (bind-key "r" 'neotree-refresh neotree-mode-map)
 (define-key neotree-mode-map (kbd "i") #'neotree-enter-horizontal-split)
 (define-key neotree-mode-map (kbd "2") #'neotree-enter-horizontal-split)
@@ -747,3 +834,7 @@
 
 ;;; init.el ends here
 (global-set-key (kbd "C--") 'er/expand-region)
+
+;; Local Variables:
+;; byte-compile-warnings: (not cl-functions obsolete)
+;; End:
