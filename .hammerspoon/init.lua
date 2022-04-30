@@ -299,7 +299,7 @@ function toggle_mousefocus()
    end
 end
 
-hs.hotkey.bind({"cmd"}, "/", toggle_mousefocus)
+-- hs.hotkey.bind({"cmd"}, "/", toggle_mousefocus)
 
 
 hs.hotkey.bind({"cmd"}, "`", function()

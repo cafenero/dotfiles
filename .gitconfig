@@ -3,7 +3,24 @@
 [push]
 	default = matching
 [color]
+	# ui = true
 	ui = auto
+
+	[color "diff"]
+	# commit = 246 024
+	# commit = yellow bold
+	commit = yellow bold
+
+	# ファイル名
+	# meta = yellow bold
+	meta = yellow
+
+	# hunkの色
+	frag = 239 236
+
+	# 変更してない行の色
+  context = 240
+
 [core]
 	excludesfile = ~/.gitignore
 	editor = vim
@@ -32,3 +49,5 @@
 	rebase = false
 # [diff]
 #   external = ~/.my_diff.sh
+[init]
+	defaultBranch = master
