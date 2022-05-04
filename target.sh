@@ -19,4 +19,5 @@ declare -a dotfile=(
     ".git-completion.bash"
     ".git-prompt.sh"
     ".tigrc"
+	".init.sh"
 )
