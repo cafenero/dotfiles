@@ -9,7 +9,8 @@ case ${OS} in
              golang termshark fzf docker-compose
         wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb && rm jump_0.40.0_amd64.deb
         go install github.com/x-motemen/ghq
-        emacs -e 'package-refresh-contents' -e 'kill-emacs'
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        emacs -e 'package-refresh-contents' # -e 'kill-emacs'
         emacs -e 'package-install-selected-packages'
         # emacs -e 'package-install-selected-packages' -e 'y'
         ;;
@@ -17,6 +18,7 @@ case ${OS} in
         sudo yum install --enablerepo=epel -y \
              git emacs-nox tree vim tig ctags htop \
              kernel-doc mozc
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         if [ -e ~/tmux.tar.gz ]; then
             tar xf tmux.tar.gz
             cd tmux
