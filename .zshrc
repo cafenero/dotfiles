@@ -73,6 +73,8 @@ alias gp="git pull"
 alias P4i='xvfb-run p4i'
 alias Tar="_Tar"
 
+alias wake="wakeonlan fc:aa:14:29:a6:9"
+
 
 # common export
 export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
