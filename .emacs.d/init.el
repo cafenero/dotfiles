@@ -34,6 +34,20 @@
 
 (setq org-startup-folded t)
 
+;; my test
+(defun my()
+  (interactive)
+  (setq path "/sudo:root@localhost:/Users/user/README.md")
+  (setq path "/sudo:root@localhost:/Users/user/README.md")
+  (setq path "/sudoo:root@localhost:/Users/user/README.md")
+  (setq path "/sudo:root@localhost:/Users/user/README.md")
+  (setq path "/sudoo:root@loca/sudo:lhost:/Users/user/README.md")
+  (if (string-match "^/sudo:" path)
+      (message "hit")
+    (message "miss")
+    )
+)
+
 ;; experimantal
 (defun show-file-name ()
   (interactive)
