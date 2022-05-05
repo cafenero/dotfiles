@@ -35,14 +35,18 @@
 (setq org-startup-folded t)
 
 ;; experimantal
-;; my-sudo-mode
 (defun sudo()
   (interactive)
   (let ((pos (point)))
-        (message "open %s as root" buffer-file-name)
-        (find-file (concat "/sudo::" buffer-file-name))
-        (goto-char pos)
-        )
+    (if (string-match "^/sudo:" buffer-file-name)
+        ;; if already root, do nothing
+        (message "already sudo")
+      ;; open curret file as root
+      (message "open %s as root" buffer-file-name)
+      (find-file (concat "/sudo::" buffer-file-name))
+      (goto-char pos)
+      )
+    )
   )
 (provide 'sudo)
 ;; ->
