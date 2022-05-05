@@ -35,6 +35,12 @@
 (setq org-startup-folded t)
 
 ;; experimantal
+(defun show-file-name ()
+  (interactive)
+  (message (buffer-file-name)))
+(global-set-key "\C-cz" 'show-file-name)
+
+;; experimantal
 (defun sudo()
   (interactive)
   (let ((pos (point)))
