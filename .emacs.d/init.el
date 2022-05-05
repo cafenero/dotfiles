@@ -34,6 +34,39 @@
 
 (setq org-startup-folded t)
 
+;; experimantal
+;; my-sudo-mode
+(defun sudo()
+  (interactive)
+  (let ((pos (point)))
+        (message "open %s as root" buffer-file-name)
+        (find-file (concat "/sudo::" buffer-file-name))
+        (goto-char pos)
+        )
+  )
+(provide 'sudo)
+;; ->
+;; Reference:
+;; https://gist.github.com/kobapan/1e79bfe2d1e64f4faa8362c22e7e5e1e
+(defun find-file--sudo (orig-fun &optional filename &rest r)
+  (if (and (not (file-writable-p filename)) ; 書き込み権限がなかったら
+           (y-or-n-p (concat filename " is read-only. Open it as root? "))) ; y だったら
+      (sudo filename) ; /sudo:: で開く
+    (apply orig-fun `(,filename)) )) ; その他通常のfind-fileで開く
+(advice-add 'find-file :around #'find-file--sudo)
+
+(defun exp-file-sudo (&optional file)
+  "Open read-only FILE with sudo."
+  (interactive)
+  (if file ; find-fileから呼ばれたら
+      (find-file (concat "/sudo::" file)) ; /sudo:: で開く
+    (let ((pos (point)))
+      (find-alternate-file ; /sudo:: で開き直す
+       (concat "/sudo::" (or (buffer-file-name) list-buffers-directory)))
+      (goto-char pos))) ; カーソル位置復元
+  (rename-buffer (concat "sudo:" (buffer-name)))) ; バッファ名の先頭にsudo:を付ける
+;; --------------------------------------
+(provide 'exp-sudo)
 
 ;; experimantal
 (define-key isearch-mode-map (kbd "C-h") 'isearch-del-char)
