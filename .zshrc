@@ -302,7 +302,9 @@ case ${OSTYPE} in
         alias top='top -c'
         alias vmstat='vmstat -w'
         alias sys='cd /etc/sysconfig/network-scripts'
+
         alias sudo='sudo -E '
+        # alias sudo='sudo '
 
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight/diff-highlight
