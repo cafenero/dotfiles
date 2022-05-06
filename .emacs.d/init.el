@@ -883,6 +883,54 @@
 ;; (require 'dirtree)
 
 
+
+
+
+(add-hook 'p4lang-mode-hook
+  '(lambda()
+     ;; (setq tab-width 4)
+     ;; (setq indent-tabs-mode nil)
+     ;; (setq c-basic-offset 4)
+     (set (make-local-variable 'indent-line-function) 'p4_16-indent-line)
+
+
+     ;; (setq p4_16-constants
+     ;;       '(
+     ;;    ;;; Don't care
+     ;;         "_"
+     ;;    ;;; bool
+     ;;         "false" "true"
+     ;;    ;;; error
+     ;;         "NoError" "PacketTooShort" "NoMatch" "StackOutOfBounds"
+     ;;         "OverwritingHeader" "HeaderTooShort" "ParserTiimeout"
+     ;;    ;;; match_kind
+     ;;         "exact" "ternary" "lpm" "range"
+     ;;    ;;; We can add constants for supported architectures here
+     ;;         ))
+     ;; (setq p4_16-constants-regexp   (regexp-opt p4_16-constants  'words))
+     ;; (defconst p4_16-font-lock-keywords
+     ;;   (list
+     ;;    (cons p4_16-constants-regexp   font-lock-constant-face)
+     ;;    ))
+     ;; (set (make-local-variable 'font-lock-defaults) '(p4_16-font-lock-keywords))
+
+     ))
+
+
+;;
+;; p4lang-mode + indent fix
+;; or
+;; p4_16-mode + color fix
+;;
+
+(add-to-list 'load-path "~/.emacs.d/my-els")
+;; ;; https://github.com/p4lang/tutorials/blob/master/vm/p4_16-mode.el
+;; ;; from local file
+(require 'p4_16-mode)
+;; (add-to-list 'auto-mode-alist '("\\.p4\\'" . p4_16-mode))
+
+
+
 (provide 'init)
 
 ;; Local Variables:
