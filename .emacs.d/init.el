@@ -558,10 +558,10 @@
 
 
 ;; use lsp-mode !
-;; (global-set-key (kbd "M-g .")   'find-tag-regexp)
-;; (global-set-key (kbd "C-M-.")   'find-tag-next)
-;; (global-set-key (kbd "M-,")     'find-tag-other-window)
-;; (global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
+(global-set-key (kbd "M-g .")   'find-tag-regexp)
+(global-set-key (kbd "C-M-.")   'find-tag-next)
+(global-set-key (kbd "M-,")     'find-tag-other-window)
+(global-set-key (kbd "M-g M-.") 'anything-c-etags-select)
 
 (global-set-key (kbd "\C-c w") 'rotate-window)
 (global-set-key (kbd "\C-c t") 'rotate:tiled)
