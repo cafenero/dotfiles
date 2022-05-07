@@ -193,7 +193,7 @@
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 (add-hook 'text-mode-hook
-          '(lambda()
+          #'(lambda()
              ;; (setq show-trailing-whitespace t)
              (setq indent-tabs-mode nil)
              ))
@@ -203,7 +203,7 @@
 
 (require 'web-mode)
 (add-hook 'php-mode-hook
-  '(lambda()
+  #'(lambda()
      (setq tab-width 4)
      (setq indent-tabs-mode t)
      (setq c-basic-offset 4)
@@ -238,7 +238,7 @@
 ;; ;;(add-hook 'before-save-hook #'gofmt-before-save)
 ;; (add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook
-	  '(lambda ()
+	  #'(lambda ()
 		 (setq tab-width 4)
          ;;	 (save-place-mode 1)
          ;; (setq show-trailing-whitespace t)
@@ -246,7 +246,7 @@
 
 ;; (add-hook 'shell-script-mode-hook
 (add-hook 'shell-script-mode-hook
-          '(lambda ()
+          #'(lambda ()
 
              ;; (setq tab-width 40)
              ;; (setq show-trailing-whitespace t)
@@ -265,7 +265,7 @@
   '(py-indent-offset 4)
 )
 (add-hook 'python-mode-hook
-  '(lambda()
+  #'(lambda()
     (setq tab-width 4)
     (setq indent-tabs-mode nil)
   )
@@ -292,9 +292,16 @@
   (defvar show-paren-style 'expression)
 
   ;; error on start emacs, why???
-  (set-face-background 'show-paren-match-face nil)
-  (set-face-underline-p 'show-paren-match-face "blue")
+  ;; https://typeinf-memo.blogspot.com/2016/06/emacsshow-paren-match-faceremoved.html
+  ;; (set-face-background 'show-paren-match-face nil)
+  ;; (set-face-underline-p 'show-paren-match-face "blue")
   ;; (set-face-underline 'show-paren-match-face "blue")
+
+  (set-face-background 'show-paren-match nil)
+  (set-face-underline-p 'show-paren-match "blue")
+  (set-face-underline 'show-paren-match "blue")
+
+
 
   ;; (setq c-basic-offset 2)
   ;; (setq c-tab-always-indent nil)
@@ -316,7 +323,7 @@
 ;; (define-key mode-specific-map "c" 'compile)
 
 (add-hook 'p4lang-mode-hook
-  '(lambda()
+  #'(lambda()
      ;; (setq tab-width 4)
      ;; (setq indent-tabs-mode nil)
      ;; (setq c-basic-offset 4)
