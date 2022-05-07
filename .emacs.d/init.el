@@ -176,6 +176,7 @@
 ;; Saving buffer list to file.
 ;; Restoring buffer when restart emacs.
 (require 'save-visited-files)
+;; (setq save-visited-files-ignore-tramp-files t)
 (turn-on-save-visited-files-mode)
 
 
@@ -362,9 +363,10 @@
 
 
 
+(load-file "~/.emacs.d/my-els/my-langs.el")
 
-(add-to-list 'load-path "~/.emacs.d/my-els")
-(require 'my-langs)
+
+
 
 
 
