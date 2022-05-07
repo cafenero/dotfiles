@@ -292,6 +292,10 @@ case ${OSTYPE} in
 
         # needed at END line ?
         export PATH="/usr/local/sbin:$PATH"
+
+        # one time only
+        # https://mmazzarolo.com/blog/2022-04-16-drag-window-by-clicking-anywhere-on-macos/
+        # defaults write -g NSWindowShouldDragOnGesture -bool true
         ;;
     linux*)
         alias ls='ls --color'
