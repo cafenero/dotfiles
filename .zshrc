@@ -37,6 +37,7 @@ setopt prompt_subst
 # common alias
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
+alias EE="emacs -nw"
 alias e='emacsclient -t -a ""'
 alias wa='watch -c -n 1 -d '
 alias termshark='export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark'
