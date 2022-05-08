@@ -1,0 +1,63 @@
+{
+    "title": "My mod: Keynote settings.",
+    "rules": [
+        {
+            "description": "KeynoteでCmd+v -> Cmd+alt+vとする。",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.apple\\.iWork\\.Keynote$"
+                            ]
+                        }
+                    ],
+					"type": "basic",
+                    "from": {
+                        "key_code": "v",
+						"modifiers": {
+							"mandatory": ["left_command"]
+						}
+					},
+                    "to": [
+                        {
+                            "key_code": "v",
+                            "modifiers": ["left_command", "left_option", "left_shift"]
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "description": "KeynoteでCmd+alt+v -> Cmd+vとする。",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^com\\.apple\\.iWork\\.Keynote$"
+                            ]
+                        }
+                    ],
+					"type": "basic",
+                    "from": {
+                        "key_code": "v",
+						"modifiers": {
+							"mandatory": ["left_command", "left_option", "left_shift"]
+						}
+					},
+                    "to": [
+                        {
+                            "key_code": "v",
+                            "modifiers": ["left_command"]
+                        }
+                    ]
+                }
+            ]
+        }
+
+    ]
+}
