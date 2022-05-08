@@ -17,7 +17,7 @@ function resize_window_4()
   f.h = max.h
   win:setFrame(f)
 end
-hs.hotkey.bind({"cmd"}, "4", resize_window_4)
+-- hs.hotkey.bind({"cmd"}, "4", resize_window_4)
 
 function resize_window_5()
   local win = hs.window.focusedWindow()
@@ -32,7 +32,7 @@ function resize_window_5()
   f.h = max.h * (2/4)
   win:setFrame(f)
 end
-hs.hotkey.bind({"cmd"}, "5", resize_window_5)
+-- hs.hotkey.bind({"cmd"}, "5", resize_window_5)
 
 -- mouseCircle = nil
 mouseCircleTimer = nil
