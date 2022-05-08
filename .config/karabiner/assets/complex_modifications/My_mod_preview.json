@@ -1,0 +1,31 @@
+{
+    "title": "My mod: preview settings for 1password shortcut swap.",
+    "rules": [
+        {
+        "description": "Previewで1passwordのshotcutを迂回するために、Cmd+1をSystem Preference/keyboard/ShortcutsでCmd+4に変更した。これをkarabiner-elementsでCmd+1から叩く。",
+        "manipulators": [
+            {
+            "conditions": [
+                {
+                "type": "frontmost_application_if",
+                "bundle_identifiers": ["^com\\.apple\\.Preview$"]
+            }
+            ],
+            "type": "basic",
+            "from": {
+                "key_code": "1",
+                "modifiers": {
+                    "mandatory": ["left_command"]
+                }
+            },
+            "to": [
+                {
+                "key_code": "4",
+                "modifiers": ["left_command"]
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}
