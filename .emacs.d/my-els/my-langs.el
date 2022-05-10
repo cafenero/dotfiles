@@ -19,7 +19,7 @@
    (if linum-mode 0 t)))
 (define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; (add-hook 'prog-mode-hook 'yafolding-mode)
 
 
@@ -93,8 +93,8 @@
 ;; (setq lsp-keymap-prefix "s-l")
 (setq lsp-keymap-prefix "C-c C-l")
 
-(use-package lsp-mode)
-(use-package lsp-ui)
+;; (use-package lsp-mode)
+;; (use-package lsp-ui)
 
 (defun lsp-mode-init ()
   (lsp)
@@ -116,16 +116,22 @@
 ;; (use-package ccls)
 ;; (add-hook 'c-mode-hook 'lsp-mode-init)
 
-(use-package lsp-mode :commands lsp)
-(use-package lsp-ui :commands lsp-ui-mode)
-;; (use-package company-lsp :commands company-lsp)
 
 
-(setq ccls-executable "/usr/local/bin/ccls")
+;; (use-package lsp-mode :commands lsp)
+;; (use-package lsp-ui :commands lsp-ui-mode)
+;; ;; (use-package company-lsp :commands company-lsp)
 
-(use-package ccls
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
+
+;; (setq ccls-executable "/usr/local/bin/ccls")
+
+;; (use-package ccls
+;;   :hook ((c-mode c++-mode objc-mode cuda-mode) .
+;;          (lambda () (require 'ccls) (lsp))))
+
+
+
+
 
 ;; (use-package ccls
 ;;   :hook ((c-mode c++-mode objc-mode cuda-mode) .
@@ -182,7 +188,6 @@
 ;; lang mode
 ;; ----------------------------------------------------------------
 
-
 (require 'pcap-mode)
 (bind-key "RET" 'pcap-mode-view-pkt-contents pcap-mode-map)
 
@@ -199,7 +204,7 @@
              ))
 ;; (add-to-list 'auto-mode-alist '("\\.txt\\'" . text-mode))
 
-(require 'php-mode)
+;; (require 'php-mode)
 
 (require 'web-mode)
 (add-hook 'php-mode-hook
@@ -238,11 +243,11 @@
 ;; ;;(add-hook 'before-save-hook #'gofmt-before-save)
 ;; (add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook
-	  #'(lambda ()
-		 (setq tab-width 4)
-         ;;	 (save-place-mode 1)
+      #'(lambda ()
+         (setq tab-width 4)
+         ;;  (save-place-mode 1)
          ;; (setq show-trailing-whitespace t)
-	  ))
+      ))
 
 ;; (add-hook 'shell-script-mode-hook
 (add-hook 'shell-script-mode-hook
@@ -322,13 +327,35 @@
 ;; (add-hook 'c++-mode-hook 'my-c-c++-mode-init)
 ;; (define-key mode-specific-map "c" 'compile)
 
+
+
+
+
+
+
+
+
+;;
+;; p4lang-mode + indent fix  -> コメントアウトがずれる。。直せない。。
+;; or
+;; p4_16-mode + color fix -> color fixを自前でかなり頑張った。
+;;
+
+;; ----------------------------------------------------------------
+;; p4 lang mode 1 (p4lang-mode)
+;; ----------------------------------------------------------------
 (add-hook 'p4lang-mode-hook
   #'(lambda()
      ;; (setq tab-width 4)
      ;; (setq indent-tabs-mode nil)
      ;; (setq c-basic-offset 4)
-     (set (make-local-variable 'indent-line-function) 'p4_16-indent-line)
 
+     ;; this is needed!!!
+
+     ;; but this move cursol when // input
+     ;; (set (make-local-variable 'indent-line-function) 'p4_16-indent-line)
+
+     (set 'indent-line-function 'p4_16-indent-line)
 
      ;; (setq p4_16-constants
      ;;       '(
@@ -349,19 +376,58 @@
      ;;    (cons p4_16-constants-regexp   font-lock-constant-face)
      ;;    ))
      ;; (set (make-local-variable 'font-lock-defaults) '(p4_16-font-lock-keywords))
-
      ))
-;;
-;; p4lang-mode + indent fix
-;; or
-;; p4_16-mode + color fix
-;;
-(add-to-list 'load-path "~/.emacs.d/my-els")
-;; ;; https://github.com/p4lang/tutorials/blob/master/vm/p4_16-mode.el
-;; ;; from local file
-(require 'p4_16-mode)
-;; (add-to-list 'auto-mode-alist '("\\.p4\\'" . p4_16-mode))
 
+
+
+
+
+
+
+
+;; ----------------------------------------------------------------
+;; p4 lang mode 2 (p4_16-mode)
+;; ----------------------------------------------------------------
+
+(add-to-list 'load-path "~/.emacs.d/my-els")
+
+;; https://github.com/p4lang/tutorials/blob/master/vm/p4_16-mode.el
+;; from local file
+(require 'p4_16-mode)
+
+;; mod from original
+(setq p4_16-attributes
+      (append p4_16-attributes (list "size")))
+
+(setq p4_16-attributes-regexp  (regexp-opt p4_16-attributes 'words))
+
+
+(setq p4_16-font-lock-keywords
+      (append (list
+               ;; re-add
+               (cons p4_16-attributes-regexp  font-lock-string-face)
+               (cons p4_16-keywords-regexp    font-lock-keyword-face)
+               ;; (cons p4_16-keywords-regexp    font-lock-type-face)
+               (cons "\\(\\w*_h +\\)"      font-lock-type-face)
+               (cons "\\(\\w*_t\\[[0-9]+\\] +\\)"      font-lock-type-face)
+               (cons "\\(\\w+\\) *("      font-lock-type-face)
+               (cons "\\(\\w+\\) *{"      font-lock-function-name-face)
+               )
+              p4_16-font-lock-keywords)
+      )
+
+(add-to-list 'auto-mode-alist '("\\.p4\\'" . p4_16-mode))
+
+
+
+
+
+
+
+
+;; ----------------------------------------------------------------
+;; markdown-preview-mode settings
+;; ----------------------------------------------------------------
 
 (require 'markdown-preview-mode)
 ;; $ brew install pandoc
@@ -376,3 +442,199 @@
        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/highlight.min.js"
        "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
        ))
+
+
+
+
+
+
+
+
+;; ----------------------------------------------------------------
+;; white space eliminator settings
+;; ----------------------------------------------------------------
+
+(setq-default show-trailing-whitespace t)
+;; https://qiita.com/tadsan/items/df73c711f921708facdc
+
+(defun my/disable-trailing-mode-hook ()
+  "Disable show tail whitespace."
+  (setq show-trailing-whitespace nil))
+(defvar my/disable-trailing-modes
+  '(comint-mode
+    eshell-mode
+    eww-mode
+    term-mode
+    buffer-mode
+    view-mode
+    Buffer-menu-mode
+    help-mode
+    view-mode
+    ;; quickrun--mode
+    twittering-mode))
+(mapc
+ (lambda (mode)
+   (add-hook (intern (concat (symbol-name mode) "-hook"))
+             'my/disable-trailing-mode-hook))
+ my/disable-trailing-modes)
+
+
+
+;; ;; モダンなやり方
+;; ;; https://cortyuming.hateblo.jp/entry/2016/07/17/160238
+;; ;; test
+;; ;; 全角スペースを強制表示する
+;; (require 'whitespace)
+;; (setq whitespace-style '(
+;;                          ;; face
+;;                          ;; trailing
+;;                          ;; tabs
+
+;;                          ;; space-mark
+;;                          ;; tab-mark
+;;                          face
+;;                          spaces
+;;                          trailing
+
+;;                          ;;spaces
+;;                          ;;empty
+;;                          ;;space-mark
+;;                          ;;tab-mark
+;;                          ))
+
+;; ;; (setq whitespace-display-mappings
+;; ;;       '((space-mark ?\u3000 [?\u25a1])
+;; ;;         (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
+
+
+;; ;; (setq whitespace-space-regexp "\\(\u3000+\\)")
+
+
+;; ;; (setq whitespace-display-mappings
+;; ;;       '(
+;; ;;         ;; (space-mark   ?\     [?\u00B7]     [?.]) ; space - centered dot
+;; ;;         (space-mark   ?\xA0  [?\u00A4]     [?_]) ; hard space - currency
+;; ;;         (space-mark   ?\x8A0 [?\x8A4]      [?_]) ; hard space - currency
+;; ;;         (space-mark   ?\x920 [?\x924]      [?_]) ; hard space - currency
+;; ;;         (space-mark   ?\xE20 [?\xE24]      [?_]) ; hard space - currency
+;; ;;         (space-mark   ?\xF20 [?\xF24]      [?_]) ; hard space - currency
+;; ;;         (space-mark ?\u3000 [?\u25a1] [?_ ?_]) ; full-width-space - square
+;; ;;         ;; NEWLINE is displayed using the face `whitespace-newline'
+;; ;;         ;; (newline-mark ?\n    [?$ ?\n])  ; eol - dollar sign
+;; ;;         ;; (newline-mark ?\n    [?\u21B5 ?\n] [?$ ?\n])   ; eol - downwards arrow
+;; ;;         ;; (newline-mark ?\n    [?\u00B6 ?\n] [?$ ?\n])   ; eol - pilcrow
+;; ;;         ;; (newline-mark ?\n    [?\x8AF ?\n]  [?$ ?\n])   ; eol - overscore
+;; ;;         ;; (newline-mark ?\n    [?\x8AC ?\n]  [?$ ?\n])   ; eol - negation
+;; ;;         ;; (newline-mark ?\n    [?\x8B0 ?\n]  [?$ ?\n])   ; eol - grade
+;; ;;         ;;
+;; ;;         ;; WARNING: the mapping below has a problem.
+;; ;;         ;; When a TAB occupies exactly one column, it will display the
+;; ;;         ;; character ?\xBB at that column followed by a TAB which goes to
+;; ;;         ;; the next TAB column.
+;; ;;         ;; If this is a problem for you, please, comment the line below.
+;; ;;         (tab-mark     ?\t    [?\u00BB ?\t] [?\\ ?\t]) ; tab - left quote mark
+;; ;;         ))
+
+
+
+;; ;; whitespace-spaceの定義を全角スペースにし、色をつけて目立たせる
+;; (setq whitespace-space-regexp "\\(\u3000+$\\)")
+
+;; (set-face-foreground 'whitespace-space "cyan")
+;; ;; (set-face-background 'whitespace-space 'nil)
+;; ;; ;; whitespace-trailingを色つきアンダーラインで目立たせる
+;; ;; (set-face-underline  'whitespace-trailing t)
+;; ;; (set-face-foreground 'whitespace-trailing "cyan")
+;; ;; (set-face-background 'whitespace-trailing 'nil)
+
+
+;;   (set-face-attribute 'whitespace-trailing nil
+;;                       :foreground "LightGoldenrodYellow"
+;;                       :background "LightGoldenrodYellow"
+;;                       :underline nil)
+
+
+;; (global-whitespace-mode 1)
+
+
+
+
+
+
+
+
+;; 古典的なやり方
+;; https://fromatom.hatenablog.com/entry/2014/06/09/154344
+;;; タブ, スペース, 全角スペースを表示する
+;;;
+;; (defface my-face-b-1 '((t (:background "gray15"))) nil)
+(defface my-face-b-1 '((t (:background "red"))) nil)
+
+(defface my-face-b-2 '((t (:background "gray26"))) nil)
+(defface my-face-u-1 '((t (:foreground "SteelBlue" :underline t))) nil)
+(defvar my-face-b-1 'my-face-b-1)
+(defvar my-face-b-2 'my-face-b-2)
+(defvar my-face-u-1 'my-face-u-1)
+(defadvice font-lock-mode (before my-font-lock-mode ())
+(font-lock-add-keywords major-mode '(
+                                     ;; ("\t" 0 my-face-b-2 append)
+                                     ;; ("　" 0 my-face-b-1 append)
+                                     ("　+$" 0 my-face-b-1 append)
+                                     ;; ("[ \t]+$" 0 my-face-u-1 append)
+                                     )
+                        ))
+(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
+(ad-activate 'font-lock-mode)
+
+
+
+
+
+
+;; (require 'whitespace)
+;; (setq whitespace-style '(face           ; faceで可視化
+;;                          trailing       ; 行末
+;;                          tabs           ; タブ
+;;                          spaces         ; スペース
+;;                          empty          ; 先頭/末尾の空行
+;;                          space-mark     ; 表示のマッピング
+;;                          tab-mark
+;;                          ))
+
+;; (setq whitespace-display-mappings
+;;       '(
+;;         ;; (space-mark ?\u3000 [?\u25a1])
+;;         ;; WARNING: the mapping below has a problem.
+;;         ;; When a TAB occupies exactly one column, it will display the
+;;         ;; character ?\xBB at that column followed by a TAB which goes to
+;;         ;; the next TAB column.
+;;         ;; If this is a problem for you, please, comment the line below.
+;;         (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
+
+;; ;; スペースは全角のみを可視化
+;; (setq whitespace-space-regexp "\\(\u3000+\\)")
+
+;; ;; 保存前に自動でクリーンアップ
+;; (setq whitespace-action '(auto-cleanup))
+
+;; (global-whitespace-mode 1)
+
+;; (defvar my/bg-color "#232323")
+;; (set-face-attribute 'whitespace-trailing nil
+;;                     :background my/bg-color
+;;                     :foreground "DeepPink"
+;;                     :underline t)
+;; (set-face-attribute 'whitespace-tab nil
+;;                     :background my/bg-color
+;;                     :foreground "LightSkyBlue"
+;;                     :underline t)
+;; (set-face-attribute 'whitespace-space nil
+;;                     :background my/bg-color
+;;                     :foreground "GreenYellow"
+;;                     :weight 'bold)
+;; (set-face-attribute 'whitespace-empty nil
+;;                     :background my/bg-color)
+
+
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
