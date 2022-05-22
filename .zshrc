@@ -73,6 +73,8 @@ alias gp="git pull"
 # tweek aliases
 alias P4i='xvfb-run p4i'
 alias Tar="_Tar"
+alias Gh-pr-merge="gh pr merge -r -d"
+alias Gh-pr-create=" gh pr create -f"
 
 alias wake="wakeonlan fc:aa:14:29:a6:9"
 
