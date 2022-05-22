@@ -34,6 +34,26 @@
   (load custom-file))
 
 
+(defun my-allinstall()
+  ;;   "All install package."
+  (interactive)
+  (package-refresh-contents)
+  (package-install-selected-packages)
+
+  ;; (package-install-selected-packages)
+  ;; (y-or-n-p-with-timeout "hoge" 1 yes)
+
+  ;; (y-or-n-p-with-timeout "Proceed 1? " 3 nil)
+  ;; (y-or-n-p-with-timeout "Proceed 2? " 3 t)
+
+  ;; (package-install-selected-packages)
+  ;; (y-or-n-p-with-timeout "Proceed 3? " 2 t)
+
+  ;; NG...
+  ;; (package-install-selected-packages t)
+
+  )
+(provide 'my-allinstall)
 
 
 ;;;; key bind
