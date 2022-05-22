@@ -320,6 +320,13 @@ case ${OSTYPE} in
             echo sudo chmod 755 $TMP_PATH_GIT_DIFF_HIGHLIGHT
             sudo chmod 755 $TMP_PATH_GIT_DIFF_HIGHLIGHT
         fi
+        # if "make" necessary
+        if [[ ! -e "${TMP_PATH_GIT_DIFF_HIGHLIGHT}" ]] && [[ -e "/usr/share/doc/git/contrib/diff-highlight/Makefile" ]]; then
+            echo cd /usr/share/doc/git/contrib/diff-highlight/
+            echo sudo make
+            cd /usr/share/doc/git/contrib/diff-highlight/
+            sudo make
+        fi
 
         export PATH=$PATH:`find /usr/share/doc/git* -type d | grep diff-highlight | xargs echo | sed -e 's/ /:/g'`
         # export LC_ALL=C.UTF-8
