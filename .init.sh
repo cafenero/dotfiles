@@ -3,16 +3,27 @@
 OS=$(head -n 1 /etc/os-release)
 case ${OS} in
     *Ubuntu*)
+        # general packages
         sudo apt -y install \
              git emacs-nox tree vim tig ctags htop \
              linux-doc tmux emacs-mozc \
              golang termshark fzf docker-compose
         wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb && rm jump_0.40.0_amd64.deb
+
+        # tools: gh, ghq, tmux
+        # see https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+        sudo apt update
+        sudo apt install gh
         go install github.com/x-motemen/ghq
 		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-        emacs -e 'package-refresh-contents' # -e 'kill-emacs'
-        emacs -e 'package-install-selected-packages'
-        # emacs -e 'package-install-selected-packages' -e 'y'
+
+        # dev packages
+        sudo apt -y install autoconf autogen autopoint libglib2.0-dev libtool xsltproc libsemanage-dev make bison gettext
+
+        # emacs init
+        emacs -e 'my-allinstall' -e 'kill-emacs'
         ;;
     *CentOS*)
         sudo yum install --enablerepo=epel -y \
