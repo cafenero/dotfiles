@@ -313,7 +313,12 @@ case ${OSTYPE} in
 
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight/diff-highlight
-        # chmod 755 /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+        TMP_PATH_GIT_DIFF_HIGHLIGHT=/usr/share/doc/git/contrib/diff-highlight/diff-highlight
+        if [[ -e "${TMP_PATH_GIT_DIFF_HIGHLIGHT}" ]] && [[ ! -x "${TMP_PATH_GIT_DIFF_HIGHLIGHT}" ]]; then
+            echo sudo chmod 755 $TMP_PATH_GIT_DIFF_HIGHLIGHT
+            sudo chmod 755 $TMP_PATH_GIT_DIFF_HIGHLIGHT
+        fi
+
         export PATH=$PATH:`find /usr/share/doc/git* -type d | grep diff-highlight | xargs echo | sed -e 's/ /:/g'`
         # export LC_ALL=C.UTF-8
         export LC_ALL=en_US.UTF-8
