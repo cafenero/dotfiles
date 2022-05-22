@@ -5,10 +5,16 @@ case ${OS} in
     *Ubuntu*)
         # general packages
         sudo apt -y install \
-             git emacs-nox tree vim tig ctags htop \
+             emacs-nox tree vim tig ctags htop \
              linux-doc tmux emacs-mozc \
              termshark fzf docker-compose
         wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb && rm jump_0.40.0_amd64.deb
+
+        # install latest git
+        sudo add-apt-repository -y ppa:git-core/ppa
+        sudo apt update
+        sudo apt -y install git
+
 
         # golang
         sudo add-apt-repository -y ppa:longsleep/golang-backports
