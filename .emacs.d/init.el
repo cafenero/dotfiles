@@ -19,6 +19,10 @@
 ;; "\M-p" 'winner-undo
 ;; "\M-n" 'winner-redo
 ;; C-s C-w, M-s o ;; On cursor word search
+;;
+;; color
+;; list-faces-display
+;; list-color-display
 
 ;; describe-mode
 
@@ -305,7 +309,8 @@
 (defface my-hl-line-face
 		 '(
 		   (( (class color) (background dark))
-			(:background "NavyBlue" t))
+			;; (:background "NavyBlue" t))
+			(:background "color-17" t))
 		   (((class color) (background light) )
 			 (:background "LightGoldenrodYellow" t))
 		   (t (:bold t)))
