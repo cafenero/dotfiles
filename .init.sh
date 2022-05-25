@@ -7,7 +7,7 @@ case ${OS} in
         sudo apt -y install \
              emacs-nox tree vim tig ctags htop \
              linux-doc tmux emacs-mozc \
-             termshark fzf docker-compose
+             termshark fzf docker-compose jq
         wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb && rm jump_0.40.0_amd64.deb
 
         # install latest git
