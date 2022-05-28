@@ -22,3 +22,4 @@ gh/
 .emacs.d/transient/history.el
 .emacs.d/url/cookies
 .emacs.d/network-security.data
+.emacs.d/tramp
