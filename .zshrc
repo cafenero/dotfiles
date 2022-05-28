@@ -69,6 +69,7 @@ alias pwdd='_pwdd'
 alias rp='realpath'
 alias mssh='_mssh'
 alias gp="git pull"
+alias gr="git remote -v"
 
 # tweek aliases
 alias P4i='xvfb-run p4i'
