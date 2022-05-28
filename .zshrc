@@ -348,6 +348,10 @@ case ${OSTYPE} in
 		export SDE=$HOME/bf-sde-0.0.0
 
 
+        # adding me to  docker group if not in the group
+        # sudo gpasswd -a `whoami` docker
+        # sudo systemctl restart docker
+
         function cd(){
             builtin cd $@ && ls -l --color && pwd;
         }
