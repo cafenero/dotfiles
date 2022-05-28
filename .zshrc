@@ -17,13 +17,13 @@ zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
 
 
 
-autoload -Uz select-word-style
-select-word-style default
-zstyle ':zle:*' word-chars ' -_/=;@:{}[]()<>,|.'
-zstyle ':zle:*' word-style unspecified
+# autoload -Uz select-word-style
+# select-word-style default
+# zstyle ':zle:*' word-chars ' -_/=;@:{}[]()<>,|.'
+# zstyle ':zle:*' word-style unspecified
 
 
-bindkey "^[f" emacs-forward-word
+# bindkey "^[f" emacs-forward-word
 
 # setopts
 setopt share_history
@@ -31,6 +31,7 @@ setopt hist_reduce_blanks
 setopt hist_expand
 setopt brace_ccl
 setopt prompt_subst
+setopt +o nomatch
 # precmd() { vcs_info }
 
 
