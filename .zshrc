@@ -77,6 +77,7 @@ alias P4i='xvfb-run p4i'
 alias Tar="_Tar"
 alias Gh-pr-merge="gh pr merge -r -d"
 alias Gh-pr-create=" gh pr create -f"
+alias g='_fzf_ghq'
 
 alias wake="wakeonlan fc:aa:14:29:a6:9"
 
@@ -240,6 +241,25 @@ function _Tar() {
     tar zcvf ${1}.tar.gz ${1}
 }
 
+function _fzf_ghq() {
+    FZF_GHQ_CURRENT_PATH=`pwd`
+
+    if type bat > /dev/null 2>&1 ; then
+        FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
+    else
+        FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
+        # FZF_GHQ_PATH=$(ghq get --look `ghq list |fzf --preview "cat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*`)
+    fi
+
+    if [ $? == 0 ]; then
+        # echo "change path"
+        cd $FZF_GHQ_PATH
+    else
+        # echo "keep path"
+        cd $FZF_GHQ_CURRENT_PATH > /dev/null
+    fi
+}
+
 case ${OSTYPE} in
     darwin*)
         alias ls='gls --color'
@@ -375,17 +395,6 @@ esac
 
 ## fzf
 export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf'
-if type bat > /dev/null 2>&1 ; then
-	alias g='cd $(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )'
-	# alias g='cd $(ghq root)/$(ghq list | fzf --preview  "export COLUMNS=$(($COLUMNS/4-2)); rich-readme.py $(ghq root)/{}/README.md" ) '
-else
-  	alias g='cd $(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )'
-	alias g='ghq get --look `ghq list |fzf --preview "cat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
-	# alias g='ghq get --look `ghq list |fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
-	# alias g='ghq get --look `ghq list |fzf --preview "glow --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*"`'
-	# alias g='ghq get --look `ghq list |fzf --preview `'
-fi
-
 # export FZF_DEFAULT_OPTS='
 #   --color fg:124,bg:16,hl:202,fg+:214,bg+:52,hl+:231
 #   --color info:52,prompt:196,spinner:208,pointer:196,marker:208
