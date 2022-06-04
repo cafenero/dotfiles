@@ -1,6 +1,6 @@
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
-  hs.alert.show("Hello World!")
-end)
+-- hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
+--   hs.alert.show("Hello World!")
+-- end)
 
 
 function resize_window_4()
@@ -11,13 +11,16 @@ function resize_window_4()
 
   -- delta = 20
   delta = 0
-  f.x = max.x + delta
+  -- f.x = max.x + delta
+  f.x = max.x
   f.y = max.y
-  f.w = max.w - delta
+  -- f.w = max.w - delta
+  f.w = max.w
   f.h = max.h
   win:setFrame(f)
 end
 -- hs.hotkey.bind({"cmd"}, "4", resize_window_4)
+hs.hotkey.bind({"alt"}, "4", resize_window_4)
 
 function resize_window_5()
   local win = hs.window.focusedWindow()
@@ -33,6 +36,7 @@ function resize_window_5()
   win:setFrame(f)
 end
 -- hs.hotkey.bind({"cmd"}, "5", resize_window_5)
+hs.hotkey.bind({"alt"}, "5", resize_window_5)
 
 -- mouseCircle = nil
 mouseCircleTimer = nil
