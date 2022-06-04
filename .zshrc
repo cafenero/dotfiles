@@ -50,6 +50,7 @@ alias gl='git log --graph'
 alias pwdd='_pwdd'
 alias s='send.sh'
 alias d="docker"
+alias grv="git remote -v"
 
 if type kubectl > /dev/null 2>&1 ; then
 	alias k="kubectl"
