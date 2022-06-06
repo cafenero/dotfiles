@@ -51,6 +51,7 @@ alias pwdd='_pwdd'
 alias s='send.sh'
 alias d="docker"
 alias grv="git remote -v"
+alias watch="watch --color"
 
 if type kubectl > /dev/null 2>&1 ; then
 	alias k="kubectl"
@@ -79,6 +80,7 @@ alias Tar="_Tar"
 alias Gh-pr-merge="gh pr merge -r -d"
 alias Gh-pr-create=" gh pr create -f"
 alias g='_fzf_ghq'
+alias gg='ghq get -l'
 
 alias wake="wakeonlan fc:aa:14:29:a6:9"
 
