@@ -3,20 +3,33 @@
 -- end)
 
 
+-- function resize_window_4()
+--   local win = hs.window.focusedWindow()
+--   local f = win:frame()
+--   local screen = win:screen()
+--   local max = screen:frame()
+
+--   -- 3840 * 2160 => 1920 * 1080
+--   f.x = max.w / 4
+--   f.y = max.h / 4
+--   f.w = max.w * (2/4)
+--   f.h = max.h * (2/4)
+--   win:setFrame(f)
+-- end
+
 function resize_window_4()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
 
-  -- 3840 * 2160 => 1920 * 1080
-  f.x = max.w / 4
-  f.y = max.h / 4
-  f.w = max.w * (2/4)
-  f.h = max.h * (2/4)
+  -- 3840 * 2160 => 480 * 2160
+  f.x = 0
+  f.y = 0
+  f.w = max.w * (1/8)
+  f.h = max.h
   win:setFrame(f)
 end
--- hs.hotkey.bind({"cmd"}, "5", resize_window_5)
 hs.hotkey.bind({"alt"}, "4", resize_window_4)
 
 
@@ -36,7 +49,6 @@ function resize_window_5()
   f.h = max.h
   win:setFrame(f)
 end
--- hs.hotkey.bind({"cmd"}, "4", resize_window_4)
 hs.hotkey.bind({"alt"}, "5", resize_window_5)
 
 
