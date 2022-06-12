@@ -31,7 +31,7 @@
         },
 
         {
-            "description": "KeynoteでCmd+alt+v -> Cmd+vとする。",
+            "description": "KeynoteでCmd+shift+v -> Cmd+vとする。",
             "manipulators": [
                 {
                     "conditions": [
@@ -46,7 +46,7 @@
                     "from": {
                         "key_code": "v",
 						"modifiers": {
-							"mandatory": ["left_command", "left_option", "left_shift"]
+							"mandatory": ["left_command", "left_shift"]
 						}
 					},
                     "to": [
