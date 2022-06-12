@@ -654,40 +654,6 @@
                         ]
                     },
                     {
-                        "description": "KeynoteでCmd+alt+v -> Cmd+vとする。",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.apple\\.iWork\\.Keynote$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "v",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_command",
-                                            "left_option",
-                                            "left_shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "v",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Previewで1passwordのshotcutを迂回するためにCmd+4とした。これをCmd+1にする。",
                         "manipulators": [
                             {
@@ -1032,6 +998,39 @@
                                             "left_control",
                                             "left_command",
                                             "left_option"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "KeynoteでCmd+shift+v -> Cmd+vとする。",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.apple\\.iWork\\.Keynote$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": [
+                                            "left_command"
                                         ]
                                     }
                                 ],
