@@ -39,7 +39,8 @@ setopt +o nomatch
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias EE="emacs -nw"
-alias e='emacsclient -t -a ""'
+# alias e='emacsclient -t -a ""'
+alias e='_e'
 alias wa='watch -c -n 1 -d '
 alias termshark='export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark'
 alias pu='pushd'
@@ -63,7 +64,7 @@ fi
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
 
-MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
+MY_GREP_OPTIONS="--color=auto --binary-files=without-match --line-number"
 alias grep="grep $MY_GREP_OPTIONS"
 alias egrep="egrep $MY_GREP_OPTIONS"
 alias fgrep="fgrep $MY_GREP_OPTIONS"
@@ -75,7 +76,7 @@ alias gp="git pull"
 alias gr="git remote -v"
 
 # tweek aliases
-alias P4i='xvfb-run p4i'
+alias P4i='xvfb-run p4i -w $SDE/build'
 alias Tar="_Tar"
 alias Gh-pr-merge="gh pr merge -r -d"
 alias Gh-pr-create=" gh pr create -f"
@@ -263,6 +264,11 @@ function _fzf_ghq() {
     fi
 }
 
+function _e() {
+    args=`echo $1 | sed -E "s/([^:]+):([0-9:]+)/+\2 \1/g"`
+    eval emacsclient -nw -a \"\" $args
+}
+
 case ${OSTYPE} in
     darwin*)
         alias ls='gls --color'
@@ -377,6 +383,18 @@ case ${OSTYPE} in
         # sudo gpasswd -a `whoami` docker
         # sudo systemctl restart docker
 
+
+        # P4 dev
+        if [ -f ~/tools/set_sde.bash ];then
+           source ~/tools/set_sde.bash
+        fi
+        if [ -e ~/tools ];then
+           export PATH=$PATH:$HOME/tools
+        fi
+        if [ -e $SDE ];then
+           export PATH=$PATH:$SDE
+        fi
+
         function cd(){
             builtin cd $@ && ls -l --color && pwd;
         }
@@ -414,6 +432,11 @@ export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e
 #   zprof
 # fi
 
+
+MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -f $MY_zsh_yntax_highlighting ]];then
+   source $MY_zsh_syntax_highlighting
+fi
 
 if [ -f ~/.office.zsh ];then
 	source ~/.office.zsh
