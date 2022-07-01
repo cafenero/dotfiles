@@ -4,6 +4,8 @@
 
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
+(which-function-mode t)
+(setq which-func-unknown "N/A")
 
 ;; experimantal
 ;; (setq org-indent-indentation-per-level 4)
