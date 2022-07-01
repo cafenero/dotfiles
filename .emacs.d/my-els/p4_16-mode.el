@@ -204,14 +204,14 @@
 (setq p4_16-imenu-generic-expression
       '(
         ("Controls"      "^ *control +\\([A-Za-z0-9_]*\\)"      1)
-        ("Externs"       "^ *extern +\\([A-Za-z0-9_]*\\) *\\([A-Za-z0-9_]*\\)" 2)
-        ("Tables"        "^ *table +\\([A-Za-z0-9_]*\\)"        1)
-        ("Actions"       "^ *action +\\([A-Za-z0-9_]*\\)"       1)
-        ("Parsers"       "^ *parser +\\([A-Za-z0-9_]*\\)"       1)
-        ("Parser States" "^ *state +\\([A-Za-z0-9_]*\\)"        1)
-        ("Headers"       "^ *header +\\([A-Za-z0-9_]*\\)"       1)
-        ("Header Unions" "^ *header_union +\\([A-Za-z0-9_]*\\)" 1)
-        ("Structs"       "^ *struct +\\([A-Za-z0-9_]*\\)"       1)
+        ;; ("Externs"       "^ *extern +\\([A-Za-z0-9_]*\\) *\\([A-Za-z0-9_]*\\)" 2)
+        ;; ("Tables"        "^ *table +\\([A-Za-z0-9_]*\\)"        1)
+        ;; ("Actions"       "^ *action +\\([A-Za-z0-9_]*\\)"       1)
+        ;; ("Parsers"       "^ *parser +\\([A-Za-z0-9_]*\\)"       1)
+        ;; ("Parser States" "^ *state +\\([A-Za-z0-9_]*\\)"        1)
+        ;; ("Headers"       "^ *header +\\([A-Za-z0-9_]*\\)"       1)
+        ;; ("Header Unions" "^ *header_union +\\([A-Za-z0-9_]*\\)" 1)
+        ;; ("Structs"       "^ *struct +\\([A-Za-z0-9_]*\\)"       1)
         ))
 
 ;;; Cscope Support
