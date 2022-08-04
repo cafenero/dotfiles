@@ -38,6 +38,14 @@
   (load custom-file))
 
 
+(require 'minions)
+(minions-mode)
+(setq minions-mode-line-lighter "[+]")
+
+(custom-set-faces
+ '(which-func ((t (:background "dimgray" :foreground "brightcyan"))))
+ )
+
 (defun my-allinstall()
   ;;   "All install package."
   (interactive)
@@ -197,11 +205,13 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 
-;; Saving buffer list to file.
-;; Restoring buffer when restart emacs.
-(require 'save-visited-files)
-;; (setq save-visited-files-ignore-tramp-files t)
-(turn-on-save-visited-files-mode)
+
+;; 試しに消す
+;; ;; Saving buffer list to file.
+;; ;; Restoring buffer when restart emacs.
+;; (require 'save-visited-files)
+;; ;; (setq save-visited-files-ignore-tramp-files t)
+;; (turn-on-save-visited-files-mode)
 
 
 (setq-default show-trailing-whitespace t)
