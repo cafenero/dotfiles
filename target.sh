@@ -20,4 +20,5 @@ declare -a dotfile=(
     ".git-prompt.sh"
     ".tigrc"
 	".init.sh"
+    ".gitignore"
 )
