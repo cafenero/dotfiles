@@ -2,7 +2,7 @@ fpath=(~/.zsh/completion $fpath)
 
 # load
 autoload -Uz compinit colors vcs_info
-compinit
+compinit -i
 colors
 vcs_info
 
@@ -17,13 +17,12 @@ zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
 
 
 
-# autoload -Uz select-word-style
-# select-word-style default
-# zstyle ':zle:*' word-chars ' -_/=;@:{}[]()<>,|.'
-# zstyle ':zle:*' word-style unspecified
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars ' _/=;@:{}[]()<>,.'
+zstyle ':zle:*' word-style unspecified
 
-
-# bindkey "^[f" emacs-forward-word
+bindkey "^[f" emacs-forward-word
 
 # setopts
 setopt share_history
@@ -51,6 +50,7 @@ alias gl='git log --graph'
 alias pwdd='_pwdd'
 alias s='send.sh'
 alias d="docker"
+alias Group_docker="_group_docker"
 alias grv="git remote -v"
 alias watch="watch --color"
 
@@ -64,7 +64,7 @@ fi
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
 
-MY_GREP_OPTIONS="--color=auto --binary-files=without-match --line-number"
+MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
 alias grep="grep $MY_GREP_OPTIONS"
 alias egrep="egrep $MY_GREP_OPTIONS"
 alias fgrep="fgrep $MY_GREP_OPTIONS"
@@ -269,6 +269,16 @@ function _e() {
     eval emacsclient -nw -a \"\" $args
 }
 
+
+function _group_docker() {
+    # adding me to docker group if not in the group
+    set -x
+    sudo gpasswd -a `whoami` docker
+    sudo systemctl restart docker
+    newgrp docker
+    set +x
+}
+
 case ${OSTYPE} in
     darwin*)
         alias ls='gls --color'
@@ -377,12 +387,6 @@ case ${OSTYPE} in
 
 		# for my dev env
 		export SDE=/home/ytatsumi/bf-sde-9.8.0
-
-
-        # adding me to  docker group if not in the group
-        # sudo gpasswd -a `whoami` docker
-        # sudo systemctl restart docker
-
 
         # P4 dev
         if [ -f ~/tools/set_sde.bash ];then
