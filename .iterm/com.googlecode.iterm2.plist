@@ -1840,7 +1840,7 @@
 		</dict>
 	</dict>
 	<key>PromptOnQuit</key>
-	<true/>
+	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
 	<key>RightCommand</key>
