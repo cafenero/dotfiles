@@ -1,13 +1,17 @@
 #!/bin/bash
 
+TEMP_USER=`whoami`
 OS=$(head -n 1 /etc/os-release)
+sudo pwd
+
 case ${OS} in
     *Ubuntu*)
         # general packages
         sudo apt -y install \
              emacs-nox tree vim tig ctags htop \
              linux-doc tmux emacs-mozc \
-             termshark fzf jq apt-utils
+             fzf jq apt-utils debconf-utils
+
         # sudo apt -y install docker-compose
         wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb && rm jump_0.40.0_amd64.deb
 
@@ -27,6 +31,7 @@ case ${OS} in
         sudo apt -y install git
 
         # latest golang
+        sudo apt install software-properties-common
         sudo add-apt-repository -y ppa:longsleep/golang-backports
         sudo apt update
         sudo apt -y install golang-go
@@ -39,6 +44,17 @@ case ${OS} in
         sudo apt install gh
         go install github.com/x-motemen/ghq@latest
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+        # termshark
+        # go install github.com/gcla/termshark@latest
+        git clone https://github.com/gcla/termshark
+        cd termshark
+        go install ./...
+
+        # enable non-root packet capture
+        sudo debconf-set-selections <<< "wireshark-common wireshark-common/install-setuid boolean true"
+        sudo dpkg-reconfigure --frontend noninteractive wireshark-common
+        sudo usermod -a -G wireshark $TEMP_USER
 
         # dev packages
         sudo apt -y install autoconf autogen autopoint libglib2.0-dev libtool xsltproc libsemanage-dev make bison gettext
