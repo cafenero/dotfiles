@@ -46,6 +46,12 @@
  '(which-func ((t (:background "dimgray" :foreground "brightcyan"))))
  )
 
+(defun my-syntax-table ()
+  (modify-syntax-entry ?_ "w")
+  ;; (modify-syntax-entry ?: "w")
+)
+(add-hook 'c-mode-hook 'my-syntax-table)
+
 (defun my-allinstall()
   ;;   "All install package."
   (interactive)
