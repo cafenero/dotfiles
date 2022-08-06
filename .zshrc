@@ -78,6 +78,7 @@ alias gr="git remote -v"
 # tweek aliases
 alias P4i='xvfb-run p4i -w $SDE/build'
 alias Tar="_Tar"
+alias Zip="_Zip"
 alias Gh-pr-merge="gh pr merge -r -d"
 alias Gh-pr-create=" gh pr create -f"
 alias g='_fzf_ghq'
@@ -243,6 +244,10 @@ function __mssh() {
 }
 function _Tar() {
     tar zcvf ${1}.tar.gz ${1}
+}
+
+function _Zip() {
+    zip -r ${1}.zip ${1}
 }
 
 function _fzf_ghq() {
