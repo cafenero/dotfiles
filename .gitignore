@@ -9,6 +9,8 @@ filezilla
 git
 gtk-2.0
 automatic_backups
+.markdown-preview.html
+.docker
 gh/
 .config/configstore
 .emacs.d/el-get/
