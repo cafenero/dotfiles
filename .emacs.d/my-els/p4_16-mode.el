@@ -232,6 +232,7 @@
   (imenu-add-to-menubar "P4_16")
   (cscope-minor-mode)
   (which-function-mode t)
+  (modify-syntax-entry ?: "w")
   (run-hooks 'p4_16-mode-hook)
 )
 
