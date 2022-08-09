@@ -80,6 +80,8 @@
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-%" 'replace-string)
 
+;; for iPad/Blink
+(global-set-key [f9] 'set-mark-command)
 
 ;; my test
 (defun my()
@@ -179,6 +181,8 @@
 ;; (global-set-key "\M-0" 'off-input-method)
 (global-set-key [f2] 'off-input-method)
 
+;; for iPad/Blink
+(global-set-key [f12] 'toggle-input-method)
 
 (use-package mozc-popup
   :ensure t
