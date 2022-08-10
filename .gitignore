@@ -12,6 +12,7 @@ automatic_backups
 .markdown-preview.html
 .docker
 gh/
+.config/htop/
 .config/configstore
 .emacs.d/el-get/
 .emacs.d/elpa
