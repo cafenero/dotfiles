@@ -41,7 +41,8 @@ alias EE="emacs -nw"
 # alias e='emacsclient -t -a ""'
 alias e='_e'
 alias wa='watch -c -n 1 -d '
-alias termshark='export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark'
+alias termshark='_termshark'
+alias iftop="_iftop $@"
 alias pu='pushd'
 alias po='popd'
 alias gs='git status'
@@ -282,6 +283,14 @@ function _group_docker() {
     sudo systemctl restart docker
     newgrp docker
     set +x
+}
+
+function _termshark() {
+    (export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark $@)
+}
+
+function _iftop() {
+    (export LANG=""; export LC_ALL=""; sudo iftop $@)
 }
 
 case ${OSTYPE} in
