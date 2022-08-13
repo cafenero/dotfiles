@@ -343,6 +343,11 @@ case ${OSTYPE} in
         # one time only
         # https://mmazzarolo.com/blog/2022-04-16-drag-window-by-clicking-anywhere-on-macos/
         # defaults write -g NSWindowShouldDragOnGesture -bool true
+
+        # one time only
+        # defaults write com.apple.screencapture location /Users/$USER/Desktop/screen_shot/temp
+        # killall SystemUIServer
+
         ;;
     linux*)
         alias ls='ls --color'
