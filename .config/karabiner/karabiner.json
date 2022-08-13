@@ -1388,7 +1388,7 @@
                         },
                         "to": [
                             {
-                            "key_code": "right_control"
+                            "key_code": "right_option"
                         }
                         ]
                     },
