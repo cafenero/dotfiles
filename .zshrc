@@ -104,27 +104,7 @@ fi
 
 
 function gw() {
-	if [ $# -eq 0 ]; then
-		_PATH=$(realpath .)
-	else
-		_PATH=$(realpath $1)
-	fi
-
-    # URL=https://
-    # URL=${URL}$(echo ${_PATH} | cut -d '/' -f5 -f6 -f7)
-    # URL=${URL}/blob/master/
-    # URL=${URL}$(echo ${_PATH} | cut -d '/' -f8-)
-    # or
-    URL=https://$(echo ${_PATH} | cut -d '/' -f5 -f6 -f7)/blob/master/$(echo ${_PATH} | cut -d '/' -f8-)
-
-    # レポジトリのrootだったら、blob/masterは付けない。
-    echo ${URL} | grep -e "master/$" > /dev/null
-    if [ $? -eq 0 ]; then
-        URL=$(echo ${URL} | cut -d '/' -f-5)
-        open ${URL}
-    else
-        open ${URL}
-    fi
+    gh browse $1 > /dev/null
 }
 
 
