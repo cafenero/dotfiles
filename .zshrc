@@ -275,6 +275,13 @@ function _iftop() {
     (export LANG=""; export LC_ALL=""; sudo iftop $@)
 }
 
+function _imgcat_for_tmux() {
+    imgcat "$1"
+    # read enter -> clear & re-draw tmux panes
+    read && tmux split-window resize-pane  && tmux split-window resize-pane
+}
+alias imgcat='_imgcat_for_tmux'
+
 case ${OSTYPE} in
     darwin*)
         alias ls='gls --color'
