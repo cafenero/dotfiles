@@ -85,7 +85,9 @@ alias Gh-pr-create=" gh pr create -f"
 alias g='_fzf_ghq'
 alias gg='ghq get -l'
 
-alias wake="wakeonlan fc:aa:14:29:a6:9"
+alias wake="wakeonlan fc:aa:14:29:a6:9"     # xeon01
+alias wake_01="wakeonlan 00:3e:e1:cb:b3:3c" # MP
+alias wake_02="wakeonlan 60:f4:45:ea:90:3e" # MP WiFi
 
 
 # common export
