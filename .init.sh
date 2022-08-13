@@ -10,7 +10,14 @@ case ${OS} in
         sudo apt -y install \
              emacs-nox tree vim tig ctags htop \
              linux-doc tmux emacs-mozc \
-             fzf jq apt-utils debconf-utils
+             fzf jq apt-utils debconf-utils \
+             wireshark tshark zip fio iotop iftop \
+             linux-tools-common linux-tools-generic linux-cloud-tools-generic powertop \
+             iperf iperf3
+
+        # snap
+        sudo apt install -y snapd
+        sudo snap install btop
 
         # sudo apt -y install docker-compose
         wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb && rm jump_0.40.0_amd64.deb
