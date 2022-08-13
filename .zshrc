@@ -40,6 +40,9 @@ alias E="emacs --daemon"
 alias EE="emacs -nw"
 # alias e='emacsclient -t -a ""'
 alias e='_e'
+alias tm='tmux'
+alias mt='tmux'
+alias sc='screen'
 alias wa='watch -c -n 1 -d '
 alias termshark='_termshark'
 alias iftop="_iftop $@"
@@ -286,25 +289,20 @@ case ${OSTYPE} in
     darwin*)
         alias ls='gls --color'
         alias ll='gls -l --color'
-        alias ctags='/usr/local/bin/ctags'
-        alias sc='/usr/local/bin/screen'
-        alias tm='/usr/local/bin/tmux'
-        alias brew="env PATH=${PATH/\/Users\/yusuke\/\.pyenv\/shims:/} brew"
-        alias rsync='/usr/local/bin/rsync'
+        alias l='ll'
         export LC_CTYPE='ja_JP.UTF-8'
         export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
         export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
 
-
         ## disable for pyenv
-        alias python=/usr/local/bin/python3
-        alias pip=/usr/local/bin/pip3
+        alias python=python3
+        alias pip=pip3
 
         ## debug
         ## export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
         ## debug(add)
         ## export PATH=$PATH:/usr/local/sbin
-        export PATH=$PATH:/Users/yusuke/.nodebrew/current/bin
+        export PATH=$PATH:/Users/$USER/.nodebrew/current/bin
         export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 
@@ -352,8 +350,7 @@ case ${OSTYPE} in
     linux*)
         alias ls='ls --color'
         alias ll='ls -l --color'
-        alias sc='screen'
-        alias tm='tmux'
+        alias l='ll'
         alias df='df -T'
         alias top='top -c'
         alias vmstat='vmstat -w'
