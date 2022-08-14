@@ -20,4 +20,7 @@ set bmargin 8
 set xlabel offset  0,-3
 set ylabel offset -6,0
 
-plot [][0:400] "summary.dat" using 1:2 with linespoints title "202205-barefoot"
+# plot [][0:400] "summary.dat" using 1:2 with linespoints title "202205-barefoot"
+plot [][0:700] filename using 1:2 with linespoints title "202205-vs-kvm"
+
+pause -1
