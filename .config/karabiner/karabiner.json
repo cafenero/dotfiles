@@ -1560,7 +1560,7 @@
                     },
                     "to": [
                         {
-                            "key_code": "mute"
+                            "key_code": "f10"
                         }
                     ]
                 },
@@ -1570,7 +1570,7 @@
                     },
                     "to": [
                         {
-                            "consumer_key_code": "volume_decrement"
+                            "key_code": "f11"
                         }
                     ]
                 },
@@ -1580,7 +1580,7 @@
                     },
                     "to": [
                         {
-                            "key_code": "volume_up"
+                            "key_code": "f12"
                         }
                     ]
                 }
