@@ -81,7 +81,7 @@
 (global-set-key "\M-%" 'replace-string)
 
 ;; for iPad/Blink
-(global-set-key [f9] 'set-mark-command)
+;; (global-set-key [f9] 'set-mark-command)
 
 ;; my test
 (defun my()
@@ -177,9 +177,9 @@
   (interactive)
   (activate-input-method default-input-method))
 ;; (global-set-key "\M-9" 'on-input-method)
-(global-set-key [f1] 'on-input-method)
+(global-set-key [f10] 'on-input-method)
 ;; (global-set-key "\M-0" 'off-input-method)
-(global-set-key [f2] 'off-input-method)
+(global-set-key [f9] 'off-input-method)
 
 ;; for iPad/Blink
 (global-set-key [f12] 'toggle-input-method)
