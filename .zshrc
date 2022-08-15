@@ -292,7 +292,9 @@ case ${OSTYPE} in
         alias l='ll'
         export LC_CTYPE='ja_JP.UTF-8'
         export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+        export PATH=$PATH:/opt/homebrew/share/git-core/contrib/diff-highlight
         export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
+        export PATH=/opt/homebrew/bin:$PATH
 
         ## disable for pyenv
         alias python=python3
@@ -344,6 +346,7 @@ case ${OSTYPE} in
 
         # one time only
         # defaults write com.apple.screencapture location /Users/$USER/Desktop/screen_shot/temp
+        # mkdir -p screen_shot/temp
         # killall SystemUIServer
 
         ;;
