@@ -177,9 +177,9 @@
   (interactive)
   (activate-input-method default-input-method))
 ;; (global-set-key "\M-9" 'on-input-method)
-(global-set-key [f10] 'on-input-method)
+(global-set-key [f3] 'on-input-method)
 ;; (global-set-key "\M-0" 'off-input-method)
-(global-set-key [f9] 'off-input-method)
+(global-set-key [f4] 'off-input-method)
 
 ;; for iPad/Blink
 (global-set-key [f12] 'toggle-input-method)

@@ -977,36 +977,7 @@
                         ]
                     },
                     {
-                        "description": "iTerm2では右optionキーをmozc Japanese on (C-9) -> (C-\\) -> f22 -> f1 -> f14 -> f10とする。",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.googlecode\\.iterm2$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "right_option"
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_option"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "f10"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0) -> f23 -> f2 -> f15 -> f11 -> f9とする。",
+                        "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0) -> f23 -> f2 -> f15 -> f11 -> f9 -> f3とする。",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -1032,7 +1003,36 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "f9"
+                                        "key_code": "f3"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2では右optionキーをmozc Japanese on (C-9) -> (C-\\) -> f22 -> f1 -> f14 -> f10 -> f4とする。",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_option"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_option"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "f4"
                                     }
                                 ],
                                 "type": "basic"
