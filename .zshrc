@@ -345,8 +345,8 @@ case ${OSTYPE} in
         # defaults write -g NSWindowShouldDragOnGesture -bool true
 
         # one time only
-        # defaults write com.apple.screencapture location /Users/$USER/Desktop/screen_shot/temp
-        # mkdir -p screen_shot/temp
+        # defaults write com.apple.screencapture location /Users/$USER/Desktop/screen_shot/zzz
+        # mkdir -p screen_shot/zzz
         # killall SystemUIServer
 
         ;;
