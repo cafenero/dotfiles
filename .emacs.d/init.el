@@ -176,10 +176,11 @@
 (defun on-input-method ()
   (interactive)
   (activate-input-method default-input-method))
-;; (global-set-key "\M-9" 'on-input-method)
-(global-set-key [f3] 'on-input-method)
 ;; (global-set-key "\M-0" 'off-input-method)
-(global-set-key [f4] 'off-input-method)
+(global-set-key [f3] 'off-input-method)
+
+;; (global-set-key "\M-9" 'on-input-method)
+(global-set-key [f4] 'on-input-method)
 
 ;; for iPad/Blink
 (global-set-key [f12] 'toggle-input-method)
