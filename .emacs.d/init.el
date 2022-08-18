@@ -365,6 +365,7 @@
 
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 
 
 (define-key global-map (kbd "C-c 8")
