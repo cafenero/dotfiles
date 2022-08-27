@@ -294,7 +294,7 @@ case ${OSTYPE} in
         export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
         export PATH=$PATH:/opt/homebrew/share/git-core/contrib/diff-highlight
         export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
-        export PATH=/opt/homebrew/bin:$PATH
+        export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 
         ## disable for pyenv
         alias python=python3
