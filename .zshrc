@@ -362,6 +362,13 @@ case ${OSTYPE} in
         alias sudo='sudo -E '
         # alias sudo='sudo '
 
+
+        # https://superuser.com/questions/523564/emacs-keybindings-in-zsh-not-working-ctrl-a-ctrl-e
+        bindkey -e
+        bindkey "^[f" emacs-forward-word
+
+        export EDITOR=vim
+
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight
         export PATH=$PATH:/usr/share/doc/git/contrib/diff-highlight/diff-highlight
         TMP_PATH_GIT_DIFF_HIGHLIGHT=/usr/share/doc/git/contrib/diff-highlight/diff-highlight
