@@ -107,7 +107,7 @@ fi
 
 
 function gw() {
-    gh browse $1 > /dev/null
+    gh browse $1
 }
 
 
