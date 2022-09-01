@@ -213,11 +213,13 @@
 
 ;; https://takezoe.hatenablog.com/?page=1440124057
 (require 'ace-jump-mode)
-;; (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+;; (define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode)
 ;; (define-key global-map (kbd "C-c SPC") 'ace-jump-line-mode)
+;; (setq ace-jump-mode-gray-background nil)
 
-
+(set-face-attribute 'ace-jump-face-foreground nil
+                    :foreground "white" :background "black" :weight 'bold :underline nil)
 
 ;; 試しに消す
 ;; ;; Saving buffer list to file.
