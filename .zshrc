@@ -414,6 +414,8 @@ case ${OSTYPE} in
            export PATH=$PATH:$SDE
         fi
 
+        lesskey
+
         function cd(){
             builtin cd $@ && ls -l --color && pwd;
         }
