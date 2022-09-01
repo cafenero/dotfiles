@@ -21,4 +21,5 @@ declare -a dotfile=(
     ".tigrc"
 	".init.sh"
     ".gitignore"
+    ".lesskey"
 )
