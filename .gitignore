@@ -1,3 +1,5 @@
+ifttt_token
+*.tar
 .DS_Store
 *~
 places
@@ -12,6 +14,7 @@ automatic_backups
 .markdown-preview.html
 .docker
 gh/
+.venv
 .config/htop/
 .config/configstore
 .emacs.d/el-get/
