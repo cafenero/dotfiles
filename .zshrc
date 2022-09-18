@@ -397,6 +397,9 @@ case ${OSTYPE} in
 
         export PATH=$GOPATH/bin:$PATH
 
+        # for python
+        export PATH=$PATH:$HOME/.local/bin
+
 		# for my bin/
 		export PATH=$HOME/bin:$PATH
 
