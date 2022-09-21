@@ -7,8 +7,9 @@ sudo pwd
 case ${OS} in
     *Ubuntu*)
         # general packages
+        sudo apt update
         sudo apt -y install \
-             emacs-nox tree vim tig ctags htop \
+             emacs-nox tree vim tig ctags htop zsh \
              linux-doc tmux emacs-mozc \
              fzf jq apt-utils debconf-utils \
              wireshark tshark zip fio iotop iftop \
