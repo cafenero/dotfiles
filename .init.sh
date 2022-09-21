@@ -7,6 +7,7 @@ sudo pwd
 case ${OS} in
     *Ubuntu*)
         # general packages
+        sudo apt update
         sudo apt -y install \
              emacs-nox tree vim tig ctags htop \
              linux-doc tmux emacs-mozc \
