@@ -84,8 +84,8 @@ alias gr="git remote -v"
 alias P4i='xvfb-run p4i -w $SDE/build'
 alias Tar="_Tar"
 alias Zip="_Zip"
-alias Gh-pr-merge="gh pr merge -r -d"
-alias Gh-pr-create=" gh pr create -f"
+alias Gh_pr_merge="gh pr merge -r -d"
+alias Gh_pr_create=" gh pr create -f"
 alias g='_fzf_ghq'
 alias gg='ghq get -l'
 
