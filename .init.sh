@@ -68,7 +68,8 @@ case ${OS} in
         sudo apt -y install autoconf autogen autopoint libglib2.0-dev libtool xsltproc libsemanage-dev make bison gettext
 
         # init emacs
-        emacs -e 'my-allinstall' -e 'kill-emacs'
+        emacs -e 'package-refresh-contents' -e 'package-install-selected-packages' -e 'kill-emacs'
+        emacsclient -e '(kill-emacs)'
         ;;
     *CentOS*)
         sudo yum install --enablerepo=epel -y \
