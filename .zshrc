@@ -410,6 +410,7 @@ case ${OSTYPE} in
         # P4 dev
         if [ -f ~/tools/set_sde.bash ];then
            source ~/tools/set_sde.bash
+           alias sdes="cd ${SDE}/pkgsrc/switch-p4-16/p4src"
         fi
         if [ -e ~/tools ];then
            export PATH=$PATH:$HOME/tools
