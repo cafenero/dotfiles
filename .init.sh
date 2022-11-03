@@ -6,6 +6,7 @@ sudo pwd
 
 case ${OS} in
     *Ubuntu*)
+        sudo timedatectl set-timezone Asia/Tokyo
         # general packages
         sudo apt update
         sudo apt -y install \
