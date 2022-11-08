@@ -23,7 +23,8 @@
 
 [core]
 	excludesfile = ~/.gitignore
-	editor = vim
+	# editor = vim
+	editor = emacsclient -nw
 [alias]
 	ci = commit
 	co = checkout

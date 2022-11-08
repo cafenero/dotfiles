@@ -244,6 +244,7 @@
     Buffer-menu-mode
     help-mode
     view-mode
+    diff-mode
     ;; quickrun--mode
     twittering-mode))
 (mapc
