@@ -190,6 +190,9 @@
 ;; lang mode
 ;; ----------------------------------------------------------------
 
+;; diff-mode for git commit
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . diff-mode))
+
 (require 'pcap-mode)
 (bind-key "RET" 'pcap-mode-view-pkt-contents pcap-mode-map)
 

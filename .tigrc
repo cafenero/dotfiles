@@ -3,12 +3,4 @@
 bind generic v none
 bind generic <Ctrl-v> move-page-down
 bind generic <Esc>v move-page-up
-
-
-
-
-
-
-
-
-
+set diff-highlight = true
