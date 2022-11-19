@@ -117,7 +117,7 @@
 
 
         {
-            "description": "General: Alt(option)-dを単語削除(option-delete)とする。",
+            "description": "General: Alt(option)-dを単語削除(option-delete-forward)とする。",
             "manipulators": [
                 {
                     "conditions": [
@@ -137,14 +137,93 @@
 					},
                     "to": [
                         {
-                            "key_code": "delete_forward",
+                            "key_code": "delete_forward"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "General: Ctrl-wを後方単語削除(option-delete)とする。",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [ "^com\\.googlecode\\.iterm2$" ]
+                        }
+                    ],
+					"type": "basic",
+                    "from": {
+                        "key_code": "w",
+						"modifiers": {
+							"mandatory": ["left_control"]
+						}
+					},
+                    "to": [
+                        {
+                            "key_code": "delete_or_backspace",
 							"modifiers": "option"
                         }
                     ]
                 }
             ]
-        }
+        },
 
+        {
+            "description": "General: Cmd+jでエンターとする。",
+            "manipulators": [
+                {
+                "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [ "^com\\.googlecode\\.iterm2$" ]
+                        }
+                ],
+                "type": "basic",
+                "from": {
+                    "key_code": "j",
+                    "modifiers": {
+                        "mandatory": ["left_control"]
+                    }
+                },
+                "to": [
+                    {
+                    "key_code": "return_or_enter"
+                    }
+                ]
+            }
+            ]
+        },
+
+        {
+            "description": "General: Ctrl+Cmd+jでCmd+エンターとする。",
+            "manipulators": [
+                {
+                "conditions": [
+                    {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                        "^com\\.googlecode\\.iterm2$"
+                    ]
+                }
+                ],
+                "type": "basic",
+                "from": {
+                    "key_code": "j",
+                    "modifiers": {
+                        "mandatory": ["left_control", "left_command"]
+                    }
+                },
+                "to": [
+                    {
+                    "key_code": "return_or_enter",
+                    "modifiers": "left_command"
+                    }
+                ]
+            }
+            ]
+        }
 
     ]
 }

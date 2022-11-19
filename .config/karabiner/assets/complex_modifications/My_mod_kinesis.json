@@ -1,0 +1,39 @@
+{
+	"title": "My mod: Kinesis Adv360.",
+    "rules": [
+        {
+        "description": "My mod: Kinesis Adv360. 左のキーボードの、右矢印を単体押しでは右矢印, 複数押しではCmdキーとする。",
+        "manipulators": [
+            {
+            "conditions": [
+                {
+                "type": "device_if",
+                "identifiers": [
+                    {
+                    "vendor_id": 10730,
+                    "product_id": 864,
+                    "description": "Kinesis Adv360"
+                }
+                ]
+            }
+            ],
+            "from": {
+                "key_code": "left_command"
+            },
+            "to": [
+                {
+                "key_code": "left_command"
+            }
+            ],
+			"to_if_alone": [
+                {
+                "key_code": "right_arrow"
+            }
+            ],
+            "type": "basic"
+        }
+        ]
+    }
+
+    ]
+}
