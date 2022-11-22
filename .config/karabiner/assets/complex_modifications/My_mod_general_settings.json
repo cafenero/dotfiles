@@ -174,12 +174,6 @@
             "description": "General: Cmd+jでエンターとする。",
             "manipulators": [
                 {
-                "conditions": [
-                        {
-                            "type": "frontmost_application_unless",
-                            "bundle_identifiers": [ "^com\\.googlecode\\.iterm2$" ]
-                        }
-                ],
                 "type": "basic",
                 "from": {
                     "key_code": "j",
@@ -200,14 +194,6 @@
             "description": "General: Ctrl+Cmd+jでCmd+エンターとする。",
             "manipulators": [
                 {
-                "conditions": [
-                    {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                        "^com\\.googlecode\\.iterm2$"
-                    ]
-                }
-                ],
                 "type": "basic",
                 "from": {
                     "key_code": "j",
