@@ -464,8 +464,8 @@ if [[ -f $MY_zsh_yntax_highlighting ]];then
    source $MY_zsh_syntax_highlighting
 fi
 
-if [ -f ~/.office.zsh ];then
-	source ~/.office.zsh
+if [ -f ~/.office.zshrc ];then
+	source ~/.office.zshrc
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
