@@ -2,6 +2,7 @@
 
 TEMP_USER=`whoami`
 OS=$(head -n 1 /etc/os-release)
+alias sudo='sudo -E '
 sudo pwd
 
 case ${OS} in
@@ -38,6 +39,7 @@ case ${OS} in
         sudo add-apt-repository -y ppa:git-core/ppa
         sudo apt update
         sudo apt -y install git
+        sudo chmod 755 /usr/share/doc/git/contrib/diff-highlight/diff-highlight
 
         # latest golang
         sudo apt install software-properties-common
@@ -74,13 +76,45 @@ case ${OS} in
         ;;
     *CentOS*)
         sudo yum install --enablerepo=epel -y \
-             git emacs-nox tree vim tig ctags htop \
-             kernel-doc mozc
+             emacs-nox tree vim tig ctags htop \
+             kernel-doc mozc libevent libevent-devel ncurses-devel wireshark
+
+
+        # install latest golang
+        wget -O go.tgz "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
+           sudo tar -C /usr/local -xzf go.tgz && rm go.tgz
+
+        # gh https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+        sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+        sudo yum install gh
+
+        # install ghq
+        # git clone https://github.com/x-motemen/ghq ghq/github.com/x-motemen/ghq
+        go install github.com/x-motemen/ghq@latest
+
+        # fzf
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install --bin
+        rm -rf ~/.fzf
+
+        # termshark
+        # go install github.com/gcla/termshark@latest
+        git clone https://github.com/gcla/termshark
+        cd termshark
+        go install ./...
+
 
         # IUSを使うパターン
-        # sudo yum -y remove git
-        # sudo yum install libsecret
-        # sudo yum -y install git  --disablerepo=\* --enablerepo=ius
+        sudo yum remove -y git
+        sudo yum install \
+             https://repo.ius.io/ius-release-el7.rpm \
+             https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        sudo yum -y install libsecret pcre2
+        sudo yum -y install git tmux  --disablerepo=\* --enablerepo=ius
+        # emacsがない、、、、、、、、
+        # tmux古い、、、2系、、、
+
+
 
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         if [ -e ~/tmux.tar.gz ]; then
@@ -95,5 +129,10 @@ case ${OS} in
             sudo make install
             cd
         fi
+
+        # init emacs
+        emacs -e 'package-refresh-contents' -e 'package-install-selected-packages' -e 'kill-emacs'
+        emacsclient -e '(kill-emacs)'
+
         ;;
 esac
