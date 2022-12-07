@@ -2,7 +2,10 @@
 
 TEMP_USER=`whoami`
 OS=$(head -n 1 /etc/os-release)
+
+shopt -s expand_aliases
 alias sudo='sudo -E '
+
 sudo pwd
 
 case ${OS} in
