@@ -1,5 +1,5 @@
 shell:
-  program: /usr/local/bin/zsh
+  program: /bin/zsh
   # args:
   #   - --login
   #   - --command
@@ -46,7 +46,7 @@ window:
   decorations: full         # ボーダーとタイトルバーを表示する
   # startup_mode: Fullscreen  # フルスクリーンで起動する
 # background_opacity: 0.95    # 背景を透過させる
-background_opacity: 1.0    # 背景を透過させる
+window.opacity: 1.0    # 背景を透過させる
 
 
 key_bindings:
