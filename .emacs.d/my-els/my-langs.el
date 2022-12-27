@@ -233,6 +233,9 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
+;; conf-mode
+(add-to-list 'auto-mode-alist '("config-mac" . conf-mode))
+
 (require 'go-mode)
 ;;(require 'go-mode-autoloads)
 ; Preparetion.
