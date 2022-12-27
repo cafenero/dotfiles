@@ -645,4 +645,13 @@
 
 
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; delete global hook
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;
+;; add hook except markdown-mode
+;; ref: https://gifnksm.hatenablog.jp/entry/2014/04/05/101030
+(defun after-change-major-mode-hook-fn ()
+  (unless (eq major-mode 'markdown-mode)
+    (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
+    ;; (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p nil t)))
+(add-hook 'after-change-major-mode-hook 'after-change-major-mode-hook-fn)
