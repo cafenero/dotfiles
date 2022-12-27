@@ -439,7 +439,7 @@
 
 (require 'markdown-preview-mode)
 ;; $ brew install pandoc
-(setq markdown-command "pandoc -s --self-contained -t html5 --metadata title=markdown-preview-mode")
+(setq markdown-command "pandoc -s --embed-resources -t html5 --metadata title=markdown-preview-mode")
 (setq markdown-preview-stylesheets
       (list
        "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"
