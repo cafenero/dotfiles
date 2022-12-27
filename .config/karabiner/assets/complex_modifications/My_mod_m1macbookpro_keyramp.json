@@ -1,0 +1,124 @@
+{
+        "title": "M1 Pro MacBook keyremap",
+        "rules": [
+        {
+        "description": "M1 Pro MacBook keyremap: left_command -> left_option",
+        "manipulators": [
+            {
+            "conditions": [
+                {
+                "type": "device_if",
+                "identifiers": [
+                    {
+                    "vendor_id": 1452,
+                    "product_id": 834,
+                    "description": "M1 MacBook Pro"
+                }
+                ]
+            }
+            ],
+            "type": "basic",
+            "from": {
+                "key_code": "left_command"
+            },
+            "to": [
+                {
+                "key_code": "left_option"
+            }
+            ]
+        }
+        ]
+    },
+
+        {
+        "description": "M1 Pro MacBook keyremap: left_option -> left_command",
+        "manipulators": [
+            {
+            "conditions": [
+                {
+                "type": "device_if",
+                "identifiers": [
+                    {
+                    "vendor_id": 1452,
+                    "product_id": 834,
+                    "description": "M1 MacBook Pro"
+                }
+                ]
+            }
+            ],
+            "type": "basic",
+            "from": {
+                "key_code": "left_option"
+            },
+            "to": [
+                {
+                "key_code": "left_command"
+            }
+            ]
+        }
+        ]
+    },
+
+
+        {
+        "description": "M1 Pro MacBook keyremap: right_command -> right_option",
+        "manipulators": [
+            {
+            "conditions": [
+                {
+                "type": "device_if",
+                "identifiers": [
+                    {
+                    "vendor_id": 1452,
+                    "product_id": 834,
+                    "description": "M1 MacBook Pro"
+                }
+                ]
+            }
+            ],
+            "type": "basic",
+            "from": {
+                "key_code": "right_command"
+            },
+            "to": [
+                {
+                "key_code": "right_option"
+            }
+            ]
+        }
+        ]
+    },
+
+
+        {
+        "description": "M1 Pro MacBook keyremap: right_option -> right_command",
+        "manipulators": [
+            {
+            "conditions": [
+                {
+                "type": "device_if",
+                "identifiers": [
+                    {
+                    "vendor_id": 1452,
+                    "product_id": 834,
+                    "description": "M1 MacBook Pro"
+                }
+                ]
+            }
+            ],
+            "type": "basic",
+            "from": {
+                "key_code": "right_option"
+            },
+            "to": [
+                {
+                "key_code": "right_command"
+            }
+            ]
+        }
+        ]
+    }
+
+
+    ]
+}
