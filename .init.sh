@@ -89,7 +89,7 @@ case ${OS} in
 
         # gh https://github.com/cli/cli/blob/trunk/docs/install_linux.md
         sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-        sudo yum install gh
+        sudo yum -y install gh
 
         # install ghq
         # git clone https://github.com/x-motemen/ghq ghq/github.com/x-motemen/ghq
@@ -98,6 +98,7 @@ case ${OS} in
         # fzf
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
         ~/.fzf/install --bin
+        sudo cp /home/ytatsumi/.fzf/bin/fzf /usr/local/bin/
         rm -rf ~/.fzf
 
         # termshark
@@ -109,11 +110,12 @@ case ${OS} in
 
         # IUSを使うパターン
         sudo yum remove -y git
-        sudo yum install \
+        sudo yum -y install \
              https://repo.ius.io/ius-release-el7.rpm \
              https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
         sudo yum -y install libsecret pcre2
         sudo yum -y install git tmux  --disablerepo=\* --enablerepo=ius
+        # FIXME:
         # emacsがない、、、、、、、、
         # tmux古い、、、2系、、、
 
