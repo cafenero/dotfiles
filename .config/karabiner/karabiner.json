@@ -1040,39 +1040,6 @@
                         ]
                     },
                     {
-                        "description": "My mod: Kinesis Adv360. 左のキーボードの、右矢印を単体押しでは右矢印, 複数押しではCmdキーとする。",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [
-                                            {
-                                                "description": "Kinesis Adv360",
-                                                "product_id": 864,
-                                                "vendor_id": 10730
-                                            }
-                                        ],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "left_command"
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_command"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "right_arrow"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "General: Ctrl-nをdownとする。",
                         "manipulators": [
                             {
