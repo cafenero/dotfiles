@@ -37,6 +37,12 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(leaf dmacro
+  :ensure t
+  ;; :custom `((dmacro-key . ,(kbd "C-S-e")))
+  :custom `((dmacro-key . ,(kbd "C-x e"))) ;; C-c e, C-x e e e ...
+  ;; :custom `((dmacro-key . ,(kbd "C-i")))
+  :global-minor-mode global-dmacro-mode)
 
 (require 'minions)
 (minions-mode)
@@ -383,6 +389,7 @@
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(setq create-lockfiles nil)
 
 
 ;; neotree configs
