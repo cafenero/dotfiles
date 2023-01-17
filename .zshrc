@@ -78,6 +78,7 @@ alias fgrep="fgrep $MY_GREP_OPTIONS"
 alias gdd="gd | delta"
 alias pwdd='_pwdd'
 alias rp='realpath'
+alias rph='hostname | tr -d "\n" ; echo -n : ; realpath'
 alias mssh='_mssh'
 alias gp="git pull"
 alias gr="git remote -v"
