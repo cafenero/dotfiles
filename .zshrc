@@ -444,7 +444,7 @@ esac
 
 
 ## fzf
-export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf'
+export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
 # export FZF_DEFAULT_OPTS='
 #   --color fg:124,bg:16,hl:202,fg+:214,bg+:52,hl+:231
 #   --color info:52,prompt:196,spinner:208,pointer:196,marker:208
@@ -461,6 +461,42 @@ export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e
 #   zprof
 # fi
 
+
+alias ff='_ff'
+function _ff() {
+    FF_PATH=$(find ./ -type f | fzf --preview "cat {}")
+    # echo $FF_PATH
+    e $FF_PATH
+}
+
+alias fzg='_fzg'
+function _fzg() {
+    result=`__fzg`
+    if [ "$?" -eq 0 ]; then
+        echo $result
+        e $result
+    fi
+}
+# Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
+function __fzg() {
+  # emulate -L zsh
+  # rg_cmd="rg --smart-case --line-number --color=always --trim"
+  rg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match "
+  selected=$(FZF_DEFAULT_COMMAND=":" \
+      fzf --bind="change:top+reload($rg_cmd {q} * || true)" \
+          --ansi --phony \
+          --delimiter=":" \
+          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" )
+          # --preview-window='down:60%:+{2}-10')
+
+  local ret=$?
+  [[ -n "$selected" ]] && echo ${${(@s/:/)selected}[1]}":"${${(@s/:/)selected}[2]}
+  return $ret
+}
+
+# if (which zprof > /dev/null 2>&1) ;then
+#   zprof
+# fi
 
 MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if [[ -f $MY_zsh_yntax_highlighting ]];then
