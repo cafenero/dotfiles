@@ -422,6 +422,10 @@ case ${OSTYPE} in
            export PATH=$PATH:$SDE
         fi
 
+        if [ -e ~/.lesskey ]; then
+            lesskey
+        fi
+
         lesskey
 
         function cd(){
@@ -486,7 +490,8 @@ function __fzg() {
       fzf --bind="change:top+reload($rg_cmd {q} * || true)" \
           --ansi --phony \
           --delimiter=":" \
-          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" )
+          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
+          # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in saome env.
           # --preview-window='down:60%:+{2}-10')
 
   local ret=$?
