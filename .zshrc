@@ -470,7 +470,9 @@ alias ff='_ff'
 function _ff() {
     FF_PATH=$(find ./ -type f | fzf --preview "cat {}")
     # echo $FF_PATH
-    e $FF_PATH
+    if [ "$?" -eq 0 ]; then
+        e $FF_PATH
+    fi
 }
 
 alias fzg='_fzg'
@@ -483,12 +485,14 @@ function _fzg() {
 }
 # Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
 function __fzg() {
+  FILE_NAME=~/.MY_FZF_FZG_query.txt
+  INITIAL_QUERY=$(cat $FILE_NAME)
   # emulate -L zsh
-  # rg_cmd="rg --smart-case --line-number --color=always --trim"
-  rg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match "
-  selected=$(FZF_DEFAULT_COMMAND=":" \
-      fzf --bind="change:top+reload($rg_cmd {q} * || true)" \
+  rg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
+  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
+      fzf --bind="change:top+reload($rg_cmd {q} * || true ;  echo {q} > ${FILE_NAME})" \
           --ansi --phony \
+          --query "$INITIAL_QUERY" \
           --delimiter=":" \
           --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
           # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in saome env.
