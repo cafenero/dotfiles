@@ -468,11 +468,27 @@ export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e
 
 alias ff='_ff'
 function _ff() {
-    FF_PATH=$(find ./ -type f | fzf --preview "cat {}")
-    # echo $FF_PATH
+    # FF_PATH=$(find ./ -type f | fzf --preview "cat {}")
+    FF_PATH=`__ff`
     if [ "$?" -eq 0 ]; then
+        echo $FF_PATH
         e $FF_PATH
     fi
+}
+
+function __ff() {
+  FILE_NAME=~/.MY_FZF_FF_query.txt
+  INITIAL_QUERY=$(cat $FILE_NAME)
+  rg_cmd="find ./ -type f | grep --color=always -i "
+  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
+      fzf --bind="change:top+reload($rg_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
+          --ansi --phony \
+          --query "$INITIAL_QUERY" \
+          --delimiter=":" \
+          --preview="cat {1}" )
+  local ret=$?
+  [[ -n "$selected" ]] && echo $selected
+  return $ret
 }
 
 alias fzg='_fzg'
