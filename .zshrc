@@ -5,7 +5,6 @@ autoload -Uz compinit colors vcs_info
 compinit -i
 colors
 vcs_info
-
 stty stop undef
 
 HISTFILE=~/.histfile
@@ -14,8 +13,6 @@ SAVEHIST=1000000
 zstyle ':completion:*:default' menu select
 zstyle ':completion:*' list-separator '-->'
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
-
-
 
 autoload -Uz select-word-style
 select-word-style default
@@ -31,6 +28,8 @@ setopt hist_expand
 setopt brace_ccl
 setopt prompt_subst
 setopt +o nomatch
+setopt inc_append_history
+setopt hist_ignore_dups
 # precmd() { vcs_info }
 
 
@@ -38,7 +37,6 @@ setopt +o nomatch
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias EE="emacs -nw"
-# alias e='emacsclient -t -a ""'
 alias e='_e'
 alias tm='tmux'
 alias tma='tmux a'
@@ -62,11 +60,11 @@ alias grv="git remote -v"
 alias watch="watch --color"
 
 if type kubectl > /dev/null 2>&1 ; then
-	alias k="kubectl"
-	alias kg="kubectl get"
-	alias kgpo="kubectl get pod"
-	alias kgpoa="kubectl get pod --all-namespaces"
-	source <(kubectl completion zsh)
+    alias k="kubectl"
+    alias kg="kubectl get"
+    alias kgpo="kubectl get pod"
+    alias kgpoa="kubectl get pod --all-namespaces"
+    source <(kubectl completion zsh)
 fi
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
@@ -91,6 +89,9 @@ alias Gh_pr_merge="gh pr merge -m -d"
 alias Gh_pr_create=" gh pr create -f"
 alias g='_fzf_ghq'
 alias gg='ghq get -l'
+alias imgcat='_imgcat_for_tmux'
+alias ff='_ff'
+alias fzg='_fzg'
 
 alias wake="wakeonlan fc:aa:14:29:a6:9"     # xeon01
 alias wake_01="wakeonlan 00:3e:e1:cb:b3:3c" # MP
@@ -103,10 +104,19 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export LESS="-R"
 export PATH=$PATH:${HOME}/bin
 
+# specific export
+export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
+
+MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -f $MY_zsh_yntax_highlighting ]];then
+   source $MY_zsh_syntax_highlighting
+fi
+
+
 # use jump command
 output=$(jump 2> /dev/null)
 if [ $? -eq 0 ]; then
-	eval "$(jump shell --bind=z)"
+    eval "$(jump shell --bind=z)"
 fi
 
 
@@ -135,60 +145,60 @@ local ENDC=$'%{\e[m%}'
 
 export MY_OPTION_SHORTEN_PATH=1
 function short() {
-	sho
+    sho
 }
 function sho() {
     export MY_OPTION_SHORTEN_PATH=0
 }
 function middle() {
-	mi
+    mi
 }
 function mi() {
     export MY_OPTION_SHORTEN_PATH=1
 }
 function long() {
-	lo
+    lo
 }
 function lo() {
     export MY_OPTION_SHORTEN_PATH=2
 }
 
 function MyPwdShorten() {
-	echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g'
+    echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g'
 }
 function MyPwdLastDir() {
-	if [[ "$1" == "/" ]]; then
-		# do nothing
-	else
-		echo $1 | sed -e 's/.*\///g'
-	fi
+    if [[ "$1" == "/" ]]; then
+        # do nothing
+    else
+        echo $1 | sed -e 's/.*\///g'
+    fi
 
 }
 function MyPwdWithoutLastDir() {
-	_ret=$(echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g')
-	echo ${_ret:0:-1}
+    _ret=$(echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g')
+    echo ${_ret:0:-1}
 }
 
 function precmd() {
-	vcs_info
-	if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
-		MYPWD=$(MyPwdShorten `print -P "%~"`)
-	elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
-		MYPWD=$(MyPwdWithoutLastDir `print -P "%~"`)$(MyPwdLastDir `print -P "%~"`)
-	else
-		MYPWD=$(print -P "%~")
+    vcs_info
+    if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
+        MYPWD=$(MyPwdShorten `print -P "%~"`)
+    elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
+        MYPWD=$(MyPwdWithoutLastDir `print -P "%~"`)$(MyPwdLastDir `print -P "%~"`)
+    else
+        MYPWD=$(print -P "%~")
     fi
-		PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
+        PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
  "
 }
 
 function _pwdd() { ls -d $PWD/$1; }
 
 function set_tmux_bgcolor_bg_white() {
-	tmux select-pane -P 'bg=white,fg=black'
+    tmux select-pane -P 'bg=white,fg=black'
 }
 function set_tmux_bgcolor_default() {
-	tmux select-pane -P 'default'
+    tmux select-pane -P 'default'
 }
 
 function set_iterm_bgcolor(){
@@ -196,41 +206,41 @@ function set_iterm_bgcolor(){
   local G=$2
   local B=$3
   /usr/bin/osascript <<EOF
-	tell application "iTerm"
-	  tell current session of current window
-	      set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
-	  end tell
-	end tell
+    tell application "iTerm"
+      tell current session of current window
+          set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
+      end tell
+    end tell
 EOF
 }
 function set_ibgcolor_black(){
-	set_term_bgcolor 0 0 0
+    set_term_bgcolor 0 0 0
 }
 
 function _mssh() {
-	if [ -e $1 ]; then
-		__mssh `cat $1`
-	else
-		__mssh  $*
-	fi
+    if [ -e $1 ]; then
+        __mssh `cat $1`
+    else
+        __mssh  $*
+    fi
 }
 function __mssh() {
-	COUNT=0
-	tmux new-window "exec ssh $1"
-	shift
-	for host in "$@"; do
-		# tmux split-window -h "exec ssh $1"
-		tmux split-window -h "exec ssh $host"
-		tmux resize-pane -L 100 > /dev/null
-		(( COUNT ++ ))
-		if [ $(( $COUNT % 5 )) -eq 0 ]; then
-			tmux select-layout tiled > /dev/null
-		fi
-	done
-	tmux set-window-option synchronize-panes on
-	tmux select-layout tiled > /dev/null
-	#tmux select-layout even-vertical > /dev/null
-	#tmux select-layout even-horizontal > /dev/null
+    COUNT=0
+    tmux new-window "exec ssh $1"
+    shift
+    for host in "$@"; do
+        # tmux split-window -h "exec ssh $1"
+        tmux split-window -h "exec ssh $host"
+        tmux resize-pane -L 100 > /dev/null
+        (( COUNT ++ ))
+        if [ $(( $COUNT % 5 )) -eq 0 ]; then
+            tmux select-layout tiled > /dev/null
+        fi
+    done
+    tmux set-window-option synchronize-panes on
+    tmux select-layout tiled > /dev/null
+    #tmux select-layout even-vertical > /dev/null
+    #tmux select-layout even-horizontal > /dev/null
 }
 function _Tar() {
     tar zcvf ${1}.tar.gz ${1}
@@ -242,14 +252,11 @@ function _Zip() {
 
 function _fzf_ghq() {
     FZF_GHQ_CURRENT_PATH=`pwd`
-
     if type bat > /dev/null 2>&1 ; then
         FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
     else
         FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
-        # FZF_GHQ_PATH=$(ghq get --look `ghq list |fzf --preview "cat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*`)
     fi
-
     if [ $? == 0 ]; then
         # echo "change path"
         cd $FZF_GHQ_PATH
@@ -287,7 +294,58 @@ function _imgcat_for_tmux() {
     # read enter -> clear & re-draw tmux panes
     read && tmux split-window resize-pane  && tmux split-window resize-pane
 }
-alias imgcat='_imgcat_for_tmux'
+
+# Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
+function _ff() {
+    FF_PATH=`__ff`
+    if [ "$?" -eq 0 ]; then
+        echo e $FF_PATH
+        e $FF_PATH
+        print -S "e $FF_PATH"
+    fi
+}
+
+function __ff() {
+  FILE_NAME=~/.MY_FZF_FF_query.txt
+  INITIAL_QUERY=$(cat $FILE_NAME)
+  ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
+  selected=$(FZF_DEFAULT_COMMAND="$ff_cmd '$INITIAL_QUERY'" \
+      fzf --bind="change:top+reload($ff_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
+          --ansi --phony \
+          --query "$INITIAL_QUERY" \
+          --delimiter=":" \
+          --preview="cat {1}" )
+  local ret=$?
+  [[ -n "$selected" ]] && echo $selected
+  return $ret
+}
+
+function _fzg() {
+    result=`__fzg`
+    if [ "$?" -eq 0 ]; then
+        echo e $result
+        e $result
+        print -S "e $result"
+    fi
+}
+
+function __fzg() {
+  FILE_NAME=~/.MY_FZF_FZG_query.txt
+  INITIAL_QUERY=$(cat $FILE_NAME)
+  # emulate -L zsh
+  fzg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
+  selected=$(FZF_DEFAULT_COMMAND="$fzg_cmd '$INITIAL_QUERY' | sed -e 's/^\.\///g' " \
+      fzf --bind="change:top+reload($fzg_cmd {q} | sed -e 's/\.\///g' || true ;  echo {q} > ${FILE_NAME})" \
+          --ansi --phony \
+          --query "$INITIAL_QUERY" \
+          --delimiter=":" \
+          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
+          # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in some env.
+
+  local ret=$?
+  [[ -n "$selected" ]] && echo ${${(@s/:/)selected}[1]}":"${${(@s/:/)selected}[2]}
+  return $ret
+}
 
 case ${OSTYPE} in
     darwin*)
@@ -318,10 +376,10 @@ case ${OSTYPE} in
 
         # for golang
         export GOPATH=$HOME/go
-		export GO111MODULE=on
+        export GO111MODULE=on
 
-		# for X11
-		export DISPLAY=:0
+        # for X11
+        export DISPLAY=:0
 
         # brew api token
         if [ -f ~/tokens/token_brew_api ];then
@@ -395,20 +453,17 @@ case ${OSTYPE} in
         # for golang
         export PATH=$PATH:/usr/local/go/bin
         export GOPATH=$HOME/go
-		export GO111MODULE=on
-
-
-
+        export GO111MODULE=on
         export PATH=$GOPATH/bin:$PATH
 
         # for python
         export PATH=$PATH:$HOME/.local/bin
 
-		# for my bin/
-		export PATH=$HOME/bin:$PATH
+        # for my bin/
+        export PATH=$HOME/bin:$PATH
 
-		# for my dev env
-		export SDE=$HOME/bf-sde-0.0.0
+        # for my dev env
+        export SDE=$HOME/bf-sde-0.0.0
 
         # P4 dev
         if [ -f ~/tools/set_sde.bash ];then
@@ -425,8 +480,6 @@ case ${OSTYPE} in
         if [ -e ~/.lesskey ]; then
             lesskey
         fi
-
-        lesskey
 
         function cd(){
             builtin cd $@ && ls -l --color && pwd;
@@ -445,91 +498,8 @@ case ${OSTYPE} in
         ;;
 esac
 
-
-
-## fzf
-export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
-# export FZF_DEFAULT_OPTS='
-#   --color fg:124,bg:16,hl:202,fg+:214,bg+:52,hl+:231
-#   --color info:52,prompt:196,spinner:208,pointer:196,marker:208
-# '
-
-
-## gheを開きたいのだが、、
-## github.comが開かれてしまう。
-# alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
-
-
-
-# if (which zprof > /dev/null 2>&1) ;then
-#   zprof
-# fi
-
-
-alias ff='_ff'
-function _ff() {
-    # FF_PATH=$(find ./ -type f | fzf --preview "cat {}")
-    FF_PATH=`__ff`
-    if [ "$?" -eq 0 ]; then
-        echo $FF_PATH
-        e $FF_PATH
-    fi
-}
-
-function __ff() {
-  FILE_NAME=~/.MY_FZF_FF_query.txt
-  INITIAL_QUERY=$(cat $FILE_NAME)
-  rg_cmd="find ./ -type f | grep --color=always -i "
-  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
-      fzf --bind="change:top+reload($rg_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
-          --ansi --phony \
-          --query "$INITIAL_QUERY" \
-          --delimiter=":" \
-          --preview="cat {1}" )
-  local ret=$?
-  [[ -n "$selected" ]] && echo $selected
-  return $ret
-}
-
-alias fzg='_fzg'
-function _fzg() {
-    result=`__fzg`
-    if [ "$?" -eq 0 ]; then
-        echo $result
-        e $result
-    fi
-}
-# Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
-function __fzg() {
-  FILE_NAME=~/.MY_FZF_FZG_query.txt
-  INITIAL_QUERY=$(cat $FILE_NAME)
-  # emulate -L zsh
-  rg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
-  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
-      fzf --bind="change:top+reload($rg_cmd {q} * || true ;  echo {q} > ${FILE_NAME})" \
-          --ansi --phony \
-          --query "$INITIAL_QUERY" \
-          --delimiter=":" \
-          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
-          # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in saome env.
-          # --preview-window='down:60%:+{2}-10')
-
-  local ret=$?
-  [[ -n "$selected" ]] && echo ${${(@s/:/)selected}[1]}":"${${(@s/:/)selected}[2]}
-  return $ret
-}
-
-# if (which zprof > /dev/null 2>&1) ;then
-#   zprof
-# fi
-
-MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [[ -f $MY_zsh_yntax_highlighting ]];then
-   source $MY_zsh_syntax_highlighting
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.office.zshrc ];then
-	source ~/.office.zshrc
+    source ~/.office.zshrc
 fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
