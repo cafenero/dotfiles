@@ -446,29 +446,12 @@ case ${OSTYPE} in
 esac
 
 
-
-## fzf
 export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
-# export FZF_DEFAULT_OPTS='
-#   --color fg:124,bg:16,hl:202,fg+:214,bg+:52,hl+:231
-#   --color info:52,prompt:196,spinner:208,pointer:196,marker:208
-# '
 
 
-## gheを開きたいのだが、、
-## github.comが開かれてしまう。
-# alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
-
-
-
-# if (which zprof > /dev/null 2>&1) ;then
-#   zprof
-# fi
-
-
+# Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
 alias ff='_ff'
 function _ff() {
-    # FF_PATH=$(find ./ -type f | fzf --preview "cat {}")
     FF_PATH=`__ff`
     if [ "$?" -eq 0 ]; then
         echo $FF_PATH
@@ -499,7 +482,7 @@ function _fzg() {
         e $result
     fi
 }
-# Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
+
 function __fzg() {
   FILE_NAME=~/.MY_FZF_FZG_query.txt
   INITIAL_QUERY=$(cat $FILE_NAME)
@@ -518,10 +501,6 @@ function __fzg() {
   [[ -n "$selected" ]] && echo ${${(@s/:/)selected}[1]}":"${${(@s/:/)selected}[2]}
   return $ret
 }
-
-# if (which zprof > /dev/null 2>&1) ;then
-#   zprof
-# fi
 
 MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if [[ -f $MY_zsh_yntax_highlighting ]];then
