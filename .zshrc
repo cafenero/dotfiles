@@ -297,17 +297,18 @@ function _imgcat_for_tmux() {
 function _ff() {
     FF_PATH=`__ff`
     if [ "$?" -eq 0 ]; then
-        echo $FF_PATH
+        echo e $FF_PATH
         e $FF_PATH
+        print -S "e $FF_PATH"
     fi
 }
 
 function __ff() {
   FILE_NAME=~/.MY_FZF_FF_query.txt
   INITIAL_QUERY=$(cat $FILE_NAME)
-  rg_cmd="find ./ -type f | grep --color=always -i "
-  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
-      fzf --bind="change:top+reload($rg_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
+  ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
+  selected=$(FZF_DEFAULT_COMMAND="$ff_cmd '$INITIAL_QUERY'" \
+      fzf --bind="change:top+reload($ff_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
           --ansi --phony \
           --query "$INITIAL_QUERY" \
           --delimiter=":" \
@@ -320,8 +321,9 @@ function __ff() {
 function _fzg() {
     result=`__fzg`
     if [ "$?" -eq 0 ]; then
-        echo $result
+        echo e $result
         e $result
+        print -S "e $result"
     fi
 }
 
@@ -329,9 +331,9 @@ function __fzg() {
   FILE_NAME=~/.MY_FZF_FZG_query.txt
   INITIAL_QUERY=$(cat $FILE_NAME)
   # emulate -L zsh
-  rg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
-  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
-      fzf --bind="change:top+reload($rg_cmd {q} * || true ;  echo {q} > ${FILE_NAME})" \
+  fzg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
+  selected=$(FZF_DEFAULT_COMMAND="$fzg_cmd '$INITIAL_QUERY' | sed -e 's/^\.\///g' " \
+      fzf --bind="change:top+reload($fzg_cmd {q} | sed -e 's/\.\///g' || true ;  echo {q} > ${FILE_NAME})" \
           --ansi --phony \
           --query "$INITIAL_QUERY" \
           --delimiter=":" \
