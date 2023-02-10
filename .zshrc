@@ -62,11 +62,11 @@ alias grv="git remote -v"
 alias watch="watch --color"
 
 if type kubectl > /dev/null 2>&1 ; then
-	alias k="kubectl"
-	alias kg="kubectl get"
-	alias kgpo="kubectl get pod"
-	alias kgpoa="kubectl get pod --all-namespaces"
-	source <(kubectl completion zsh)
+    alias k="kubectl"
+    alias kg="kubectl get"
+    alias kgpo="kubectl get pod"
+    alias kgpoa="kubectl get pod --all-namespaces"
+    source <(kubectl completion zsh)
 fi
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
@@ -106,7 +106,7 @@ export PATH=$PATH:${HOME}/bin
 # use jump command
 output=$(jump 2> /dev/null)
 if [ $? -eq 0 ]; then
-	eval "$(jump shell --bind=z)"
+    eval "$(jump shell --bind=z)"
 fi
 
 
@@ -135,60 +135,60 @@ local ENDC=$'%{\e[m%}'
 
 export MY_OPTION_SHORTEN_PATH=1
 function short() {
-	sho
+    sho
 }
 function sho() {
     export MY_OPTION_SHORTEN_PATH=0
 }
 function middle() {
-	mi
+    mi
 }
 function mi() {
     export MY_OPTION_SHORTEN_PATH=1
 }
 function long() {
-	lo
+    lo
 }
 function lo() {
     export MY_OPTION_SHORTEN_PATH=2
 }
 
 function MyPwdShorten() {
-	echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g'
+    echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g'
 }
 function MyPwdLastDir() {
-	if [[ "$1" == "/" ]]; then
-		# do nothing
-	else
-		echo $1 | sed -e 's/.*\///g'
-	fi
+    if [[ "$1" == "/" ]]; then
+        # do nothing
+    else
+        echo $1 | sed -e 's/.*\///g'
+    fi
 
 }
 function MyPwdWithoutLastDir() {
-	_ret=$(echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g')
-	echo ${_ret:0:-1}
+    _ret=$(echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g')
+    echo ${_ret:0:-1}
 }
 
 function precmd() {
-	vcs_info
-	if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
-		MYPWD=$(MyPwdShorten `print -P "%~"`)
-	elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
-		MYPWD=$(MyPwdWithoutLastDir `print -P "%~"`)$(MyPwdLastDir `print -P "%~"`)
-	else
-		MYPWD=$(print -P "%~")
+    vcs_info
+    if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
+        MYPWD=$(MyPwdShorten `print -P "%~"`)
+    elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
+        MYPWD=$(MyPwdWithoutLastDir `print -P "%~"`)$(MyPwdLastDir `print -P "%~"`)
+    else
+        MYPWD=$(print -P "%~")
     fi
-		PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
+        PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
  "
 }
 
 function _pwdd() { ls -d $PWD/$1; }
 
 function set_tmux_bgcolor_bg_white() {
-	tmux select-pane -P 'bg=white,fg=black'
+    tmux select-pane -P 'bg=white,fg=black'
 }
 function set_tmux_bgcolor_default() {
-	tmux select-pane -P 'default'
+    tmux select-pane -P 'default'
 }
 
 function set_iterm_bgcolor(){
@@ -196,41 +196,41 @@ function set_iterm_bgcolor(){
   local G=$2
   local B=$3
   /usr/bin/osascript <<EOF
-	tell application "iTerm"
-	  tell current session of current window
-	      set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
-	  end tell
-	end tell
+    tell application "iTerm"
+      tell current session of current window
+          set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
+      end tell
+    end tell
 EOF
 }
 function set_ibgcolor_black(){
-	set_term_bgcolor 0 0 0
+    set_term_bgcolor 0 0 0
 }
 
 function _mssh() {
-	if [ -e $1 ]; then
-		__mssh `cat $1`
-	else
-		__mssh  $*
-	fi
+    if [ -e $1 ]; then
+        __mssh `cat $1`
+    else
+        __mssh  $*
+    fi
 }
 function __mssh() {
-	COUNT=0
-	tmux new-window "exec ssh $1"
-	shift
-	for host in "$@"; do
-		# tmux split-window -h "exec ssh $1"
-		tmux split-window -h "exec ssh $host"
-		tmux resize-pane -L 100 > /dev/null
-		(( COUNT ++ ))
-		if [ $(( $COUNT % 5 )) -eq 0 ]; then
-			tmux select-layout tiled > /dev/null
-		fi
-	done
-	tmux set-window-option synchronize-panes on
-	tmux select-layout tiled > /dev/null
-	#tmux select-layout even-vertical > /dev/null
-	#tmux select-layout even-horizontal > /dev/null
+    COUNT=0
+    tmux new-window "exec ssh $1"
+    shift
+    for host in "$@"; do
+        # tmux split-window -h "exec ssh $1"
+        tmux split-window -h "exec ssh $host"
+        tmux resize-pane -L 100 > /dev/null
+        (( COUNT ++ ))
+        if [ $(( $COUNT % 5 )) -eq 0 ]; then
+            tmux select-layout tiled > /dev/null
+        fi
+    done
+    tmux set-window-option synchronize-panes on
+    tmux select-layout tiled > /dev/null
+    #tmux select-layout even-vertical > /dev/null
+    #tmux select-layout even-horizontal > /dev/null
 }
 function _Tar() {
     tar zcvf ${1}.tar.gz ${1}
@@ -318,10 +318,10 @@ case ${OSTYPE} in
 
         # for golang
         export GOPATH=$HOME/go
-		export GO111MODULE=on
+        export GO111MODULE=on
 
-		# for X11
-		export DISPLAY=:0
+        # for X11
+        export DISPLAY=:0
 
         # brew api token
         if [ -f ~/tokens/token_brew_api ];then
@@ -395,7 +395,7 @@ case ${OSTYPE} in
         # for golang
         export PATH=$PATH:/usr/local/go/bin
         export GOPATH=$HOME/go
-		export GO111MODULE=on
+        export GO111MODULE=on
 
 
 
@@ -404,11 +404,11 @@ case ${OSTYPE} in
         # for python
         export PATH=$PATH:$HOME/.local/bin
 
-		# for my bin/
-		export PATH=$HOME/bin:$PATH
+        # for my bin/
+        export PATH=$HOME/bin:$PATH
 
-		# for my dev env
-		export SDE=$HOME/bf-sde-0.0.0
+        # for my dev env
+        export SDE=$HOME/bf-sde-0.0.0
 
         # P4 dev
         if [ -f ~/tools/set_sde.bash ];then
@@ -529,7 +529,7 @@ if [[ -f $MY_zsh_yntax_highlighting ]];then
 fi
 
 if [ -f ~/.office.zshrc ];then
-	source ~/.office.zshrc
+    source ~/.office.zshrc
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
