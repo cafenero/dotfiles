@@ -28,6 +28,8 @@ setopt hist_expand
 setopt brace_ccl
 setopt prompt_subst
 setopt +o nomatch
+setopt inc_append_history
+setopt hist_ignore_dups
 # precmd() { vcs_info }
 
 
