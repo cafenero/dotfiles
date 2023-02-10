@@ -5,7 +5,6 @@ autoload -Uz compinit colors vcs_info
 compinit -i
 colors
 vcs_info
-
 stty stop undef
 
 HISTFILE=~/.histfile
@@ -14,8 +13,6 @@ SAVEHIST=1000000
 zstyle ':completion:*:default' menu select
 zstyle ':completion:*' list-separator '-->'
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
-
-
 
 autoload -Uz select-word-style
 select-word-style default
@@ -38,7 +35,6 @@ setopt +o nomatch
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias EE="emacs -nw"
-# alias e='emacsclient -t -a ""'
 alias e='_e'
 alias tm='tmux'
 alias tma='tmux a'
@@ -91,6 +87,9 @@ alias Gh_pr_merge="gh pr merge -m -d"
 alias Gh_pr_create=" gh pr create -f"
 alias g='_fzf_ghq'
 alias gg='ghq get -l'
+alias imgcat='_imgcat_for_tmux'
+alias ff='_ff'
+alias fzg='_fzg'
 
 alias wake="wakeonlan fc:aa:14:29:a6:9"     # xeon01
 alias wake_01="wakeonlan 00:3e:e1:cb:b3:3c" # MP
@@ -102,6 +101,15 @@ export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LESS="-R"
 export PATH=$PATH:${HOME}/bin
+
+# specific export
+export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
+
+MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -f $MY_zsh_yntax_highlighting ]];then
+   source $MY_zsh_syntax_highlighting
+fi
+
 
 # use jump command
 output=$(jump 2> /dev/null)
@@ -242,14 +250,11 @@ function _Zip() {
 
 function _fzf_ghq() {
     FZF_GHQ_CURRENT_PATH=`pwd`
-
     if type bat > /dev/null 2>&1 ; then
         FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
     else
         FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
-        # FZF_GHQ_PATH=$(ghq get --look `ghq list |fzf --preview "cat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*`)
     fi
-
     if [ $? == 0 ]; then
         # echo "change path"
         cd $FZF_GHQ_PATH
@@ -287,7 +292,56 @@ function _imgcat_for_tmux() {
     # read enter -> clear & re-draw tmux panes
     read && tmux split-window resize-pane  && tmux split-window resize-pane
 }
-alias imgcat='_imgcat_for_tmux'
+
+# Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
+function _ff() {
+    FF_PATH=`__ff`
+    if [ "$?" -eq 0 ]; then
+        echo $FF_PATH
+        e $FF_PATH
+    fi
+}
+
+function __ff() {
+  FILE_NAME=~/.MY_FZF_FF_query.txt
+  INITIAL_QUERY=$(cat $FILE_NAME)
+  rg_cmd="find ./ -type f | grep --color=always -i "
+  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
+      fzf --bind="change:top+reload($rg_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
+          --ansi --phony \
+          --query "$INITIAL_QUERY" \
+          --delimiter=":" \
+          --preview="cat {1}" )
+  local ret=$?
+  [[ -n "$selected" ]] && echo $selected
+  return $ret
+}
+
+function _fzg() {
+    result=`__fzg`
+    if [ "$?" -eq 0 ]; then
+        echo $result
+        e $result
+    fi
+}
+
+function __fzg() {
+  FILE_NAME=~/.MY_FZF_FZG_query.txt
+  INITIAL_QUERY=$(cat $FILE_NAME)
+  # emulate -L zsh
+  rg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
+  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
+      fzf --bind="change:top+reload($rg_cmd {q} * || true ;  echo {q} > ${FILE_NAME})" \
+          --ansi --phony \
+          --query "$INITIAL_QUERY" \
+          --delimiter=":" \
+          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
+          # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in some env.
+
+  local ret=$?
+  [[ -n "$selected" ]] && echo ${${(@s/:/)selected}[1]}":"${${(@s/:/)selected}[2]}
+  return $ret
+}
 
 case ${OSTYPE} in
     darwin*)
@@ -396,9 +450,6 @@ case ${OSTYPE} in
         export PATH=$PATH:/usr/local/go/bin
         export GOPATH=$HOME/go
         export GO111MODULE=on
-
-
-
         export PATH=$GOPATH/bin:$PATH
 
         # for python
@@ -426,8 +477,6 @@ case ${OSTYPE} in
             lesskey
         fi
 
-        lesskey
-
         function cd(){
             builtin cd $@ && ls -l --color && pwd;
         }
@@ -445,70 +494,8 @@ case ${OSTYPE} in
         ;;
 esac
 
-
-export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
-
-
-# Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
-alias ff='_ff'
-function _ff() {
-    FF_PATH=`__ff`
-    if [ "$?" -eq 0 ]; then
-        echo $FF_PATH
-        e $FF_PATH
-    fi
-}
-
-function __ff() {
-  FILE_NAME=~/.MY_FZF_FF_query.txt
-  INITIAL_QUERY=$(cat $FILE_NAME)
-  rg_cmd="find ./ -type f | grep --color=always -i "
-  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
-      fzf --bind="change:top+reload($rg_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
-          --ansi --phony \
-          --query "$INITIAL_QUERY" \
-          --delimiter=":" \
-          --preview="cat {1}" )
-  local ret=$?
-  [[ -n "$selected" ]] && echo $selected
-  return $ret
-}
-
-alias fzg='_fzg'
-function _fzg() {
-    result=`__fzg`
-    if [ "$?" -eq 0 ]; then
-        echo $result
-        e $result
-    fi
-}
-
-function __fzg() {
-  FILE_NAME=~/.MY_FZF_FZG_query.txt
-  INITIAL_QUERY=$(cat $FILE_NAME)
-  # emulate -L zsh
-  rg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
-  selected=$(FZF_DEFAULT_COMMAND="$rg_cmd '$INITIAL_QUERY'" \
-      fzf --bind="change:top+reload($rg_cmd {q} * || true ;  echo {q} > ${FILE_NAME})" \
-          --ansi --phony \
-          --query "$INITIAL_QUERY" \
-          --delimiter=":" \
-          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
-          # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in saome env.
-          # --preview-window='down:60%:+{2}-10')
-
-  local ret=$?
-  [[ -n "$selected" ]] && echo ${${(@s/:/)selected}[1]}":"${${(@s/:/)selected}[2]}
-  return $ret
-}
-
-MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [[ -f $MY_zsh_yntax_highlighting ]];then
-   source $MY_zsh_syntax_highlighting
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.office.zshrc ];then
     source ~/.office.zshrc
 fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
