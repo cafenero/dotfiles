@@ -301,7 +301,7 @@ function _imgcat_for_tmux() {
 function _ff() {
     FF_PATH=`__ff`
     if [ "$?" -eq 0 ]; then
-        echo e $FF_PATH
+        echo " e $FF_PATH"
         e $FF_PATH
         print -S "e $FF_PATH"
     fi
@@ -325,7 +325,7 @@ function __ff() {
 function _fzg() {
     result=`__fzg`
     if [ "$?" -eq 0 ]; then
-        echo e $result
+        echo " e $result"
         e $result
         print -S "e $result"
     fi
