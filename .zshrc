@@ -52,12 +52,14 @@ alias gd='git diff --color'
 alias gl='git log --graph --stat'
 alias ga='git add'
 alias gcv='git commit -v'
+alias gcb='git checkout -b `date "+%Y-%m-%d-%H-%M"`'
 alias pwdd='_pwdd'
 alias s='send.sh'
 alias d="docker"
 alias Group_docker="_group_docker"
 alias grv="git remote -v"
 alias watch="watch --color"
+alias tree='tree -C -a -I .git'
 
 if type kubectl > /dev/null 2>&1 ; then
     alias k="kubectl"
