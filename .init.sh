@@ -19,7 +19,7 @@ case ${OS} in
              fzf jq apt-utils debconf-utils \
              wireshark tshark zip fio iotop iftop \
              linux-tools-common linux-tools-generic linux-cloud-tools-generic powertop \
-             iperf iperf3
+             iperf iperf3 shellcheck
 
         # snap
         sudo apt install -y snapd
