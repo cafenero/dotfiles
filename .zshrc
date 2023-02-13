@@ -299,6 +299,9 @@ function _imgcat_for_tmux() {
 
 # Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
 function _ff() {
+    if [[ ! -f ~/.MY_FZF_FF_query.txt ]]; then
+        touch ~/.MY_FZF_FF_query.txt
+    fi
     FF_PATH=`__ff`
     if [ "$?" -eq 0 ]; then
         echo " e $FF_PATH"
@@ -323,6 +326,9 @@ function __ff() {
 }
 
 function _fzg() {
+    if [[ ! -f ~/.MY_FZF_FZG_query.txt ]]; then
+        touch ~/.MY_FZF_FZG_query.txt
+    fi
     result=`__fzg`
     if [ "$?" -eq 0 ]; then
         echo " e $result"
@@ -335,7 +341,7 @@ function __fzg() {
   FILE_NAME=~/.MY_FZF_FZG_query.txt
   INITIAL_QUERY=$(cat $FILE_NAME)
   # emulate -L zsh
-  fzg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' "
+  fzg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' --exclude='TAGS' "
   selected=$(FZF_DEFAULT_COMMAND="$fzg_cmd '$INITIAL_QUERY' | sed -e 's/^\.\///g' " \
       fzf --bind="change:top+reload($fzg_cmd {q} | sed -e 's/\.\///g' || true ;  echo {q} > ${FILE_NAME})" \
           --ansi --phony \
