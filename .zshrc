@@ -1,11 +1,12 @@
 fpath=(~/.zsh/completion $fpath)
 
 # load
-autoload -Uz compinit colors vcs_info
+autoload -Uz compinit colors vcs_info select-word-style
 compinit -i
 colors
 vcs_info
 stty stop undef
+select-word-style default
 
 HISTFILE=~/.histfile
 HISTSIZE=1000000
@@ -13,9 +14,6 @@ SAVEHIST=1000000
 zstyle ':completion:*:default' menu select
 zstyle ':completion:*' list-separator '-->'
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
-
-autoload -Uz select-word-style
-select-word-style default
 zstyle ':zle:*' word-chars ' _/=;@:{}[]()<>,.'
 zstyle ':zle:*' word-style unspecified
 
@@ -30,8 +28,6 @@ setopt prompt_subst
 setopt +o nomatch
 setopt inc_append_history
 setopt hist_ignore_dups
-# precmd() { vcs_info }
-
 
 # common alias
 alias ked="emacsclient -e '(kill-emacs)'"
@@ -53,36 +49,38 @@ alias gl='git log --graph --stat'
 alias ga='git add'
 alias gcv='git commit -v'
 alias gcb='git checkout -b `date "+%Y-%m-%d-%H-%M"`'
-alias pwdd='_pwdd'
-alias s='send.sh'
-alias d="docker"
-alias Group_docker="_group_docker"
+alias gdd="gd | delta"
 alias grv="git remote -v"
-alias watch="watch --color"
-alias tree='tree -C -a -I .git'
-
-if type kubectl > /dev/null 2>&1 ; then
-    alias k="kubectl"
-    alias kg="kubectl get"
-    alias kgpo="kubectl get pod"
-    alias kgpoa="kubectl get pod --all-namespaces"
-    source <(kubectl completion zsh)
-fi
+alias gp="git pull"
+alias gr="git remote -v"
+alias gg='ghq get -l'
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
-
+alias s='send.sh'
+alias d="docker"
+alias watch="watch --color"
+alias tree='tree -C -a -I .git'
+alias rp='realpath'
+alias rph='hostname | tr -d "\n" ; echo -n : ; realpath'
+alias mssh='_mssh'
+alias Group_docker="_group_docker"
+alias pwdd='_pwdd'
+alias cdg='_cdg'
+alias g='_fzf_ghq'
+alias imgcat='_imgcat_for_tmux'
+alias ff='_ff'
+alias fzg='_fzg'
+if type kubectl > /dev/null 2>&1 ; then
+    alias     k="/usr/bin/sudo kubectl"
+    alias    kg="/usr/bin/sudo kubectl get"
+    alias  kgpo="/usr/bin/sudo kubectl get pod"
+    alias kgpoa="/usr/bin/sudo kubectl get pod --all-namespaces"
+    source <(kubectl completion zsh)
+fi
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
 alias grep="grep $MY_GREP_OPTIONS"
 alias egrep="egrep $MY_GREP_OPTIONS"
 alias fgrep="fgrep $MY_GREP_OPTIONS"
-alias gdd="gd | delta"
-alias pwdd='_pwdd'
-alias rp='realpath'
-alias rph='hostname | tr -d "\n" ; echo -n : ; realpath'
-alias mssh='_mssh'
-alias gp="git pull"
-alias gr="git remote -v"
-alias cdg='_cdg'
 
 # tweek aliases
 alias P4i='xvfb-run p4i -w $SDE/build'
@@ -90,11 +88,6 @@ alias Tar="_Tar"
 alias Zip="_Zip"
 alias Gh_pr_merge="gh pr merge -m -d"
 alias Gh_pr_create=" gh pr create -f"
-alias g='_fzf_ghq'
-alias gg='ghq get -l'
-alias imgcat='_imgcat_for_tmux'
-alias ff='_ff'
-alias fzg='_fzg'
 
 alias wake="wakeonlan fc:aa:14:29:a6:9"     # xeon01
 alias wake_01="wakeonlan 00:3e:e1:cb:b3:3c" # MP
@@ -111,27 +104,26 @@ export PATH=$PATH:${HOME}/bin
 export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
 
 MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [[ -f $MY_zsh_yntax_highlighting ]];then
-   source $MY_zsh_syntax_highlighting
+if [[ -f $MY_zsh_syntax_highlighting ]];then
+   source "$MY_zsh_syntax_highlighting"
 fi
 
-
 # use jump command
-output=$(jump 2> /dev/null)
-if [ $? -eq 0 ]; then
-    eval "$(jump shell --bind=z)"
+if jump > /dev/null 2> /dev/null
+then
+    eval "$(jump shell --bind=z)" > /dev/null
 fi
 
 
 function ghb() {
-    gh browse $1
+    gh browse "$1"
 }
 
 function gw() {
 	if [ $# -eq 0 ]; then
 		_PATH=$(realpath .)
 	else
-		_PATH=$(realpath $1)
+		_PATH=$(realpath "$1")
 	fi
 
     # URL=https://
@@ -139,27 +131,27 @@ function gw() {
     # URL=${URL}/blob/master/
     # URL=${URL}$(echo ${_PATH} | cut -d '/' -f8-)
     # or
-    URL=https://$(echo ${_PATH} | cut -d '/' -f5 -f6 -f7)/blob/master/$(echo ${_PATH} | cut -d '/' -f8-)
+    URL=https://$(echo "${_PATH}" | cut -d '/' -f5 -f6 -f7)/blob/master/$(echo "${_PATH}" | cut -d '/' -f8-)
 
     # レポジトリのrootだったら、blob/masterは付けない。
-    echo ${URL} | grep -e "master/$" > /dev/null
-    if [ $? -eq 0 ]; then
-        URL=$(echo ${URL} | cut -d '/' -f-5)
+    if echo "${URL}" | grep -e "master/$" > /dev/null;
+    then
+        URL=$(echo "${URL}" | cut -d '/' -f-5)
     fi
-    echo ${URL}
-    open ${URL}
+    echo "${URL}"
+    open "${URL}"
 }
 
 function _cdg() {
-    ghq_root=$(ghq root)/$(ghq list `grv | grep push | awk '{print $2}' | awk -F@ '{print $2}' | sed -e 's/.git//'`)
-    cd $ghq_root
+    ghq_root=$(ghq root)/$(ghq list "$(grv | grep push | awk '{print $2}' | awk -F@ '{print $2}' | sed -e 's/.git//')")
+    cd "$ghq_root" || return
 }
 
 # https://girigiribauer.com/tech/20170208/
 # function print_date() {
 function d() {
   # zle -U `date "+%Y-%m-%d"`
-  zle -U `date "+%Y-%m-%d-%H-%M"`
+  zle -U "$(date "+%Y-%m-%d-%H-%M")"
 }
 zle -N d
 bindkey "^Xd" d
@@ -168,10 +160,10 @@ bindkey "^Xd" d
 # ----------------------------------------------------------------
 ## prompt
 # ----------------------------------------------------------------
-local P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
-local PURPLE=$'%{\e[1;35m%}'
-local RED=$'%{\e[38;5;88m%}'
-local ENDC=$'%{\e[m%}'
+P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
+PURPLE=$'%{\e[1;35m%}'
+RED=$'%{\e[38;5;88m%}'
+ENDC=$'%{\e[m%}'
 
 export MY_OPTION_SHORTEN_PATH=1
 function short() {
@@ -194,35 +186,35 @@ function lo() {
 }
 
 function MyPwdShorten() {
-    echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g'
+    echo "$1" | sed -e 's/\(\/.\)[^\/]*/\1/g'
 }
+
 function MyPwdLastDir() {
-    if [[ "$1" == "/" ]]; then
-        # do nothing
-    else
-        echo $1 | sed -e 's/.*\///g'
+    if [[ ! "$1" == "/" ]]; then
+        echo "$1" | sed -e 's/.*\///g'
     fi
 
 }
+
 function MyPwdWithoutLastDir() {
-    _ret=$(echo $1 | sed -e 's/\(\/.\)[^\/]*/\1/g')
-    echo ${_ret:0:-1}
+    _ret=$(echo "$1" | sed -e 's/\(\/.\)[^\/]*/\1/g')
+    echo "${_ret:0:-1}"
 }
 
 function precmd() {
     vcs_info
     if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
-        MYPWD=$(MyPwdShorten `print -P "%~"`)
+        MYPWD=$(MyPwdShorten "$(print -P "%~")")
     elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
-        MYPWD=$(MyPwdWithoutLastDir `print -P "%~"`)$(MyPwdLastDir `print -P "%~"`)
+        MYPWD=$(MyPwdWithoutLastDir "$(print -P "%~")")$(MyPwdLastDir "$(print -P "%~")")
     else
         MYPWD=$(print -P "%~")
     fi
-        PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
+    PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
  "
 }
 
-function _pwdd() { ls -d $PWD/$1; }
+function _pwdd() { ls -d "$PWD/$1"; }
 
 function set_tmux_bgcolor_bg_white() {
     tmux select-pane -P 'bg=white,fg=black'
@@ -248,10 +240,10 @@ function set_ibgcolor_black(){
 }
 
 function _mssh() {
-    if [ -e $1 ]; then
-        __mssh `cat $1`
+    if [[ -e "$1" ]]; then
+        __mssh $(cat "$1")
     else
-        __mssh  $*
+        __mssh "$@"
     fi
 }
 function __mssh() {
@@ -273,56 +265,57 @@ function __mssh() {
     #tmux select-layout even-horizontal > /dev/null
 }
 function _Tar() {
-    tar zcvf ${1}.tar.gz ${1}
+    tar zcvf "${1}.tar.gz" "${1}"
 }
 
 function _Zip() {
-    zip -r ${1}.zip ${1}
+    zip -r "${1}.zip" "${1}"
 }
 
 function _fzf_ghq() {
-    FZF_GHQ_CURRENT_PATH=`pwd`
+    FZF_GHQ_CURRENT_PATH=$(pwd)
     if type bat > /dev/null 2>&1 ; then
-        FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
+        # FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
+        FZF_GHQ_PATH=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
     else
-        FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
+        # FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
+        FZF_GHQ_PATH=$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
     fi
-    if [ $? == 0 ]; then
+    if [[ -n $FZF_GHQ_PATH ]]; then
         # echo "change path"
-        cd $FZF_GHQ_PATH
+        cd "$(ghq root)/$FZF_GHQ_PATH" || return
     else
         # echo "keep path"
-        cd $FZF_GHQ_CURRENT_PATH > /dev/null
+        cd "$FZF_GHQ_CURRENT_PATH" > /dev/null || return
     fi
 }
 
 function _e() {
-    args=`echo $1 | sed -E "s/([^:]+):([0-9:]+)/+\2 \1/g"`
-    eval emacsclient -nw -a \"\" $args
+    args=$(echo "$1" | sed -E "s/([^:]+):([0-9:]+)/+\2 \1/g")
+    eval emacsclient -nw -a \"\" "$args"
 }
-
 
 function _group_docker() {
     # adding me to docker group if not in the group
     set -x
-    sudo gpasswd -a `whoami` docker
+    sudo gpasswd -a "$(whoami)" docker
     sudo systemctl restart docker
     newgrp docker
     set +x
 }
 
 function _termshark() {
-    (export LC_CTYPE=en_US.UTF-8 ; ${HOME}/go/bin/termshark $@)
+    (export LC_CTYPE=en_US.UTF-8 ; "${HOME}"/go/bin/termshark "$@")
 }
 
 function _iftop() {
-    (export LANG=""; export LC_ALL=""; sudo iftop $@)
+    (export LANG=""; export LC_ALL=""; sudo iftop "$@")
 }
 
 function _imgcat_for_tmux() {
     imgcat "$1"
     # read enter -> clear & re-draw tmux panes
-    read && tmux split-window resize-pane  && tmux split-window resize-pane
+    read -r && tmux split-window resize-pane  && tmux split-window resize-pane
 }
 
 # Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
@@ -330,10 +323,10 @@ function _ff() {
     if [[ ! -f ~/.MY_FZF_FF_query.txt ]]; then
         touch ~/.MY_FZF_FF_query.txt
     fi
-    FF_PATH=`__ff`
-    if [ "$?" -eq 0 ]; then
+    if FF_PATH=$(__ff);
+    then
         echo " e $FF_PATH"
-        e $FF_PATH
+        e "$FF_PATH"
         print -S "e $FF_PATH"
     fi
 }
@@ -349,7 +342,7 @@ function __ff() {
           --delimiter=":" \
           --preview="cat {1}" )
   local ret=$?
-  [[ -n "$selected" ]] && echo $selected
+  [[ -n "$selected" ]] && echo "$selected"
   return $ret
 }
 
@@ -357,10 +350,10 @@ function _fzg() {
     if [[ ! -f ~/.MY_FZF_FZG_query.txt ]]; then
         touch ~/.MY_FZF_FZG_query.txt
     fi
-    result=`__fzg`
-    if [ "$?" -eq 0 ]; then
+    if result=$(__fzg);
+    then
         echo " e $result"
-        e $result
+        e "$result"
         print -S "e $result"
     fi
 }
@@ -379,7 +372,9 @@ function __fzg() {
           # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in some env.
 
   local ret=$?
-  [[ -n "$selected" ]] && echo ${${(@s/:/)selected}[1]}":"${${(@s/:/)selected}[2]}
+  if [[ -n "$selected" ]]; then
+     echo "${(@s/:/)selected}[1]:${(@s/:/)selected}[2]"
+  fi
   return $ret
 }
 
@@ -418,8 +413,8 @@ case ${OSTYPE} in
         export DISPLAY=:0
 
         # brew api token
-        if [ -f ~/tokens/token_brew_api ];then
-            source ~/tokens/token_brew_api
+        if [ -f ~/API_tokens/token_brew_api ];then
+            source ~/API_tokens/token_brew_api
         fi
 
         # digital ocean api token
@@ -432,7 +427,7 @@ case ${OSTYPE} in
         fi
 
         function cd(){
-            builtin cd $@ && gls -l --color && pwd;
+            builtin cd "$@" && gls -l --color && pwd;
         }
 
         # needed at END line ?
@@ -478,11 +473,12 @@ case ${OSTYPE} in
         if [[ ! -e "${TMP_PATH_GIT_DIFF_HIGHLIGHT}" ]] && [[ -e "/usr/share/doc/git/contrib/diff-highlight/Makefile" ]]; then
             echo cd /usr/share/doc/git/contrib/diff-highlight/
             echo sudo make
-            cd /usr/share/doc/git/contrib/diff-highlight/
+            cd /usr/share/doc/git/contrib/diff-highlight/ || return
             sudo make
         fi
 
-        export PATH=$PATH:`find /usr/share/doc/git* -type d | grep diff-highlight | xargs echo | sed -e 's/ /:/g'`
+        PATH_TMP=$(find /usr/share/doc/git* -type d | grep diff-highlight | xargs echo | sed -e 's/ /:/g')
+        export PATH=$PATH:$PATH_TMP
         # export LC_ALL=C.UTF-8
         export LC_ALL=en_US.UTF-8
 
@@ -509,7 +505,7 @@ case ${OSTYPE} in
         if [ -e ~/tools ];then
            export PATH=$PATH:$HOME/tools
         fi
-        if [ -e $SDE ];then
+        if [ -e "$SDE" ];then
            export PATH=$PATH:$SDE
         fi
 
@@ -518,17 +514,17 @@ case ${OSTYPE} in
         fi
 
         function cd(){
-            builtin cd $@ && ls -l --color && pwd;
+            builtin cd "$@" && ls -l --color && pwd;
         }
         # unix domain socket settings for screen
-        agent="$HOME/.ssh-agent-`hostname`"
-        if [ `uname`  = Linux ]; then
+        agent="$HOME/.ssh-agent-$(hostname)"
+        if [ "$(uname)" = Linux ]; then
             if [ -S "$agent" ]; then
-                export SSH_AUTH_SOCK=$agent
+                export SSH_AUTH_SOCK="$agent"
             elif [ ! -S "$SSH_AUTH_SOCK" ]; then
-                export SSH_AUTH_SOCK=$agent
+                export SSH_AUTH_SOCK="$agent"
             elif [ ! -L "$SSH_AUTH_SOCK" ]; then
-                ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
+                ln -snf "$SSH_AUTH_SOCK" "$agent" && export SSH_AUTH_SOCK="$agent"
             fi
         fi
         ;;
