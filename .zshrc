@@ -122,10 +122,32 @@ if [ $? -eq 0 ]; then
 fi
 
 
-function gw() {
+function ghb() {
     gh browse $1
 }
 
+function gw() {
+	if [ $# -eq 0 ]; then
+		_PATH=$(realpath .)
+	else
+		_PATH=$(realpath $1)
+	fi
+
+    # URL=https://
+    # URL=${URL}$(echo ${_PATH} | cut -d '/' -f5 -f6 -f7)
+    # URL=${URL}/blob/master/
+    # URL=${URL}$(echo ${_PATH} | cut -d '/' -f8-)
+    # or
+    URL=https://$(echo ${_PATH} | cut -d '/' -f5 -f6 -f7)/blob/master/$(echo ${_PATH} | cut -d '/' -f8-)
+
+    # レポジトリのrootだったら、blob/masterは付けない。
+    echo ${URL} | grep -e "master/$" > /dev/null
+    if [ $? -eq 0 ]; then
+        URL=$(echo ${URL} | cut -d '/' -f-5)
+    fi
+    echo ${URL}
+    open ${URL}
+}
 
 # https://girigiribauer.com/tech/20170208/
 # function print_date() {
