@@ -82,6 +82,7 @@ alias rph='hostname | tr -d "\n" ; echo -n : ; realpath'
 alias mssh='_mssh'
 alias gp="git pull"
 alias gr="git remote -v"
+alias cdg='_cdg'
 
 # tweek aliases
 alias P4i='xvfb-run p4i -w $SDE/build'
@@ -147,6 +148,11 @@ function gw() {
     fi
     echo ${URL}
     open ${URL}
+}
+
+function _cdg() {
+    ghq_root=$(ghq root)/$(ghq list `grv | grep push | awk '{print $2}' | awk -F@ '{print $2}' | sed -e 's/.git//'`)
+    cd $ghq_root
 }
 
 # https://girigiribauer.com/tech/20170208/
