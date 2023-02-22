@@ -379,7 +379,7 @@ function __fzg() {
 
   local ret=$?
   if [[ -n "$selected" ]]; then
-     echo "${(@s/:/)selected}[1]:${(@s/:/)selected}[2]"
+    echo "${${(@s/:/)selected}[1]}:${${(@s/:/)selected}[2]}"
   fi
   return $ret
 }
