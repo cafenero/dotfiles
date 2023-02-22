@@ -234,6 +234,7 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 ;; conf-mode
+(add-to-list 'auto-mode-alist '("config" . conf-mode))
 (add-to-list 'auto-mode-alist '("config-mac" . conf-mode))
 
 (require 'go-mode)
