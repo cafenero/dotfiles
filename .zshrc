@@ -53,6 +53,7 @@ alias gdd="gd | delta"
 alias grv="git remote -v"
 alias gp="git pull"
 alias gr="git remote -v"
+alias gpoa="git push origin @"
 alias gg='ghq get -l'
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
