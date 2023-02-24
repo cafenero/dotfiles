@@ -88,6 +88,8 @@ alias P4i='xvfb-run p4i -w $SDE/build'
 alias Tar="_Tar"
 alias Zip="_Zip"
 alias Gh_pr_merge="gh pr merge -m -d"
+alias Gh_pr_rebase="gh pr merge -r -d"
+alias Gh_pr_squash="gh pr merge -s -d"
 alias Gh_pr_create=" gh pr create -f"
 
 alias wake="wakeonlan fc:aa:14:29:a6:9"     # xeon01
