@@ -53,6 +53,7 @@ alias gdd="gd | delta"
 alias grv="git remote -v"
 alias gp="git pull"
 alias gr="git remote -v"
+alias gpoa="git push origin @"
 alias gg='ghq get -l'
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
@@ -101,7 +102,20 @@ export LESS="-R"
 export PATH=$PATH:${HOME}/bin
 
 # specific export
-export FZF_DEFAULT_OPTS='--bind=ctrl-j:accept --bind=ctrl-i:accept --bind=ctrl-e:accept --bind=ctrl-k:kill-line --color=bg:#000000,hl:#ff00ff --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf --reverse'
+export FZF_DEFAULT_OPTS='
+--bind=ctrl-j:accept
+--bind=ctrl-e:accept
+--bind=ctrl-w:backward-kill-word
+--bind=ctrl-i:toggle-preview
+--bind=ctrl-u:page-up
+--bind=alt-v:page-up
+--bind=ctrl-v:page-down
+--bind=ctrl-k:kill-line
+--color=bg:#000000,hl:#ff00ff
+--color=fg+:#333333,bg+:#eeeeee,hl+:#f57900
+--color=info:#afaf87,prompt:#d7005f,pointer:#cc0000
+--color=marker:#ef2929,spinner:#af5fff,header:#729fcf
+--reverse'
 
 MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if [[ -f $MY_zsh_syntax_highlighting ]];then
