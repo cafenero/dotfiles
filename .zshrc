@@ -117,7 +117,7 @@ export FZF_DEFAULT_OPTS='
 --color=fg+:#333333,bg+:#eeeeee,hl+:#f57900
 --color=info:#afaf87,prompt:#d7005f,pointer:#cc0000
 --color=marker:#ef2929,spinner:#af5fff,header:#729fcf
---reverse'
+--no-mouse'
 
 MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if [[ -f $MY_zsh_syntax_highlighting ]];then
@@ -552,7 +552,7 @@ case ${OSTYPE} in
         ;;
 esac
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.office.zshrc ];then
     source ~/.office.zshrc
