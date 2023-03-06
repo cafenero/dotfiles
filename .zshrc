@@ -106,7 +106,6 @@ export PATH=$PATH:${HOME}/bin
 # specific export
 export FZF_DEFAULT_OPTS='
 --bind=ctrl-j:accept
---bind=ctrl-e:accept
 --bind=ctrl-w:backward-kill-word
 --bind=ctrl-i:toggle-preview
 --bind=ctrl-u:page-up
