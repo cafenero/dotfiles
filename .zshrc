@@ -108,7 +108,6 @@ export FZF_DEFAULT_OPTS='
 --bind=ctrl-j:accept
 --bind=ctrl-w:backward-kill-word
 --bind=ctrl-i:toggle-preview
---bind=ctrl-u:page-up
 --bind=alt-v:page-up
 --bind=ctrl-v:page-down
 --bind=ctrl-k:kill-line
