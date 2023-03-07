@@ -48,7 +48,7 @@ alias gd='git diff --color'
 alias gl='git log --graph --stat'
 alias ga='git add'
 alias gcv='git commit -v'
-alias gcb='git checkout -b `date "+%Y-%m-%d-%H-%M"`'
+alias gcb='_gcb ${1}'
 alias gdd="gd | delta"
 alias grv="git remote -v"
 alias gp="git pull"
@@ -128,6 +128,14 @@ if jump > /dev/null 2> /dev/null
 then
     eval "$(jump shell --bind=z)" > /dev/null
 fi
+
+function _gcb() {
+    if [ $# -eq 0 ]; then
+        git checkout -b `date "+%Y-%m-%d-%H-%M"`
+    else
+        git checkout -b ${1}
+    fi
+}
 
 function gw() {
     case ${OSTYPE} in
