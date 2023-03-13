@@ -59,6 +59,7 @@ alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
 alias s='send.sh'
 alias d="docker"
+alias dc="docker compose"
 alias watch="watch --color"
 alias tree='tree -C -a -I .git'
 alias rp='realpath'
