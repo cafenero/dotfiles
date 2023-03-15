@@ -20,7 +20,6 @@ zstyle ':zle:*' word-style unspecified
 bindkey "^[f" emacs-forward-word
 
 # setopts
-setopt share_history
 setopt hist_reduce_blanks
 setopt hist_expand
 setopt brace_ccl
