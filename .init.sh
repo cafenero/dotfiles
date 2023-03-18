@@ -14,12 +14,18 @@ case ${OS} in
         # general packages
         sudo apt update
         sudo apt -y install \
-             emacs-nox tree vim tig ctags htop zsh \
-             linux-doc tmux emacs-mozc \
+             tree vim tig ctags htop zsh \
+             linux-doc \
              fzf jq apt-utils debconf-utils \
              wireshark tshark zip fio iotop iftop \
              linux-tools-common linux-tools-generic linux-cloud-tools-generic powertop \
              iperf iperf3 shellcheck
+
+        wget https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-deb/tmux_3.3-2023-03-16-19-58_amd64.deb
+        wget https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-emacs-deb/emacs_28.2-2023-03-16-19-58_amd64.deb
+        sudo apt install -y ./emacs_28.2-2023-03-16-19-58_amd64.deb ./tmux_3.3-2023-03-16-19-58_amd64.deb emacs-mozc
+        rm ./emacs_28.2-2023-03-16-19-58_amd64.deb ./tmux_3.3-2023-03-16-19-58_amd64.deb
+
 
         # snap
         sudo apt install -y snapd
@@ -50,13 +56,15 @@ case ${OS} in
         sudo apt update
         sudo apt -y install golang-go
 
-        # gh, ghq, tmux
+        # gh, ghq
         # see https://github.com/cli/cli/blob/trunk/docs/install_linux.md
         curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
         sudo apt update
         sudo apt install gh
         go install github.com/x-motemen/ghq@latest
+
+        # tmux
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
         # termshark
@@ -64,6 +72,8 @@ case ${OS} in
         git clone https://github.com/gcla/termshark
         cd termshark
         go install ./...
+        cd ..
+        rm -rf termshark
 
         # enable non-root packet capture
         sudo debconf-set-selections <<< "wireshark-common wireshark-common/install-setuid boolean true"
@@ -78,10 +88,12 @@ case ${OS} in
         emacsclient -e '(kill-emacs)'
         ;;
     *CentOS*)
+        sudo yum install -y epel-release zsh
         sudo yum install --enablerepo=epel -y \
-             emacs-nox tree vim tig ctags htop \
-             kernel-doc mozc libevent libevent-devel ncurses-devel wireshark
+             tree vim tig ctags htop \
+             kernel-doc wireshark
 
+        sudo chsh `whoami` -s /bin/zsh
 
         # install latest golang
         wget -O go.tgz "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
@@ -93,7 +105,7 @@ case ${OS} in
 
         # install ghq
         # git clone https://github.com/x-motemen/ghq ghq/github.com/x-motemen/ghq
-        go install github.com/x-motemen/ghq@latest
+        /usr/local/go/bin/go install github.com/x-motemen/ghq@latest
 
         # fzf
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -105,35 +117,24 @@ case ${OS} in
         # go install github.com/gcla/termshark@latest
         git clone https://github.com/gcla/termshark
         cd termshark
-        go install ./...
+        /usr/local/go/bin/go install ./...
+        cd ..
+        rm -rf termshark
 
-
-        # IUSを使うパターン
+        # IUSでgitをインストール
         sudo yum remove -y git
         sudo yum -y install \
              https://repo.ius.io/ius-release-el7.rpm \
              https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-        sudo yum -y install libsecret pcre2
-        sudo yum -y install git tmux  --disablerepo=\* --enablerepo=ius
-        # FIXME:
-        # emacsがない、、、、、、、、
-        # tmux古い、、、2系、、、
+        sudo yum -y install libsecret pcre2 emacs-filesystem
+        sudo yum -y install git --disablerepo=\* --enablerepo=ius
 
-
-
+        # emacs, tmux
+        sudo yum -y install \
+             https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-emacs-rpm/emacs-28.2-2023.03.16.10.59.el7.x86_64.rpm\
+             https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-rpm/tmux-3.3-2023.03.16.10.59.el7.x86_64.rpm\
+             mozc
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-        if [ -e ~/tmux.tar.gz ]; then
-            tar xf tmux.tar.gz
-            cd tmux
-            sudo make install
-            cd
-        fi
-        if [ -e ~/emacs-27.2-build-nox-tls.tar.gz ]; then
-            tar xf emacs-27.2-build-nox-tls.tar.gz
-            cd emacs-27.2
-            sudo make install
-            cd
-        fi
 
         # init emacs
         emacs -e 'package-refresh-contents' -e 'package-install-selected-packages' -e 'kill-emacs'
