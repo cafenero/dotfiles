@@ -82,10 +82,6 @@ case ${OS} in
 
         # dev packages
         sudo apt -y install autoconf autogen autopoint libglib2.0-dev libtool xsltproc libsemanage-dev make bison gettext
-
-        # init emacs
-        emacs -e 'package-refresh-contents' -e 'package-install-selected-packages' -e 'kill-emacs'
-        emacsclient -e '(kill-emacs)'
         ;;
     *CentOS*)
         sudo yum install -y epel-release zsh
@@ -135,10 +131,19 @@ case ${OS} in
              https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-rpm/tmux-3.3-2023.03.16.10.59.el7.x86_64.rpm\
              mozc
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-        # init emacs
-        emacs -e 'package-refresh-contents' -e 'package-install-selected-packages' -e 'kill-emacs'
-        emacsclient -e '(kill-emacs)'
-
         ;;
 esac
+
+# init emacs
+emacs \
+    --eval "(defun package-install-selected-packages-no-prompt ()
+             \"Install selected packages without prompting for confirmation.\"
+             (interactive)
+               (let ((package-menu-async nil))
+               (cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest args) t))
+               ((symbol-function 'y-or-n-p) (lambda (&rest args) t)))
+               (package-install-selected-packages))))"\
+    -e 'package-refresh-contents' \
+    -e 'package-install-selected-packages-no-prompt'\
+    -e 'kill-emacs'
+emacsclient -e '(kill-emacs)'
