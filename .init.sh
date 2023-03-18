@@ -5,7 +5,6 @@ OS=$(head -n 1 /etc/os-release)
 
 shopt -s expand_aliases
 alias sudo='sudo -E '
-
 sudo pwd
 
 case ${OS} in
@@ -25,7 +24,6 @@ case ${OS} in
         wget https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-emacs-deb/emacs_28.2-2023-03-16-19-58_amd64.deb
         sudo apt install -y ./emacs_28.2-2023-03-16-19-58_amd64.deb ./tmux_3.3-2023-03-16-19-58_amd64.deb emacs-mozc
         rm ./emacs_28.2-2023-03-16-19-58_amd64.deb ./tmux_3.3-2023-03-16-19-58_amd64.deb
-
 
         # snap
         sudo apt install -y snapd
@@ -64,17 +62,6 @@ case ${OS} in
         sudo apt install gh
         go install github.com/x-motemen/ghq@latest
 
-        # tmux
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-        # termshark
-        # go install github.com/gcla/termshark@latest
-        git clone https://github.com/gcla/termshark
-        cd termshark
-        go install ./...
-        cd ..
-        rm -rf termshark
-
         # enable non-root packet capture
         sudo debconf-set-selections <<< "wireshark-common wireshark-common/install-setuid boolean true"
         sudo dpkg-reconfigure --frontend noninteractive wireshark-common
@@ -88,8 +75,6 @@ case ${OS} in
         sudo yum install --enablerepo=epel -y \
              tree vim tig ctags htop \
              kernel-doc wireshark
-
-        sudo chsh `whoami` -s /bin/zsh
 
         # install latest golang
         wget -O go.tgz "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
@@ -109,14 +94,6 @@ case ${OS} in
         sudo cp ~/.fzf/bin/fzf /usr/local/bin/
         rm -rf ~/.fzf
 
-        # termshark
-        # go install github.com/gcla/termshark@latest
-        git clone https://github.com/gcla/termshark
-        cd termshark
-        /usr/local/go/bin/go install ./...
-        cd ..
-        rm -rf termshark
-
         # IUSでgitをインストール
         sudo yum remove -y git
         sudo yum -y install \
@@ -130,9 +107,21 @@ case ${OS} in
              https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-emacs-rpm/emacs-28.2-2023.03.16.10.59.el7.x86_64.rpm\
              https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-rpm/tmux-3.3-2023.03.16.10.59.el7.x86_64.rpm\
              mozc
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         ;;
 esac
+
+# zsh
+sudo chsh `whoami` -s /bin/zsh
+
+# termshark
+git clone https://github.com/gcla/termshark
+cd termshark
+go install ./...
+cd ..
+rm -rf termshark
+
+# tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # init emacs
 emacs \
