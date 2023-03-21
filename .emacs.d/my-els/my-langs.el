@@ -237,6 +237,7 @@
 (add-to-list 'auto-mode-alist '("config" . conf-mode))
 (add-to-list 'auto-mode-alist '("config-mac" . conf-mode))
 (add-to-list 'auto-mode-alist '("default" . conf-mode))
+(add-to-list 'auto-mode-alist '(".gitignore" . conf-mode))
 
 (require 'go-mode)
 ;;(require 'go-mode-autoloads)
