@@ -287,8 +287,17 @@
   )
 )
 
-;; ;; C-mode
-;; (require 'flymake)
+;; C-mode
+
+;; specific c-mode
+(defun my/setup-c-formatting ()
+  (when (locate-dominating-file default-directory "iproute2")
+    (setq-local indent-tabs-mode t)
+    (setq-local tab-width 4)
+    (setq-local c-basic-offset 4)))
+(add-hook 'c-mode-hook #'my/setup-c-formatting)
+
+;; general c-mode
 (defun my-c-mode-conf ()
   "My c mode conf."
 
