@@ -224,6 +224,17 @@
 (push '(?K ?p) resize-window-alias-list)
 (push '(?k ?P) resize-window-alias-list)
 
+(defun my/split-window-right-and-move ()
+  (interactive)
+  (split-window-right)
+  (other-window 1))
+(global-set-key (kbd "\C-x 2") 'my/split-window-below-and-move)
+
+(defun my/split-window-below-and-move ()
+  (interactive)
+  (split-window-below)
+  (other-window 1))
+(global-set-key (kbd "\C-x 3") 'my/split-window-right-and-move)
 
 ;; https://takezoe.hatenablog.com/?page=1440124057
 (require 'ace-jump-mode)
