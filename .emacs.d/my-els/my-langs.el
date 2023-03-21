@@ -349,11 +349,11 @@
 
 
 
-
-
-
-
-
+(require 'clang-format)
+(defun my/clang-format-on-save ()
+  (when (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+    (clang-format-buffer)))
+;; (add-hook 'before-save-hook #'my/clang-format-on-save)
 
 ;;
 ;; p4lang-mode + indent fix  -> コメントアウトがずれる。。直せない。。
