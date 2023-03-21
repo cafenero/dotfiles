@@ -37,6 +37,14 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; ----------------------------------------------------------------
+;; alias
+;; ----------------------------------------------------------------
+(defalias 'dv 'describe-variable)
+(defalias 'dm 'describe-mode)
+(defalias 'dmm 'describe-minor-mode)
+(defalias 'df 'describe-function)
+
 (leaf dmacro
   :ensure t
   ;; :custom `((dmacro-key . ,(kbd "C-S-e")))
