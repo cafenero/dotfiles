@@ -119,8 +119,8 @@ export FZF_DEFAULT_OPTS='
 --no-mouse'
 
 MY_zsh_syntax_highlighting=${HOME}/ghq/github.com/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [[ -f $MY_zsh_syntax_highlighting ]];then
-   source "$MY_zsh_syntax_highlighting"
+if [[ -f $MY_zsh_syntax_highlighting ]]; then
+    source "$MY_zsh_syntax_highlighting"
 fi
 
 # use jump command
@@ -139,12 +139,12 @@ function _gcb() {
 
 function gw() {
     case ${OSTYPE} in
-       darwin*)
-           gh browse "$1"
-           ;;
-       linux*)
-           gh browse  -n "$1"
-           ;;
+        darwin*)
+            gh browse "$1"
+            ;;
+        linux*)
+            gh browse  -n "$1"
+            ;;
     esac
 }
 
@@ -179,8 +179,8 @@ function _cdg() {
 # https://girigiribauer.com/tech/20170208/
 # function print_date() {
 function d() {
-  # zle -U `date "+%Y-%m-%d"`
-  zle -U "$(date "+%Y-%m-%d-%H-%M")"
+    # zle -U `date "+%Y-%m-%d"`
+    zle -U "$(date "+%Y-%m-%d-%H-%M")"
 }
 zle -N d
 bindkey "^Xd" d
@@ -253,10 +253,10 @@ function set_tmux_bgcolor_default() {
 }
 
 function set_iterm_bgcolor(){
-  local R=$1
-  local G=$2
-  local B=$3
-  /usr/bin/osascript <<EOF
+    local R=$1
+    local G=$2
+    local B=$3
+    /usr/bin/osascript <<EOF
     tell application "iTerm"
       tell current session of current window
           set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
@@ -361,18 +361,18 @@ function _ff() {
 }
 
 function __ff() {
-  FILE_NAME=~/.MY_FZF_FF_query.txt
-  INITIAL_QUERY=$(cat $FILE_NAME)
-  ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
-  selected=$(FZF_DEFAULT_COMMAND="$ff_cmd '$INITIAL_QUERY'" \
-      fzf --bind="change:top+reload($ff_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
-          --ansi --phony \
-          --query "$INITIAL_QUERY" \
-          --delimiter=":" \
-          --preview="cat {1}" )
-  local ret=$?
-  [[ -n "$selected" ]] && echo "$selected"
-  return $ret
+    FILE_NAME=~/.MY_FZF_FF_query.txt
+    INITIAL_QUERY=$(cat $FILE_NAME)
+    ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
+    selected=$(FZF_DEFAULT_COMMAND="$ff_cmd '$INITIAL_QUERY'" \
+                                  fzf --bind="change:top+reload($ff_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
+                                  --ansi --phony \
+                                  --query "$INITIAL_QUERY" \
+                                  --delimiter=":" \
+                                  --preview="cat {1}" )
+    local ret=$?
+    [[ -n "$selected" ]] && echo "$selected"
+    return $ret
 }
 
 function _fzg() {
@@ -388,23 +388,23 @@ function _fzg() {
 }
 
 function __fzg() {
-  FILE_NAME=~/.MY_FZF_FZG_query.txt
-  INITIAL_QUERY=$(cat $FILE_NAME)
-  # emulate -L zsh
-  fzg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' --exclude='TAGS' "
-  selected=$(FZF_DEFAULT_COMMAND="$fzg_cmd '$INITIAL_QUERY' | sed -e 's/^\.\///g' " \
-      fzf --bind="change:top+reload($fzg_cmd {q} | sed -e 's/\.\///g' || true ;  echo {q} > ${FILE_NAME})" \
-          --ansi --phony \
-          --query "$INITIAL_QUERY" \
-          --delimiter=":" \
-          --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
-          # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in some env.
+    FILE_NAME=~/.MY_FZF_FZG_query.txt
+    INITIAL_QUERY=$(cat $FILE_NAME)
+    # emulate -L zsh
+    fzg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' --exclude='TAGS' "
+    selected=$(FZF_DEFAULT_COMMAND="$fzg_cmd '$INITIAL_QUERY' | sed -e 's/^\.\///g' " \
+                                  fzf --bind="change:top+reload($fzg_cmd {q} | sed -e 's/\.\///g' || true ;  echo {q} > ${FILE_NAME})" \
+                                  --ansi --phony \
+                                  --query "$INITIAL_QUERY" \
+                                  --delimiter=":" \
+                                  --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always {2} -C 10" )
+    # --preview="GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36' grep --color=always -n {q} {1} -C 20 | grep --color=always ^{2} -C 10" ) # NG in some env.
 
-  local ret=$?
-  if [[ -n "$selected" ]]; then
-    echo "${${(@s/:/)selected}[1]}:${${(@s/:/)selected}[2]}"
-  fi
-  return $ret
+    local ret=$?
+    if [[ -n "$selected" ]]; then
+        echo "${${(@s/:/)selected}[1]}:${${(@s/:/)selected}[2]}"
+    fi
+    return $ret
 }
 
 case ${OSTYPE} in
@@ -442,16 +442,16 @@ case ${OSTYPE} in
         export DISPLAY=:0
 
         # brew api token
-        if [ -f ~/API_tokens/token_brew_api ];then
+        if [ -f ~/API_tokens/token_brew_api ]; then
             source ~/API_tokens/token_brew_api
         fi
 
         # digital ocean api token
-        if [ -f ~/API_tokens/token_digital_ocean ];then
+        if [ -f ~/API_tokens/token_digital_ocean ]; then
             source ~/API_tokens/token_digital_ocean
         fi
         # digital ocean api token
-        if [ -f ~/API_tokens/token_dockerhub ];then
+        if [ -f ~/API_tokens/token_dockerhub ]; then
             source ~/API_tokens/token_dockerhub
         fi
 
@@ -527,15 +527,15 @@ case ${OSTYPE} in
         export SDE=$HOME/bf-sde-0.0.0
 
         # P4 dev
-        if [ -f ~/tools/set_sde.bash ];then
-           source ~/tools/set_sde.bash
-           alias sdes="cd ${SDE}/pkgsrc/switch-p4-16/p4src"
+        if [ -f ~/tools/set_sde.bash ]; then
+            source ~/tools/set_sde.bash
+            alias sdes="cd ${SDE}/pkgsrc/switch-p4-16/p4src"
         fi
-        if [ -e ~/tools ];then
-           export PATH=$PATH:$HOME/tools
+        if [ -e ~/tools ]; then
+            export PATH=$PATH:$HOME/tools
         fi
-        if [ -e "$SDE" ];then
-           export PATH=$PATH:$SDE
+        if [ -e "$SDE" ]; then
+            export PATH=$PATH:$SDE
         fi
 
         if [ -e ~/.lesskey ]; then
@@ -561,6 +561,6 @@ esac
 
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f ~/.office.zshrc ];then
+if [ -f ~/.office.zshrc ]; then
     source ~/.office.zshrc
 fi
