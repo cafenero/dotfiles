@@ -1,0 +1,12 @@
+[main]
+altview2horizontal = '[{"col1":0,"col2":2,"adjust":-13}]'
+altviewright = '[{"col1":0,"col2":2,"adjust":63}]'
+color-tsharks = ['/usr/bin/tshark']
+dark-mode = true
+last-used-tshark = '/usr/bin/tshark'
+lastupdate = '2023-03-22 14:21:55.03146388 +0000 UTC m=+404.802434109'
+layout = 'mainview'
+mainview = '[{"col1":2,"col2":6,"adjust":-7},{"col1":4,"col2":6,"adjust":32}]'
+packet-colors = false
+validated-tsharks = ['/usr/bin/tshark']
+
