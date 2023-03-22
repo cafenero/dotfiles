@@ -233,11 +233,13 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
-;; conf-mode
+(require 'conf-mode)
 (add-to-list 'auto-mode-alist '("config" . conf-mode))
 (add-to-list 'auto-mode-alist '("config-mac" . conf-mode))
 (add-to-list 'auto-mode-alist '("default" . conf-mode))
 (add-to-list 'auto-mode-alist '(".gitignore" . conf-mode))
+
+(require 'json-mode)
 
 (require 'go-mode)
 ;;(require 'go-mode-autoloads)
