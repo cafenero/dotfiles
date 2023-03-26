@@ -18,7 +18,7 @@ case ${OS} in
              fzf jq apt-utils debconf-utils \
              wireshark tshark zip fio iotop iftop \
              linux-tools-common linux-tools-generic linux-cloud-tools-generic powertop \
-             iperf iperf3 shellcheck flex clang-format
+             iperf iperf3 shellcheck flex clang-format gdb
 
         wget https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-deb/tmux_3.3-2023-03-16-19-58_amd64.deb
         wget https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-emacs-deb/emacs_28.2-2023-03-16-19-58_amd64.deb
@@ -74,7 +74,7 @@ case ${OS} in
         sudo yum install -y epel-release zsh
         sudo yum install --enablerepo=epel -y \
              tree vim tig ctags htop \
-             kernel-doc wireshark
+             kernel-doc wireshark gdb
 
         # install latest golang
         wget -O go.tgz "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
