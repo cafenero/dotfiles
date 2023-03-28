@@ -262,10 +262,10 @@
          ;; (setq show-trailing-whitespace t)
       ))
 
-;; (add-hook 'shell-script-mode-hook
+;; shell-script-mode
+(add-to-list 'auto-mode-alist '(".*.zshrc" . shell-script-mode))
 (add-hook 'shell-script-mode-hook
           #'(lambda ()
-
              ;; (setq tab-width 40)
              ;; (setq show-trailing-whitespace t)
              ))
