@@ -32,14 +32,14 @@ setopt hist_ignore_dups
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias EE="emacs -nw"
-alias e='_e'
+alias e='my_e'
 alias tm='tmux'
 alias tma='tmux a'
 alias mt='tmux'
 alias sc='screen'
 alias wa='watch -c -n 1 -d '
-alias termshark='_termshark'
-alias iftop="_iftop $@"
+alias termshark='my_termshark'
+alias iftop="my_iftop $@"
 alias pu='pushd'
 alias po='popd'
 alias gs='git status'
@@ -48,7 +48,7 @@ alias gl='git log --graph --stat'
 alias glg='git log --grep'
 alias ga='git add'
 alias gcv='git commit -v'
-alias gcb='_gcb ${1}'
+alias gcb='my_gcb ${1}'
 alias gdd="gd | delta"
 alias grv="git remote -v"
 alias gp="git pull"
@@ -64,14 +64,14 @@ alias watch="watch --color"
 alias tree='tree -C -a -I .git'
 alias rp='realpath'
 alias rph='hostname | tr -d "\n" ; echo -n : ; realpath'
-alias mssh='_mssh'
-alias Group_docker="_group_docker"
-alias pwdd='_pwdd'
-alias cdg='_cdg'
-alias g='_fzf_ghq'
-alias imgcat='_imgcat_for_tmux'
-alias ff='_ff'
-alias fzg='_fzg'
+alias mssh='my_mssh'
+alias Group_docker="my_group_docker"
+alias pwdd='my_pwdd'
+alias cdg='my_cdg'
+alias g='my_fzf_ghq'
+alias imgcat='my_imgcat_for_tmux'
+alias ff='my_ff'
+alias fzg='my_fzg'
 if type kubectl > /dev/null 2>&1 ; then
     alias     k="/usr/bin/sudo kubectl"
     alias    kg="/usr/bin/sudo kubectl get"
@@ -86,8 +86,8 @@ alias fgrep="fgrep $MY_GREP_OPTIONS"
 
 # tweek aliases
 alias P4i='xvfb-run p4i -w $SDE/build'
-alias Tar="_Tar"
-alias Zip="_Zip"
+alias Tar="my_Tar"
+alias Zip="my_Zip"
 alias Gh_pr_merge="gh pr merge -m -d"
 alias Gh_pr_rebase="gh pr merge -r -d"
 alias Gh_pr_squash="gh pr merge -s -d"
@@ -129,7 +129,7 @@ then
     eval "$(jump shell --bind=z)" > /dev/null
 fi
 
-function _gcb() {
+function my_gcb() {
     if [ $# -eq 0 ]; then
         git checkout -b `date "+%Y-%m-%d-%H-%M"`
     else
@@ -171,7 +171,7 @@ function gw_old() {
     open "${URL}"
 }
 
-function _cdg() {
+function my_cdg() {
     ghq_root=$(ghq root)/$(ghq list "$(grv | grep push | awk '{print $2}' | awk -F@ '{print $2}' | sed -e 's/.git//')")
     cd "$ghq_root" || return
 }
@@ -243,7 +243,7 @@ function precmd() {
  "
 }
 
-function _pwdd() { ls -d "$PWD/$1"; }
+function my_pwdd() { ls -d "$PWD/$1"; }
 
 function set_tmux_bgcolor_bg_white() {
     tmux select-pane -P 'bg=white,fg=black'
@@ -268,14 +268,14 @@ function set_ibgcolor_black(){
     set_term_bgcolor 0 0 0
 }
 
-function _mssh() {
+function my_mssh() {
     if [[ -e "$1" ]]; then
-        __mssh $(cat "$1")
+        my__mssh $(cat "$1")
     else
-        __mssh "$@"
+        my__mssh "$@"
     fi
 }
-function __mssh() {
+function my__mssh() {
     COUNT=0
     tmux new-window "exec ssh $1"
     shift
@@ -293,15 +293,15 @@ function __mssh() {
     #tmux select-layout even-vertical > /dev/null
     #tmux select-layout even-horizontal > /dev/null
 }
-function _Tar() {
+function my_Tar() {
     tar zcvf "${1}.tar.gz" "${1}"
 }
 
-function _Zip() {
+function my_Zip() {
     zip -r "${1}.zip" "${1}"
 }
 
-function _fzf_ghq() {
+function my_fzf_ghq() {
     FZF_GHQ_CURRENT_PATH=$(pwd)
     if type bat > /dev/null 2>&1 ; then
         # FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
@@ -319,12 +319,15 @@ function _fzf_ghq() {
     fi
 }
 
-function _e() {
+function my_e() {
     args=$(echo "$1" | sed -E "s/([^:]+):([0-9:]+)/+\2 \1/g")
     eval emacsclient -nw -a \"\" "$args"
 }
+# compdef _e e
+# compdef '_files' e
 
-function _group_docker() {
+
+function my_group_docker() {
     # adding me to docker group if not in the group
     set -x
     sudo gpasswd -a "$(whoami)" docker
@@ -333,26 +336,26 @@ function _group_docker() {
     set +x
 }
 
-function _termshark() {
+function my_termshark() {
     (export LC_CTYPE=en_US.UTF-8 ; "${HOME}"/go/bin/termshark "$@")
 }
 
-function _iftop() {
+function my_iftop() {
     (export LANG=""; export LC_ALL=""; sudo iftop "$@")
 }
 
-function _imgcat_for_tmux() {
+function my_imgcat_for_tmux() {
     imgcat "$1"
     # read enter -> clear & re-draw tmux panes
     read -r && tmux split-window resize-pane  && tmux split-window resize-pane
 }
 
 # Ref: https://qiita.com/sho-t/items/dca82d5e27b16da12318
-function _ff() {
+function my_ff() {
     if [[ ! -f ~/.MY_FZF_FF_query.txt ]]; then
         touch ~/.MY_FZF_FF_query.txt
     fi
-    if FF_PATH=$(__ff);
+    if FF_PATH=$(my__ff);
     then
         echo " e $FF_PATH"
         e "$FF_PATH"
@@ -360,7 +363,7 @@ function _ff() {
     fi
 }
 
-function __ff() {
+function my__ff() {
     FILE_NAME=~/.MY_FZF_FF_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
     ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
@@ -375,11 +378,11 @@ function __ff() {
     return $ret
 }
 
-function _fzg() {
+function my_fzg() {
     if [[ ! -f ~/.MY_FZF_FZG_query.txt ]]; then
         touch ~/.MY_FZF_FZG_query.txt
     fi
-    if result=$(__fzg);
+    if result=$(my__fzg);
     then
         echo " e $result"
         e "$result"
@@ -387,7 +390,7 @@ function _fzg() {
     fi
 }
 
-function __fzg() {
+function my__fzg() {
     FILE_NAME=~/.MY_FZF_FZG_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
     # emulate -L zsh
