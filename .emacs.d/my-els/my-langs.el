@@ -24,6 +24,8 @@
 ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; (add-hook 'prog-mode-hook 'yafolding-mode)
 
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 
 
@@ -224,20 +226,21 @@
    ))
 
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ctp\\'"        . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'"      . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'"  . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'"    . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'"    . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'"        . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'"     . web-mode))
 
 (require 'conf-mode)
-(add-to-list 'auto-mode-alist '("config" . conf-mode))
-(add-to-list 'auto-mode-alist '("config-mac" . conf-mode))
-(add-to-list 'auto-mode-alist '("default" . conf-mode))
-(add-to-list 'auto-mode-alist '(".gitignore" . conf-mode))
+(add-to-list 'auto-mode-alist '("config"      . conf-mode))
+(add-to-list 'auto-mode-alist '("config-mac"  . conf-mode))
+(add-to-list 'auto-mode-alist '("default"     . conf-mode))
+(add-to-list 'auto-mode-alist '(".gitignore"  . conf-mode))
+(add-to-list 'auto-mode-alist '("*.service"   . conf-mode))
 
 (require 'json-mode)
 
