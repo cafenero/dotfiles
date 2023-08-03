@@ -456,16 +456,16 @@
 
 (require 'markdown-preview-mode)
 ;; $ brew install pandoc
-(setq markdown-command "pandoc -s --embed-resources -t html5 --metadata title=markdown-preview-mode")
+(setq markdown-command (concat "pandoc -s --embed-resources -t html5 --metadata title=markdown-preview-mode -c " (expand-file-name "~/.emacs.d/markdown-preview-mode/main.css")))
 (setq markdown-preview-stylesheets
       (list
-       "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css"
-       "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/styles/tomorrow.min.css"
+       "file://$HOME/ghq/github.com/cafenero/dotfiles/.emacs.d/markdown-preview-mode/github-markdown.min.css"
+       "file://$HOME/.emacs.d/markdown-preview-mode/tomorrow.min.css"
        ))
 (setq markdown-preview-javascript
       (list
-       "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/highlight.min.js"
-       "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+       "file://$HOME/.emacs.d/markdown-preview-mode/highlight.min.js"
+       "file://$HOME/.emacs.d/markdown-preview-mode/MathJax.js"
        ))
 
 
