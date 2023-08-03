@@ -44,6 +44,7 @@
 (defalias 'dm 'describe-mode)
 (defalias 'dmm 'describe-minor-mode)
 (defalias 'df 'describe-function)
+(defalias 'mpm 'markdown-preview-mode)
 
 (leaf dmacro
   :ensure t
