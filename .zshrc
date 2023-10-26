@@ -72,6 +72,7 @@ alias g='my_fzf_ghq'
 alias imgcat='my_imgcat_for_tmux'
 alias ff='my_ff'
 alias fzg='my_fzg'
+alias Jq='my_jq'
 if type kubectl > /dev/null 2>&1 ; then
     alias     k="/usr/bin/sudo kubectl"
     alias    kg="/usr/bin/sudo kubectl get"
@@ -409,6 +410,10 @@ function my__fzg() {
         echo "${${(@s/:/)selected}[1]}:${${(@s/:/)selected}[2]}"
     fi
     return $ret
+}
+
+function my_jq() {
+    cat "$1" | jq
 }
 
 case ${OSTYPE} in
