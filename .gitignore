@@ -29,3 +29,11 @@ gh/
 .emacs.d/tramp
 .emacs.d/straight/
 .config/github-copilot/
+.docker/.buildNodeID
+.docker/.token_seed
+.docker/.token_seed.lock
+.docker/cli-plugins/
+.docker/contexts/
+.docker/devenvironments/
+.docker/features.json
+.docker/scan/
