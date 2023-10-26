@@ -41,6 +41,7 @@
 ;; alias
 ;; ----------------------------------------------------------------
 (defalias 'dv 'describe-variable)
+(defalias 'dk 'describe-key)
 (defalias 'dm 'describe-mode)
 (defalias 'dmm 'describe-minor-mode)
 (defalias 'df 'describe-function)

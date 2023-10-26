@@ -311,6 +311,8 @@
 
   ;; 文末空白を表示
   ;; (setq show-trailing-whitespace t)
+  ;; 文末空白を削除
+  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
 
   ;; (flymake-mode t)
 
