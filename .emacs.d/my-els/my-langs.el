@@ -672,3 +672,48 @@
     (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
     ;; (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p nil t)))
 (add-hook 'after-change-major-mode-hook 'after-change-major-mode-hook-fn)
+
+
+
+
+;; Github Copilot
+;; Ref
+;; https://github.com/zerolfx/copilot.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package
+ '(copilot :type git :host github :repo "zerolfx/copilot.el" :files ("dist" "*.el")))
+
+;; プログラムモードとdiffモードの場合、copilot-modeを実行
+(add-hook 'prog-mode-hook 'copilot-mode)
+(add-hook 'diff-mode-hook 'copilot-mode)
+
+;; 使用するnode.jsを明示的に指定
+;; (setq copilot-node-executable (executable-find "node"))
+;; (setq copilot-node-executable "~/.nodebrew/current/bin/node")
+
+;; copilot用にキーバインドを設定
+(defun my/tab ()
+  (interactive)
+  (or (copilot-accept-completion)
+      (indent-for-tab-command nil)))
+
+(global-set-key (kbd "TAB") #'my/tab)
+(global-set-key (kbd "<tab>") #'my/tab)
+
+;; workaround (override setting for cc-mode)
+(add-hook 'c-mode-hook
+          (lambda ()
+            (local-set-key (kbd "TAB") #'my/tab)
+            (local-set-key (kbd "<tab>") #'my/tab)))
