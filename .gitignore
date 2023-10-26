@@ -27,3 +27,5 @@ gh/
 .emacs.d/url/cookies
 .emacs.d/network-security.data
 .emacs.d/tramp
+.emacs.d/straight/
+.config/github-copilot/
