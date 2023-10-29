@@ -13,13 +13,8 @@
 ;; (setq org-indent-mode nil)
 
 ;; 行番号表示をトグル
-(defun toggle-linum-lines ()
-  "Toggle display line number."
-  (interactive)
-  (defvar linum-format "%4d ")
-  (linum-mode
-   (if linum-mode 0 t)))
-(define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
+(define-key global-map (kbd "C-x C-l") 'display-line-numbers-mode)
+(global-display-line-numbers-mode)
 
 ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; (add-hook 'prog-mode-hook 'yafolding-mode)
