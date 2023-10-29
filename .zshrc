@@ -73,6 +73,8 @@ alias imgcat='my_imgcat_for_tmux'
 alias ff='my_ff'
 alias fzg='my_fzg'
 alias Jq='my_jq'
+alias Mkdir='my_mkdir'
+
 if type kubectl > /dev/null 2>&1 ; then
     alias     k="/usr/bin/sudo kubectl"
     alias    kg="/usr/bin/sudo kubectl get"
@@ -414,6 +416,10 @@ function my__fzg() {
 
 function my_jq() {
     cat "$1" | jq
+}
+
+function my_mkdir() {
+    mkdir $1 && cd $1
 }
 
 case ${OSTYPE} in
