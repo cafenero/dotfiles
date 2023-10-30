@@ -727,8 +727,10 @@
 ;; copilot用にキーバインドを設定
 (defun my/tab ()
   (interactive)
-  (or (copilot-accept-completion)
-      (indent-for-tab-command nil)))
+  (if (and (display-graphic-p) (minibufferp))
+      (minibuffer-complete)
+    (or (copilot-accept-completion)
+        (indent-for-tab-command nil))))
 
 (global-set-key (kbd "TAB") #'my/tab)
 (global-set-key (kbd "<tab>") #'my/tab)
