@@ -512,6 +512,8 @@
     Buffer-menu-mode
     help-mode
     view-mode
+    compilation-mode
+    run-mode
     ;; quickrun--mode
     twittering-mode))
 (mapc
@@ -520,6 +522,8 @@
              'my/disable-trailing-mode-hook))
  my/disable-trailing-modes)
 
+;; workaround
+(add-hook 'compilation-mode-hook 'my/disable-trailing-mode-hook)
 
 
 ;; ;; モダンなやり方
