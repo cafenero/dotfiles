@@ -16,6 +16,15 @@
 (define-key global-map (kbd "C-x C-l") 'display-line-numbers-mode)
 (global-display-line-numbers-mode)
 
+(defvar my/disable-line-numbers-modes
+  '(compilation-mode
+    package-menu-mode
+    text-mode
+    special-mode))
+(dolist (mode my/disable-line-numbers-modes)
+  (add-hook (intern (concat (symbol-name mode) "-hook"))
+            (lambda () (display-line-numbers-mode -1))))
+
 ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; (add-hook 'prog-mode-hook 'yafolding-mode)
 
