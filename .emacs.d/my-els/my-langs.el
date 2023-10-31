@@ -33,8 +33,14 @@
 (put 'downcase-region 'disabled nil)
 
 
+;; ----------------------------------------------------------------
+;; compile settings
+;; ----------------------------------------------------------------
 
+;; コンパイル実行時にファイルを保存するか聞かれないようにする
+(setq compilation-ask-about-save nil)
 
+(setq compilation-window-height 50)
 
 
 
