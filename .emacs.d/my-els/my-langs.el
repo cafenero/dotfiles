@@ -20,7 +20,8 @@
   '(compilation-mode
     package-menu-mode
     text-mode
-    special-mode))
+    special-mode
+    diff-mode))
 (dolist (mode my/disable-line-numbers-modes)
   (add-hook (intern (concat (symbol-name mode) "-hook"))
             (lambda () (display-line-numbers-mode -1))))
