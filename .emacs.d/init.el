@@ -479,11 +479,40 @@
 (global-set-key "\C-e" 'end-of-visual-line)
 
 
+;; --------------------------------------------------
+;; migemo settins
+;; --------------------------------------------------
+;; ref: https://qiita.com/catatsuy/items/c5fa34ead92d496b8a51
+;; For MacOS:
+;;   $ brew install cmigemo
+(when (and (executable-find "cmigemo")
+           (require 'migemo nil t))
+  (setq migemo-options '("-q" "--emacs"))
+
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (setq migemo-command "cmigemo")
+
+  (cond
+   ((eq system-type 'darwin) ; MacOS
+    (setq migemo-dictionary "/opt/homebrew/share/migemo/utf-8/migemo-dict"))
+   ((eq system-type 'gnu/linux) ; Linux
+    (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")))
+
+  (load-library "migemo")
+  (migemo-init)
+  )
+
+
+;; --------------------------------------------------
+;; load other .el files
+;; --------------------------------------------------
+
 (load-file "~/.emacs.d/my-els/my-langs.el")
-
-
-
-
+;;
+;;
+;;
 
 
 (provide 'init)
