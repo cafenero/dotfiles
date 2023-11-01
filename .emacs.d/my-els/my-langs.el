@@ -42,8 +42,48 @@
 ;; コンパイル実行時にファイルを保存するか聞かれないようにする
 (setq compilation-ask-about-save nil)
 
+;; コンパイル実行時に開かれるウィンドウを少し小さくする
 (setq compilation-window-height 50)
 
+;; $ cargo run 実行時と色を合わせる。
+(defface my-error-face
+  '((t (:foreground "#FB6360", :weight bold)))
+  "Custom face for displaying error messages.")
+
+(defface my-warning-face
+  '((t (:foreground "#FEFC6D" :weight bold)))
+  "Custom face for displaying warning messages.")
+
+(defface my-cursor-face
+  '((t (:foreground "cyan" :weight bold)))
+  "Custom face for displaying position messages.")
+
+(defface my-help-face
+  '((t (:foreground "brightgreen" :weight bold)))
+  "Custom face for displaying help messages.")
+
+(add-hook 'compilation-mode-hook
+  (lambda ()
+    (font-lock-add-keywords nil
+      '(
+        ;; error
+        ("^\\(error\\):.*" 1 'my-error-face)
+        ("^\\(error.*]\\).*" 1 'my-error-face)
+
+        ;;cursor
+        ("\\(|\\)" 1 'my-cursor-face)
+        ("^\s+|\s+\\(-+.*\\)" 1 'my-cursor-face)
+        ("\\(-->\\)" 1 'my-cursor-face)
+
+        ;; warning
+        ("^\\(warning\\)" 1 'my-warning-face)
+        ("\\(\\^.*help.*\\)" 1 'my-warning-face)
+        ("^\s.*\|\s*\\(\\^+.*\\)" 1 'my-warning-face)
+
+        ;; help
+        ("^\s+|\s+\\(\\++\\).*" 1 'my-help-face)
+        ("\\(^help\\)" 1 'my-help-face)
+        ))))
 
 
 ;; ----------------------------------------------------------------
