@@ -534,7 +534,6 @@
 (defun my-before-save ()
   "Run rustfmt before saving the buffer."
   (when (eq major-mode 'rust-mode)
-    (setq buffer-save-without-query t)
     (rust-format-buffer)))
 
 (add-hook 'before-save-hook 'my-before-save)
