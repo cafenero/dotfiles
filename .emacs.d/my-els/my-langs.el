@@ -32,6 +32,8 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+(electric-pair-mode 1)
+
 
 ;; ----------------------------------------------------------------
 ;; compile settings
