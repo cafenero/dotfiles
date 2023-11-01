@@ -28,6 +28,7 @@ gh/
 .emacs.d/network-security.data
 .emacs.d/tramp
 .emacs.d/straight/
+.emacs.d/org-persist/
 .config/github-copilot/
 .docker/.buildNodeID
 .docker/.token_seed
