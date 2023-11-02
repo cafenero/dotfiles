@@ -47,6 +47,11 @@
 (defalias 'df 'describe-function)
 (defalias 'mpm 'markdown-preview-mode)
 
+;; ----------------------------------------------------------------
+;; generic key map
+;; ----------------------------------------------------------------
+(define-key global-map (kbd "C-c g") 'goto-line)
+
 (leaf dmacro
   :ensure t
   ;; :custom `((dmacro-key . ,(kbd "C-S-e")))
