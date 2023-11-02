@@ -51,6 +51,12 @@
 ;; generic key map
 ;; ----------------------------------------------------------------
 (define-key global-map (kbd "C-c g") 'goto-line)
+(define-key isearch-mode-map (kbd "C-h") 'isearch-del-char)
+(global-set-key "\C-o" 'other-window)
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-h" 'delete-backward-char)
+(global-set-key "\M-%" 'replace-string)
+
 
 (leaf dmacro
   :ensure t
@@ -94,12 +100,6 @@
   )
 (provide 'my-allinstall)
 
-
-;;;; key bind
-(global-set-key "\C-o" 'other-window)
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-h" 'delete-backward-char)
-(global-set-key "\M-%" 'replace-string)
 
 ;; for iPad/Blink
 ;; (global-set-key [f9] 'set-mark-command)
@@ -165,7 +165,6 @@
 (provide 'exp-sudo)
 
 
-(define-key isearch-mode-map (kbd "C-h") 'isearch-del-char)
 
 
 (defun insert-current-date (&optional diff)
