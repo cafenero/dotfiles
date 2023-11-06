@@ -6,25 +6,6 @@
 
 ;;; Code:
 
-;; memo
-;; undo: C-/
-;; comment: 範囲選択してからM-;
-;; eval: C-x C-e
-;; C-x goto-line
-;; tabify
-;; untabify
-;; C-u C-SPC : back to implicit position
-;; C-M-p backward-list
-;; C-M-n forward-list
-;; "\M-p" 'winner-undo
-;; "\M-n" 'winner-redo
-;; C-s C-w, M-s o ;; On cursor word search
-;;
-;; color
-;; list-faces-display
-;; list-color-display
-
-;; describe-mode
 
 ;;;; General
 (setq package-archives
@@ -73,50 +54,12 @@
  '(which-func ((t (:background "dimgray" :foreground "brightcyan"))))
  )
 
-(defun my-syntax-table ()
-  (modify-syntax-entry ?_ "w")
-  ;; (modify-syntax-entry ?: "w")
-)
-(add-hook 'c-mode-hook 'my-syntax-table)
-
+;; install all my packages from custom.el
 (defun my-allinstall()
-  ;;   "All install package."
   (interactive)
   (package-refresh-contents)
-  (package-install-selected-packages)
-
-  ;; (package-install-selected-packages)
-  ;; (y-or-n-p-with-timeout "hoge" 1 yes)
-
-  ;; (y-or-n-p-with-timeout "Proceed 1? " 3 nil)
-  ;; (y-or-n-p-with-timeout "Proceed 2? " 3 t)
-
-  ;; (package-install-selected-packages)
-  ;; (y-or-n-p-with-timeout "Proceed 3? " 2 t)
-
-  ;; NG...
-  ;; (package-install-selected-packages t)
-
-  )
+  (package-install-selected-packages))
 (provide 'my-allinstall)
-
-
-;; for iPad/Blink
-;; (global-set-key [f9] 'set-mark-command)
-
-;; my test
-(defun my()
-  (interactive)
-  (setq path "/sudo:root@localhost:/Users/user/README.md")
-  (setq path "/sudo:root@localhost:/Users/user/README.md")
-  (setq path "/sudoo:root@localhost:/Users/user/README.md")
-  (setq path "/sudo:root@localhost:/Users/user/README.md")
-  (setq path "/sudoo:root@loca/sudo:lhost:/Users/user/README.md")
-  (if (string-match "^/sudo:" path)
-      (message "hit")
-    (message "miss")
-    )
-)
 
 
 ;; my show file name
@@ -141,30 +84,6 @@
     )
   )
 (provide 'sudo)
-;; ->
-;; Reference:
-;; https://gist.github.com/kobapan/1e79bfe2d1e64f4faa8362c22e7e5e1e
-(defun find-file--sudo (orig-fun &optional filename &rest r)
-  (if (and (not (file-writable-p filename)) ; 書き込み権限がなかったら
-           (y-or-n-p (concat filename " is read-only. Open it as root? "))) ; y だったら
-      (sudo filename) ; /sudo:: で開く
-    (apply orig-fun `(,filename)) )) ; その他通常のfind-fileで開く
-(advice-add 'find-file :around #'find-file--sudo)
-
-(defun exp-file-sudo (&optional file)
-  "Open read-only FILE with sudo."
-  (interactive)
-  (if file ; find-fileから呼ばれたら
-      (find-file (concat "/sudo::" file)) ; /sudo:: で開く
-    (let ((pos (point)))
-      (find-alternate-file ; /sudo:: で開き直す
-       (concat "/sudo::" (or (buffer-file-name) list-buffers-directory)))
-      (goto-char pos))) ; カーソル位置復元
-  (rename-buffer (concat "sudo:" (buffer-name)))) ; バッファ名の先頭にsudo:を付ける
-;; --------------------------------------
-(provide 'exp-sudo)
-
-
 
 
 (defun insert-current-date (&optional diff)
@@ -173,16 +92,12 @@
   (insert
    (shell-command-to-string
     (format
-     ;; "echo -n $(LC_ALL=ja_JP date -v-%dd +'%%Y/%%m/%%d (%%a)')"
      "echo -n $(LC_ALL=ja_JP date -v-%dd +'* %%Y/%%m/%%d (%%a)')"
      (or diff 0)))))
 (define-key global-map (kbd "C-c d") 'insert-current-date)
 
 
-;; default to unified diffs
-(setq diff-switches "-u")
-
-
+;; org-mode
 (setq org-startup-folded t)
 
 
@@ -203,6 +118,7 @@
 (global-set-key [f4] 'on-input-method)
 
 ;; for iPad/Blink
+;; (global-set-key [f9] 'set-mark-command)
 (global-set-key [f12] 'toggle-input-method)
 
 (use-package mozc-popup
@@ -216,7 +132,6 @@
 
 (require 'expand-region)
 (global-set-key (kbd "C-c =") 'er/expand-region)
-
 
 (require 'resize-window)
 (define-key global-map (kbd "C-c r") 'resize-window)
@@ -247,43 +162,9 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 ;; (define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode)
 ;; (define-key global-map (kbd "C-c SPC") 'ace-jump-line-mode)
-;; (setq ace-jump-mode-gray-background nil)
 
 (set-face-attribute 'ace-jump-face-foreground nil
                     :foreground "white" :background "black" :weight 'bold :underline nil)
-
-;; 試しに消す
-;; ;; Saving buffer list to file.
-;; ;; Restoring buffer when restart emacs.
-;; (require 'save-visited-files)
-;; ;; (setq save-visited-files-ignore-tramp-files t)
-;; (turn-on-save-visited-files-mode)
-
-
-(setq-default show-trailing-whitespace t)
-;; https://qiita.com/tadsan/items/df73c711f921708facdc
-(defun my/disable-trailing-mode-hook ()
-  "Disable show tail whitespace."
-  (setq show-trailing-whitespace nil))
-(defvar my/disable-trailing-modes
-  '(comint-mode
-    eshell-mode
-    eww-mode
-    term-mode
-    buffer-mode
-    view-mode
-    Buffer-menu-mode
-    help-mode
-    view-mode
-    diff-mode
-    ;; quickrun--mode
-    twittering-mode))
-(mapc
- (lambda (mode)
-   (add-hook (intern (concat (symbol-name mode) "-hook"))
-             'my/disable-trailing-mode-hook))
- my/disable-trailing-modes)
-
 
 (require 'point-stack)
 (global-set-key (kbd "C-c 5") 'point-stack-push)
@@ -292,15 +173,6 @@
 ;; (global-set-key "\C-c-5" 'point-stack-push)
 ;; (global-set-key "\C-c 6" 'point-stack-pop)
 ;; (global-set-key "\C-c 7" 'point-stack-forward-stack-pop)
-
-
-;; ;; not used.
-;; ;; ;; experimantal
-;; (leaf autorevert
-;;   :doc "revert buffers when files on disk change"
-;;   :tag "builtin"
-;;   :custom ((auto-revert-interval . 1))
-;;   :global-minor-mode global-auto-revert-mode)
 
 
 (winner-mode)
@@ -331,7 +203,6 @@
 
 
 (global-set-key (kbd "C-x g") 'magit-status)
-;; (global-set-key (kbd "M-g") 'magit-status)
 
 ;; https://syohex.hatenablog.com/entry/20120125/1327504194
 ;; repeat yank. Because C-y can't accept `C-u Number' prefix
@@ -422,17 +293,7 @@
 (require 'neotree)
 (setq neo-show-hidden-files t)
 (setq neo-window-width 50)
-
-;; (global-set-key "\C-c q" 'neotree-toggle)
-;; ;; (global-set-key "\C-\;" 'neotree-toggle)
-;; (global-set-key [?\C-\;] 'neotree-toggle)
-;; ;;;;
-;; (global-set-key (kbd "C-1") 'neotree-toggle)
-;; (global-set-key (kbd "C-:") 'neotree-toggle)
-;; (global-set-key (kbd "C-\;") 'neotree-toggle)
-;; (global-set-key  (kbd "\C-1") 'neotree-toggle)
 (global-set-key  (kbd "\C-c q") 'neotree-toggle)
-
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 ;; (setq neo-theme 'icons)
 (bind-key "r" 'neotree-refresh neotree-mode-map)
@@ -446,6 +307,7 @@
 
 
 
+;; C-aの挙動を変更
 ;; ref: https://gifnksm.hatenablog.jp/entry/20100131/1264956220
 (defun beginning-of-indented-line (current-point)
   "インデント文字を飛ばした行頭に戻る。ただし、ポイントから行頭までの間にインデント文字しかない場合は、行頭に戻る。"
