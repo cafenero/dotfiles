@@ -486,6 +486,10 @@ case ${OSTYPE} in
         # mkdir -p screen_shot/zzz
         # killall SystemUIServer
 
+        # one time only
+        # https://qiita.com/seteen/items/5698089808612f6b87e0
+        # defaults write -g InitialKeyRepeat -int 12 # normal minimum is 15 (225 ms)
+        # defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
         ;;
     linux*)
         alias ls='ls --color'
