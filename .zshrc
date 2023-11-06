@@ -578,8 +578,6 @@ case ${OSTYPE} in
         ;;
 esac
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 if [ -f ~/.office.zshrc ]; then
     source ~/.office.zshrc
 fi
