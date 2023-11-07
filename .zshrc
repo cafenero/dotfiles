@@ -226,10 +226,10 @@ function my_fzf_ghq() {
     FZF_GHQ_CURRENT_PATH=$(pwd)
     if type bat > /dev/null 2>&1 ; then
         # FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
-        FZF_GHQ_PATH=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
+        FZF_GHQ_PATH=$(ghq list | fzf --query "$1" --preview "bat --color=always --style=header,grid --line-range :80  $(ghq root)/{}/README.*" )
     else
         # FZF_GHQ_PATH=$(ghq root)/$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
-        FZF_GHQ_PATH=$(ghq list | fzf --preview "cat  $(ghq root)/{}/README.*" )
+        FZF_GHQ_PATH=$(ghq list | fzf --query "$1" --preview "cat  $(ghq root)/{}/README.*" )
     fi
     if [[ -n $FZF_GHQ_PATH ]]; then
         # echo "change path"
@@ -273,7 +273,7 @@ function my_ff() {
     if [[ ! -f ~/.MY_FZF_FF_query.txt ]]; then
         touch ~/.MY_FZF_FF_query.txt
     fi
-    if FF_PATH=$(my__ff);
+    if FF_PATH=$(my__ff $1);
     then
         echo " e $FF_PATH"
         e "$FF_PATH"
@@ -284,6 +284,9 @@ function my_ff() {
 function my__ff() {
     FILE_NAME=~/.MY_FZF_FF_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
+    if [[ $1 ]]; then
+        INITIAL_QUERY=$1
+    fi
     ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
     selected=$(FZF_DEFAULT_COMMAND="$ff_cmd '$INITIAL_QUERY'" \
                                   fzf --bind="change:top+reload($ff_cmd {q} || true ;  echo {q} > ${FILE_NAME})" \
@@ -300,7 +303,7 @@ function my_fzg() {
     if [[ ! -f ~/.MY_FZF_FZG_query.txt ]]; then
         touch ~/.MY_FZF_FZG_query.txt
     fi
-    if result=$(my__fzg);
+    if result=$(my__fzg $1);
     then
         echo " e $result"
         e "$result"
@@ -311,6 +314,9 @@ function my_fzg() {
 function my__fzg() {
     FILE_NAME=~/.MY_FZF_FZG_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
+    if [[ $1 ]]; then
+        INITIAL_QUERY=$1
+    fi
     # emulate -L zsh
     fzg_cmd="GREP_COLORS='mt=01;31:fn=:ln=:bn=:se=:ml=:cx=:ne' grep -r --line-number --color=always --binary-files=without-match --exclude='*!*' --exclude='TAGS' "
     selected=$(FZF_DEFAULT_COMMAND="$fzg_cmd '$INITIAL_QUERY' | sed -e 's/^\.\///g' " \
