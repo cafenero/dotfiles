@@ -1,6 +1,9 @@
-fpath=(~/.zsh/completion $fpath)
+# ----------------------------------------------------------------
+# general settings
+# ----------------------------------------------------------------
 
-# load
+# common settings
+fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit colors vcs_info select-word-style
 compinit -i
 colors
@@ -16,7 +19,6 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
 zstyle ':zle:*' word-chars ' _/=;@:{}[]()<>,.'
 zstyle ':zle:*' word-style unspecified
-
 bindkey "^[f" emacs-forward-word
 
 # setopts
@@ -28,7 +30,7 @@ setopt +o nomatch
 setopt inc_append_history
 setopt hist_ignore_dups
 
-# common alias
+# common aliases
 alias ked="emacsclient -e '(kill-emacs)'"
 alias E="emacs --daemon"
 alias EE="emacs -nw"
@@ -48,7 +50,7 @@ alias gl='git log --graph --stat'
 alias glg='git log --grep'
 alias ga='git add'
 alias gcv='git commit -v'
-alias gcb='my_gcb ${1}'
+alias gcb='my_gcb'
 alias gdd="gd | delta"
 alias grv="git remote -v"
 alias gp="git pull"
@@ -72,9 +74,6 @@ alias g='my_fzf_ghq'
 alias imgcat='my_imgcat_for_tmux'
 alias ff='my_ff'
 alias fzg='my_fzg'
-alias Jq='my_jq'
-alias Mkdir='my_mkdir'
-
 if type kubectl > /dev/null 2>&1 ; then
     alias     k="/usr/bin/sudo kubectl"
     alias    kg="/usr/bin/sudo kubectl get"
@@ -83,32 +82,34 @@ if type kubectl > /dev/null 2>&1 ; then
     source <(kubectl completion zsh)
 fi
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
-alias grep="grep $MY_GREP_OPTIONS"
-alias egrep="egrep $MY_GREP_OPTIONS"
-alias fgrep="fgrep $MY_GREP_OPTIONS"
-alias ggrep="ggrep $MY_GREP_OPTIONS"
+alias grep='grep "$MY_GREP_OPTIONS"'
+alias egrep='egrep "$MY_GREP_OPTIONS"'
+alias fgrep='fgrep "$MY_GREP_OPTIONS"'
+alias ggrep='ggrep "$MY_GREP_OPTIONS"'
 
 # tweek aliases
 alias P4i='xvfb-run p4i -w $SDE/build'
 alias Tar="my_Tar"
 alias Zip="my_Zip"
+alias Jq='my_jq'
+alias Mkdir='my_mkdir'
 alias Gh_pr_merge="gh pr merge -m -d"
 alias Gh_pr_rebase="gh pr merge -r -d"
 alias Gh_pr_squash="gh pr merge -s -d"
 alias Gh_pr_create=" gh pr create -f"
 
+# misc aliases
 alias wake="wakeonlan fc:aa:14:29:a6:9"     # xeon01
 alias wake_01="wakeonlan 00:3e:e1:cb:b3:3c" # MP
 alias wake_02="wakeonlan 60:f4:45:ea:90:3e" # MP WiFi
 
-
-# common export
+# common exports
 export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LESS="-R"
 export PATH=$PATH:${HOME}/bin
 
-# specific export
+# specific exports
 export FZF_DEFAULT_OPTS='
 --bind=ctrl-j:accept
 --bind=ctrl-w:backward-kill-word
@@ -133,11 +134,12 @@ then
     eval "$(jump shell --bind=z)" > /dev/null
 fi
 
+# alias functions
 function my_gcb() {
     if [ $# -eq 0 ]; then
-        git checkout -b `date "+%Y-%m-%d-%H-%M"`
+        git checkout -b "$(date '+%Y-%m-%d-%H-%M')"
     else
-        git checkout -b ${1}
+        git checkout -b "${1}"
     fi
 }
 
@@ -158,14 +160,12 @@ function gw_old() {
 	else
 		_PATH=$(realpath "$1")
 	fi
-
     URL=https://
     URL=${URL}$(echo ${_PATH} | cut -d '/' -f5)/
     URL=${URL}$(echo ${_PATH} | cut -d '/' -f6)/
     URL=${URL}$(echo ${_PATH} | cut -d '/' -f7)
     URL=${URL}/blob/master/
     URL=${URL}$(echo ${_PATH} | cut -d '/' -f8-)
-
     # レポジトリのrootだったら、blob/masterは付けない。
     if echo "${URL}" | grep -e "master/$" > /dev/null;
     then
@@ -180,97 +180,12 @@ function my_cdg() {
     cd "$ghq_root" || return
 }
 
-# https://girigiribauer.com/tech/20170208/
-# function print_date() {
+# Ref: https://girigiribauer.com/tech/20170208/
 function d() {
-    # zle -U `date "+%Y-%m-%d"`
     zle -U "$(date "+%Y-%m-%d-%H-%M")"
 }
 zle -N d
 bindkey "^Xd" d
-
-
-# ----------------------------------------------------------------
-## prompt
-# ----------------------------------------------------------------
-P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
-PURPLE=$'%{\e[1;35m%}'
-RED=$'%{\e[38;5;88m%}'
-ENDC=$'%{\e[m%}'
-
-export MY_OPTION_SHORTEN_PATH=1
-function short() {
-    sho
-}
-function sho() {
-    export MY_OPTION_SHORTEN_PATH=0
-}
-function middle() {
-    mi
-}
-function mi() {
-    export MY_OPTION_SHORTEN_PATH=1
-}
-function long() {
-    lo
-}
-function lo() {
-    export MY_OPTION_SHORTEN_PATH=2
-}
-
-function MyPwdShorten() {
-    echo "$1" | sed -e 's/\(\/.\)[^\/]*/\1/g'
-}
-
-function MyPwdLastDir() {
-    if [[ ! "$1" == "/" ]]; then
-        echo "$1" | sed -e 's/.*\///g'
-    fi
-
-}
-
-function MyPwdWithoutLastDir() {
-    _ret=$(echo "$1" | sed -e 's/\(\/.\)[^\/]*/\1/g')
-    echo "${_ret:0:-1}"
-}
-
-function precmd() {
-    vcs_info
-    if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
-        MYPWD=$(MyPwdShorten "$(print -P "%~")")
-    elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
-        MYPWD=$(MyPwdWithoutLastDir "$(print -P "%~")")$(MyPwdLastDir "$(print -P "%~")")
-    else
-        MYPWD=$(print -P "%~")
-    fi
-    PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
- "
-}
-
-function my_pwdd() { ls -d "$PWD/$1"; }
-
-function set_tmux_bgcolor_bg_white() {
-    tmux select-pane -P 'bg=white,fg=black'
-}
-function set_tmux_bgcolor_default() {
-    tmux select-pane -P 'default'
-}
-
-function set_iterm_bgcolor(){
-    local R=$1
-    local G=$2
-    local B=$3
-    /usr/bin/osascript <<EOF
-    tell application "iTerm"
-      tell current session of current window
-          set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
-      end tell
-    end tell
-EOF
-}
-function set_ibgcolor_black(){
-    set_term_bgcolor 0 0 0
-}
 
 function my_mssh() {
     if [[ -e "$1" ]]; then
@@ -279,6 +194,7 @@ function my_mssh() {
         my__mssh "$@"
     fi
 }
+
 function my__mssh() {
     COUNT=0
     tmux new-window "exec ssh $1"
@@ -297,6 +213,7 @@ function my__mssh() {
     #tmux select-layout even-vertical > /dev/null
     #tmux select-layout even-horizontal > /dev/null
 }
+
 function my_Tar() {
     tar zcvf "${1}.tar.gz" "${1}"
 }
@@ -327,9 +244,6 @@ function my_e() {
     args=$(echo "$1" | sed -E "s/([^:]+):([0-9:]+)/+\2 \1/g")
     eval emacsclient -nw -a \"\" "$args"
 }
-# compdef _e e
-# compdef '_files' e
-
 
 function my_group_docker() {
     # adding me to docker group if not in the group
@@ -422,6 +336,94 @@ function my_mkdir() {
     mkdir $1 && cd $1
 }
 
+
+
+# ----------------------------------------------------------------
+# prompt settings
+# ----------------------------------------------------------------
+P_MARK="%(?,%F{white},%F{red})%(!,#,$)%f"
+PURPLE=$'%{\e[1;35m%}'
+RED=$'%{\e[38;5;88m%}'
+ENDC=$'%{\e[m%}'
+
+export MY_OPTION_SHORTEN_PATH=1
+function short() {
+    sho
+}
+function sho() {
+    export MY_OPTION_SHORTEN_PATH=0
+}
+function middle() {
+    mi
+}
+function mi() {
+    export MY_OPTION_SHORTEN_PATH=1
+}
+function long() {
+    lo
+}
+function lo() {
+    export MY_OPTION_SHORTEN_PATH=2
+}
+
+function MyPwdShorten() {
+    echo "$1" | sed -e 's/\(\/.\)[^\/]*/\1/g'
+}
+
+function MyPwdLastDir() {
+    if [[ ! "$1" == "/" ]]; then
+        echo "$1" | sed -e 's/.*\///g'
+    fi
+
+}
+
+function MyPwdWithoutLastDir() {
+    _ret=$(echo "$1" | sed -e 's/\(\/.\)[^\/]*/\1/g')
+    echo "${_ret:0:-1}"
+}
+
+function precmd() {
+    vcs_info
+    if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
+        MYPWD=$(MyPwdShorten "$(print -P "%~")")
+    elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
+        MYPWD=$(MyPwdWithoutLastDir "$(print -P "%~")")$(MyPwdLastDir "$(print -P "%~")")
+    else
+        MYPWD=$(print -P "%~")
+    fi
+    PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
+ "
+}
+
+function my_pwdd() { ls -d "$PWD/$1"; }
+
+function set_tmux_bgcolor_bg_white() {
+    tmux select-pane -P 'bg=white,fg=black'
+}
+function set_tmux_bgcolor_default() {
+    tmux select-pane -P 'default'
+}
+
+function set_iterm_bgcolor(){
+    local R=$1
+    local G=$2
+    local B=$3
+    /usr/bin/osascript <<EOF
+    tell application "iTerm"
+      tell current session of current window
+          set background color to {$(echo "scale=2; ($1/255.0)*65535" | bc),$(echo "scale=2; ($2/255.0)*65535" | bc),$(echo "scale=2; ($3/255.0)*65535" | bc)}
+      end tell
+    end tell
+EOF
+}
+function set_ibgcolor_black(){
+    set_term_bgcolor 0 0 0
+}
+
+
+# ----------------------------------------------------------------
+# OS specific settings
+# ----------------------------------------------------------------
 case ${OSTYPE} in
     darwin*)
         alias ls='gls --color'
@@ -503,7 +505,6 @@ case ${OSTYPE} in
         alias sudo='sudo -E '
         # alias sudo='sudo '
 
-
         # https://superuser.com/questions/523564/emacs-keybindings-in-zsh-not-working-ctrl-a-ctrl-e
         bindkey -e
         bindkey "^[f" emacs-forward-word
@@ -564,7 +565,8 @@ case ${OSTYPE} in
         function cd(){
             builtin cd "$@" && ls -l --color && pwd;
         }
-        # unix domain socket settings for screen
+
+        # unix domain socket settings for screen/tmux
         agent="$HOME/.ssh-agent-$(hostname)"
         if [ "$(uname)" = Linux ]; then
             if [ -S "$agent" ]; then
