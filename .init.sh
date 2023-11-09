@@ -76,6 +76,12 @@ case ${OS} in
              tree vim tig ctags htop \
              kernel-doc wireshark gdb
 
+        # Ref: https://docs.docker.com/engine/install/centos/
+        sudo yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
+        sudo yum install -y yum-utils
+        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        sudo yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
         # install latest golang
         wget -O go.tgz "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
            sudo tar -C /usr/local -xzf go.tgz && rm go.tgz
