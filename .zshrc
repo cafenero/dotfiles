@@ -82,10 +82,10 @@ if type kubectl > /dev/null 2>&1 ; then
     source <(kubectl completion zsh)
 fi
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
-alias grep='grep "$MY_GREP_OPTIONS"'
-alias egrep='egrep "$MY_GREP_OPTIONS"'
-alias fgrep='fgrep "$MY_GREP_OPTIONS"'
-alias ggrep='ggrep "$MY_GREP_OPTIONS"'
+alias grep="grep $MY_GREP_OPTIONS"
+alias egrep="egrep $MY_GREP_OPTIONS"
+alias fgrep="fgrep $MY_GREP_OPTIONS"
+alias ggrep="ggrep $MY_GREP_OPTIONS"
 
 # tweek aliases
 alias P4i='xvfb-run p4i -w $SDE/build'
