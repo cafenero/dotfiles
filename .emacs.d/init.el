@@ -85,6 +85,11 @@
   )
 (provide 'sudo)
 
+(define-key global-map (kbd "C-c j") 'join-lines)
+(defun join-lines ()
+  "Join the current line with the line below and delete the line break."
+  (interactive)
+  (join-line -1))
 
 (defun insert-current-date (&optional diff)
   "現在年月日をカレントバッファに出力します。引数Nを与えるとN日前を出力します。"

@@ -82,10 +82,10 @@ if type kubectl > /dev/null 2>&1 ; then
     source <(kubectl completion zsh)
 fi
 MY_GREP_OPTIONS="--color=auto --binary-files=without-match"
-alias grep='grep "$MY_GREP_OPTIONS"'
-alias egrep='egrep "$MY_GREP_OPTIONS"'
-alias fgrep='fgrep "$MY_GREP_OPTIONS"'
-alias ggrep='ggrep "$MY_GREP_OPTIONS"'
+alias grep="grep $MY_GREP_OPTIONS"
+alias egrep="egrep $MY_GREP_OPTIONS"
+alias fgrep="fgrep $MY_GREP_OPTIONS"
+alias ggrep="ggrep $MY_GREP_OPTIONS"
 
 # tweek aliases
 alias P4i='xvfb-run p4i -w $SDE/build'
@@ -284,7 +284,7 @@ function my_ff() {
 function my__ff() {
     FILE_NAME=~/.MY_FZF_FF_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
-    if [[ $1 ]]; then
+    if [[ -n $1 ]]; then
         INITIAL_QUERY=$1
     fi
     ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
@@ -314,7 +314,7 @@ function my_fzg() {
 function my__fzg() {
     FILE_NAME=~/.MY_FZF_FZG_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
-    if [[ $1 ]]; then
+    if [[ -n $1 ]]; then
         INITIAL_QUERY=$1
     fi
     # emulate -L zsh
