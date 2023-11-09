@@ -284,7 +284,7 @@ function my_ff() {
 function my__ff() {
     FILE_NAME=~/.MY_FZF_FF_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
-    if [[ $1 ]]; then
+    if [[ -n $1 ]]; then
         INITIAL_QUERY=$1
     fi
     ff_cmd="find ./ -type f | grep -v '!' | sed -e 's/\.\/\///g' | grep --color=always -i --binary-files=without-match"
@@ -314,7 +314,7 @@ function my_fzg() {
 function my__fzg() {
     FILE_NAME=~/.MY_FZF_FZG_query.txt
     INITIAL_QUERY=$(cat $FILE_NAME)
-    if [[ $1 ]]; then
+    if [[ -n $1 ]]; then
         INITIAL_QUERY=$1
     fi
     # emulate -L zsh
