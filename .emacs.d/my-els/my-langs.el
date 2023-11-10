@@ -10,9 +10,12 @@
 ;; default to unified diffs
 (setq diff-switches "-u")
 
-;; 行番号表示をトグル
-(define-key global-map (kbd "C-x C-l") 'display-line-numbers-mode)
+;; 行番号表示
 (global-display-line-numbers-mode)
+(define-key global-map (kbd "C-x C-l") 'display-line-numbers-mode)
+(custom-set-faces
+ '(line-number ((t (:foreground "darkslategray"))))
+ '(line-number-current-line ((t (:foreground "darkslategray" :weight bold)))))
 
 (defvar my/disable-line-numbers-modes
   '(compilation-mode
