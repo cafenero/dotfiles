@@ -377,6 +377,14 @@
     (rust-format-buffer)))
 (add-hook 'before-save-hook 'my-before-save)
 
+(eval-after-load 'rust-mode
+  '(progn
+    (define-key rust-mode-map (kbd "C-c C-c C-u") 'rust-test) ;; unit test
+    (define-key rust-mode-map (kbd "C-c C-c C-c") 'rust-compile) ;; compile
+    (define-key rust-mode-map (kbd "C-c C-c C-t") nil) ;; undef
+    )
+  )
+
 
 ;; ----------------------------------------------------------------
 ;; white space eliminator settings
