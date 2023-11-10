@@ -39,8 +39,8 @@
 ;; コンパイル実行時にファイルを保存するか聞かれないようにする
 (setq compilation-ask-about-save nil)
 
-;; コンパイル実行時に開かれるウィンドウを少し小さくする
-(setq compilation-window-height 50)
+;; ;; コンパイル実行時に開かれるウィンドウを少し小さくする
+;; (setq compilation-window-height 50)
 
 ;; $ cargo run 実行時と色を合わせる。
 (defface my-error-face
