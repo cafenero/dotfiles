@@ -428,6 +428,32 @@ function set_ibgcolor_black(){
 
 
 # ----------------------------------------------------------------
+# misc settings
+# ----------------------------------------------------------------
+
+function copilot-mode-enable() {
+    echo 1 > ~/.MY_EMACS_ENABLE_COPILOT.txt
+    cat ~/.MY_EMACS_ENABLE_COPILOT.txt
+}
+function copilot-mode-disable() {
+    echo 0 > ~/.MY_EMACS_ENABLE_COPILOT.txt
+    cat ~/.MY_EMACS_ENABLE_COPILOT.txt
+}
+
+function cop() {
+    if [[ -n $1 ]]; then
+        copilot-mode-disable
+    else
+        copilot-mode-enable
+    fi
+}
+
+function co() {
+    cop $1
+}
+
+
+# ----------------------------------------------------------------
 # OS specific settings
 # ----------------------------------------------------------------
 case ${OSTYPE} in

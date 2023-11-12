@@ -461,9 +461,24 @@
 (straight-use-package
  '(copilot :type git :host github :repo "zerolfx/copilot.el" :files ("dist" "*.el")))
 
+;; ~/.MY_EMACS_ENABLE_COPILOT.txtから状態を読み取る
+(defvar my/enable-copilot
+  (string= (replace-regexp-in-string "[[:space:]\n\r]+" "" (with-temp-buffer
+              (insert-file-contents (expand-file-name "~/.MY_EMACS_ENABLE_COPILOT.txt"))
+              (buffer-string)))
+           "1"))
+
+;; prog-mode と diff-mode の hook を設定
+(defun my/setup-copilot-mode ()
+  (if my/enable-copilot
+      (copilot-mode)))
+
+
 ;; プログラムモードとdiff-mode (git diff) の場合、copilot-modeを実行
-(add-hook 'prog-mode-hook 'copilot-mode)
-(add-hook 'diff-mode-hook 'copilot-mode)
+(add-hook 'prog-mode-hook 'my/setup-copilot-mode)
+(add-hook 'diff-mode-hook 'my/setup-copilot-mode)
+;; (add-hook 'prog-mode-hook 'copilot-mode)
+;; (add-hook 'diff-mode-hook 'copilot-mode)
 
 ;; 使用するnode.jsを明示的に指定
 ;; (setq copilot-node-executable (executable-find "node"))
