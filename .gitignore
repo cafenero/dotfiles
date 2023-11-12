@@ -38,3 +38,6 @@ gh/
 .docker/devenvironments/
 .docker/features.json
 .docker/scan/
+.docker/buildx/
+.docker/desktop-build/
+.docker/scout/
