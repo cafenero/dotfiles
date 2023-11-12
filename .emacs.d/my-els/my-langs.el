@@ -474,8 +474,10 @@
   (interactive)
   (if (and (display-graphic-p) (minibufferp))
       (minibuffer-complete)
-    (or (copilot-accept-completion)
-        (indent-for-tab-command nil))))
+    (if (bound-and-true-p copilot-mode)
+        (or (copilot-accept-completion)
+            (indent-for-tab-command nil))
+      (indent-for-tab-command nil))))
 
 (global-set-key (kbd "TAB") #'my/tab)
 (global-set-key (kbd "<tab>") #'my/tab)
