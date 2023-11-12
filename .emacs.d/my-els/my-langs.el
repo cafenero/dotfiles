@@ -47,9 +47,17 @@
   '((t (:foreground "#FB6360", :weight bold)))
   "Custom face for displaying error messages.")
 
+(defface my-fail-face
+  '((t (:foreground "red", :weight bold)))
+  "Custom face for displaying fail messages.")
+
 (defface my-warning-face
   '((t (:foreground "#FEFC6D" :weight bold)))
   "Custom face for displaying warning messages.")
+
+(defface my-ok-face
+  '((t (:foreground "green" :weight bold)))
+  "Custom face for displaying ok messages.")
 
 (defface my-cursor-face
   '((t (:foreground "cyan" :weight bold)))
@@ -67,6 +75,12 @@
         ("^\\(error\\):.*" 1 'my-error-face)
         ("^\\(error.*]\\).*" 1 'my-error-face)
 
+        ;; fail
+        ("\\( FAILED\\)" 1 'my-fail-face)
+
+        ;; ok
+        ("\\( ok\\)" 1 'my-ok-face)
+
         ;;cursor
         ("\\(|\\)" 1 'my-cursor-face)
         ("^\s+|\s+\\(-+.*\\)" 1 'my-cursor-face)
@@ -80,6 +94,12 @@
         ;; help
         ("^\s+|\s+\\(\\++\\).*" 1 'my-help-face)
         ("\\(^help\\)" 1 'my-help-face)
+
+        ("\\(Checking\\)" 1 'my-help-face)
+        ("\\(Finished\\)" 1 'my-help-face)
+        ("\\(Running\\)" 1 'my-help-face)
+        ("\\(Doc-tests\\)" 1 'my-help-face)
+
         ))))
 
 
