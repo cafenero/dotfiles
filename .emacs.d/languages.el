@@ -221,16 +221,39 @@
 ;;; $ go get -u github.com/dougm/goflymake
 ;;; $ go get -u github.com/golang/lint/golint
 ;;; $ go get golang.org/x/tools/cmd/goimports
+;;; $ go install golang.org/x/tools/cmd/goimports@latest
+;;; $ go install mvdan.cc/gofumpt@latest
 ;;; $ export PATH=$PATH:${HOME}/.go/bin
-(add-hook 'before-save-hook 'gofmt-before-save)
-(let ((goimports (executable-find "goimports")))
-  (if goimports (setq gofmt-command goimports)))
+
+(defun my/go-imports ()
+  (interactive)
+  (let ((point-before-save (point)))
+    (progn
+      ;; (call-process-region (point-min) (point-max) "gofmt" t t)
+      ;; (call-process-region (point-min) (point-max) "gofumpt" t t)
+      (call-process-region (point-min) (point-max) "goimports" t t)
+      (save-buffer)
+      (goto-char point-before-save)
+      (message "Saved with goimports"))
+    )
+  )
+
+(setq gofmt-command "gofumpt")
 (add-hook 'go-mode-hook
       #'(lambda ()
-         (setq tab-width 4)
-         ;; (save-place-mode 1)
-         ;; (setq show-trailing-whitespace t)
-      ))
+          (setq tab-width 4)
+          ;; (setq gofmt-command "goimports")
+          (setq gofmt-command "gofumpt")
+          ;; (setq gofmt-command "gofmt")
+          ;; (save-place-mode 1)
+          ;; (setq show-trailing-whitespace t)
+
+          (define-key go-mode-map (kbd "C-c C-c") 'my/go-imports)
+
+          (add-hook 'before-save-hook 'gofmt-before-save)
+          ;; (add-hook 'before-save-hook 'my/go-before-save-hook nil 'make-it-local)
+
+          ))
 
 
 ;; ----------------------------------------------------------------
