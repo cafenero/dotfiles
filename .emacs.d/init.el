@@ -381,7 +381,7 @@
 ;; load other .el files
 ;; --------------------------------------------------
 
-(load-file "~/.emacs.d/my-els/my-langs.el")
+(load-file "~/.emacs.d/languages.el")
 ;;
 ;;
 ;;
