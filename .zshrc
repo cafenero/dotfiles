@@ -42,6 +42,7 @@ alias sc='screen'
 alias wa='watch -c -n 1 -d '
 alias termshark='my_termshark'
 alias iftop="my_iftop $@"
+alias vm='my_vm'
 alias pu='pushd'
 alias po='popd'
 alias gs='git status'
@@ -135,6 +136,10 @@ then
 fi
 
 # alias functions
+function my_vm() {
+    mv $2 $1
+}
+
 function my_gcb() {
     if [ $# -eq 0 ]; then
         git checkout -b "$(date '+%Y-%m-%d-%H-%M')"
