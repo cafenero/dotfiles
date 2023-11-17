@@ -17,7 +17,7 @@ SAVEHIST=1000000
 zstyle ':completion:*:default' menu select
 zstyle ':completion:*' list-separator '-->'
 zstyle ':vcs_info:*' formats '(%F{green}%b%f)'
-zstyle ':zle:*' word-chars ' _/=;@:{}[]()<>,.'
+zstyle ':zle:*' word-chars ' -_/=;@:{}[]()<>,.'
 zstyle ':zle:*' word-style unspecified
 bindkey "^[f" emacs-forward-word
 
