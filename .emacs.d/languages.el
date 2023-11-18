@@ -188,6 +188,7 @@
 (add-to-list 'auto-mode-alist '("default"     . conf-mode))
 (add-to-list 'auto-mode-alist '(".gitignore"  . conf-mode))
 (add-to-list 'auto-mode-alist '("*.service"   . conf-mode))
+(add-to-list 'auto-mode-alist '("Cargo.lock"   . conf-mode))
 
 ;; json
 (require 'json-mode)
