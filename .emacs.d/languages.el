@@ -426,8 +426,28 @@
     (define-key rust-mode-map (kbd "C-c C-c C-u") 'rust-test) ;; unit test
     (define-key rust-mode-map (kbd "C-c C-c C-c") 'rust-compile) ;; compile
     (define-key rust-mode-map (kbd "C-c C-c C-t") nil) ;; undef
+    (define-key rust-mode-map (kbd "C-c C-c C-d") 'my/rust-doc-region)
     )
   )
+
+(defun my/rust-doc-region (start end)
+  "Trim leading whitespace to a single space and add '/// ' or '///' to the beginning of each line in the region from START to END."
+  (interactive "r")
+  ;; trim
+  (save-excursion
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (re-search-forward "^[[:space:]]+" nil t)
+      (replace-match "")))
+  (goto-char start)
+  ;; replace
+  (save-excursion
+    (while (re-search-forward "^" nil t)
+      (if (looking-at-p "^$")
+          (replace-match "///")
+          (replace-match "/// ")
+      ))
+  (widen)))
 
 
 ;; ----------------------------------------------------------------
