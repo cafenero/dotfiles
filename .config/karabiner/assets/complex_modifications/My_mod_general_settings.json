@@ -230,7 +230,66 @@
                 ]
             }
             ]
+        },
+
+        {
+            "description": "General: Alt+fでword forwardとする。",
+            "manipulators": [
+                {
+                "conditions": [
+                    {
+                        "type": "frontmost_application_if",
+                        "bundle_identifiers": [
+                            "^com\\.google\\.Chrome$"
+                        ]
+                    }
+                ],
+                "type": "basic",
+                "from": {
+                    "key_code": "f",
+                    "modifiers": {
+                        "mandatory": ["option"]
+                    }
+                },
+                "to": [
+                    {
+                    "key_code": "right_arrow",
+                    "modifiers": "option"
+                    }
+                ]
+            }
+            ]
+        },
+
+        {
+            "description": "General: Alt+bでword backwardとする。",
+            "manipulators": [
+                {
+                "conditions": [
+                    {
+                        "type": "frontmost_application_if",
+                        "bundle_identifiers": [
+                            "^com\\.google\\.Chrome$"
+                        ]
+                    }
+                ],
+                "type": "basic",
+                "from": {
+                    "key_code": "b",
+                    "modifiers": {
+                        "mandatory": ["option"]
+                    }
+                },
+                "to": [
+                    {
+                    "key_code": "left_arrow",
+                    "modifiers": "option"
+                    }
+                ]
+            }
+            ]
         }
+
 
     ]
 }
