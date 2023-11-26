@@ -21,6 +21,18 @@ zstyle ':zle:*' word-chars ' -_/=;@:{}[]()<>,.'
 zstyle ':zle:*' word-style unspecified
 bindkey "^[f" emacs-forward-word
 
+# custom tab for zsh prompt
+my_tab_or_complete() {
+    if [[ $CURSOR == 0 ]]; then
+        zle end-of-line
+        zle expand-or-complete
+    else
+        zle expand-or-complete
+    fi
+}
+zle -N my_tab_or_complete
+bindkey '^I' my_tab_or_complete
+
 # setopts
 setopt hist_reduce_blanks
 setopt hist_expand
