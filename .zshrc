@@ -69,6 +69,7 @@ alias grv="git remote -v"
 alias gp="git pull"
 alias gr="git remote -v"
 alias gpoa="git push origin @"
+alias git="my_git"
 alias gg='ghq get -l'
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
@@ -359,6 +360,15 @@ function my_mkdir() {
     mkdir $1 && cd $1
 }
 
+my_git() {
+    if [[ "$1" == "sw" || "$1" == "swi" ]]; then
+        # echo "no args to -"
+        command git switch -
+    else
+        # echo "pass through"
+        command git "$@"
+    fi
+}
 
 
 # ----------------------------------------------------------------
