@@ -645,3 +645,5 @@ esac
 if [ -f ~/.office.zshrc ]; then
     source ~/.office.zshrc
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
