@@ -29,6 +29,8 @@
 	ci = commit
 	co = checkout
 	st = status
+	sw = switch
+	swi = switch
 	br = branch
 	reamend = commit --amend -C HEAD
 	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
