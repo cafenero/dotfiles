@@ -1,0 +1,76 @@
+{
+    "title": "My mod: Slack settings.",
+    "rules": [
+        {
+        "description": "SlackでCtrl+k -> Emacs like Ctrl+kとする。",
+        "manipulators": [
+            {
+            "type": "basic",
+            "conditions": [
+                {
+                "bundle_identifiers": [
+                    "com.tinyspeck.slackmacgap"
+                ],
+                "type": "frontmost_application_if"
+            }
+            ],
+            "from": {
+                "key_code": "k",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ]
+                }
+            },
+            "to": [
+                {
+                "key_code": "right_arrow",
+                "modifiers": [
+                    "left_shift",
+                    "left_command"
+                ]
+            },
+                {
+                "key_code": "x",
+                "modifiers": [
+                    "left_command"
+                ]
+            }
+            ]
+        }
+        ]
+    },
+        {
+        "description": "SlackでCtrl+y -> Emacs like Ctrl+yとする。",
+        "manipulators": [
+            {
+            "type": "basic",
+            "conditions": [
+                {
+                "bundle_identifiers": [
+                    "com.tinyspeck.slackmacgap"
+                ],
+                "type": "frontmost_application_if"
+            }
+            ],
+            "from": {
+                "key_code": "y",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ]
+                }
+            },
+            "to": [
+                {
+                "key_code": "v",
+                "modifiers": [
+                    "left_command"
+                ]
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}
