@@ -83,8 +83,9 @@ case ${OS} in
         sudo yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
         # install latest golang
-        wget -O go.tgz "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
-           sudo tar -C /usr/local -xzf go.tgz && rm go.tgz
+        GO_VERSION="1.22.5"
+        wget -O go.tgz "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
+        sudo tar -C /usr/local -xzf go.tgz && rm go.tgz
 
         # gh https://github.com/cli/cli/blob/trunk/docs/install_linux.md
         sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
