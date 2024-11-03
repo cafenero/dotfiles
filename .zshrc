@@ -620,10 +620,6 @@ case ${OSTYPE} in
             export PATH=$PATH:$SDE
         fi
 
-        if [ -e ~/.lesskey ]; then
-            lesskey
-        fi
-
         function cd(){
             builtin cd "$@" && ls -l --color && pwd;
         }
