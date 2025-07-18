@@ -2,6 +2,35 @@
 	"title": "My mod: right/left option key for iterm or not.",
     "rules": [
         {
+            "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0) -> f23 -> f2 -> f15 -> f11 -> f9 -> f3とする。left_control + left_option",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2$"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "from": {
+                        "key_code": "left_option",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "f3"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+        {
             "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0) -> f23 -> f2 -> f15 -> f11 -> f9 -> f3とする。",
             "manipulators": [
                 {
