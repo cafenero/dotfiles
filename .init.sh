@@ -115,6 +115,45 @@ case ${OS} in
              https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-rpm/tmux-3.3-2023.03.16.10.59.el7.x86_64.rpm\
              mozc
         ;;
+    *Rocky Linux*)
+        sudo yum update -y
+        sudo yum install -y epel-release zsh
+        sudo yum install --enablerepo=epel -y \
+             tree vim tig ctags htop \
+             kernel-doc wireshark gdb git
+
+        # Ref: https://docs.docker.com/engine/install/centos/
+        sudo yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
+        sudo yum install -y yum-utils
+        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        sudo yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+        # install latest golang
+        GO_VERSION="1.22.5"
+        wget -O go.tgz "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
+        sudo tar -C /usr/local -xzf go.tgz && rm go.tgz
+
+        # gh https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+        sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+        sudo yum -y install gh
+
+        # install ghq
+        # git clone https://github.com/x-motemen/ghq ghq/github.com/x-motemen/ghq
+        /usr/local/go/bin/go install github.com/x-motemen/ghq@latest
+
+        # fzf
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install --bin
+        sudo cp ~/.fzf/bin/fzf /usr/local/bin/
+        rm -rf ~/.fzf
+
+        # emacs, tmux
+        sudo yum -y install \
+             https://github.com/cafenero/build_own_packages/releases/download/2025-08-09-emacs/emacs-28.2-2025.08.09.08.33.el9.x86_64.rpm \
+             https://github.com/cafenero/build_own_packages/releases/download/2025-08-17-tmux-rpm/tmux-3.5-2025.08.17.09.07.el9.x86_64.rpm \
+             mozc
+        ;;
+
 esac
 
 # zsh
