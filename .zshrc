@@ -88,6 +88,9 @@ alias g='my_fzf_ghq'
 alias imgcat='my_imgcat_for_tmux'
 alias ff='my_ff'
 alias fzg='my_fzg'
+alias diff='diff --color=always'
+alias jq='jq --color-output'
+
 if type kubectl > /dev/null 2>&1 ; then
     alias     k="/usr/bin/sudo kubectl"
     alias    kg="/usr/bin/sudo kubectl get"
@@ -429,6 +432,10 @@ function precmd() {
     fi
     PROMPT="%{${fg[cyan]}%}(%*)%{${reset_color}%} ${PURPLE}${HOST}${ENDC}:${MYPWD}/ ${P_MARK} ${vcs_info_msg_0_}
  "
+
+    # vemv
+    venv_prompt() { [[ -n "$VIRTUAL_ENV" ]] && print -n "(${${VIRTUAL_ENV:t}}) "; }
+    PROMPT='$(venv_prompt)'"$PROMPT"
 }
 
 function my_pwdd() { ls -d "$PWD/$1"; }
@@ -501,6 +508,10 @@ case ${OSTYPE} in
         alias python=python3
         alias pip=pip3
 
+        # export PATH="$HOME/.pyenv/bin:$PATH"
+        # eval "$(pyenv init --path)"
+        # eval "$(pyenv init -)"
+
         ## debug
         ## export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
         ## debug(add)
@@ -554,6 +565,9 @@ case ${OSTYPE} in
         # https://qiita.com/seteen/items/5698089808612f6b87e0
         # defaults write -g InitialKeyRepeat -int 12 # normal minimum is 15 (225 ms)
         # defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+
+        # one time only
+        # defaults write com.apple.PowerChime ChimeOnAllHardware -bool false; killall PowerChime
         ;;
     linux*)
         alias ls='ls --color'
@@ -604,6 +618,9 @@ case ${OSTYPE} in
 
         # for my bin/
         export PATH=$HOME/bin:$PATH
+
+        # lmstudio
+        export PATH="$PATH:$HOME/.lmstudio/bin"
 
         # for my dev env
         export SDE=$HOME/bf-sde-0.0.0
