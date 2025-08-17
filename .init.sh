@@ -20,6 +20,8 @@ case ${OS} in
              linux-tools-common linux-tools-generic linux-cloud-tools-generic powertop \
              iperf iperf3 shellcheck flex clang-format gdb
 
+        # sudo apt -y  install qtbase5-dev qttools5-dev-tools qt5-default
+        # sudo apt -y  install qtbase5-dev libqt5svg5-dev libqt5opengl5-dev libqt5core5a libqt5gui5 libqt5widgets5
         wget https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-deb/tmux_3.3-2023-03-16-19-58_amd64.deb
         wget https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-emacs-deb/emacs_28.2-2023-03-16-19-58_amd64.deb
         sudo apt install -y ./emacs_28.2-2023-03-16-19-58_amd64.deb ./tmux_3.3-2023-03-16-19-58_amd64.deb emacs-mozc
