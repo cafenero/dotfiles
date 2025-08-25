@@ -30,6 +30,7 @@ gh/
 .emacs.d/straight/
 .emacs.d/org-persist/
 .config/github-copilot/
+.config/htop/htoprc
 .docker/config.json
 .docker/.buildNodeID
 .docker/.token_seed
