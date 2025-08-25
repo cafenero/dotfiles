@@ -823,6 +823,7 @@
                     },
                     {
                         "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0) -> f23 -> f2 -> f15 -> f11 -> f9 -> f3とする。left_control + left_option",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -844,6 +845,7 @@
                     },
                     {
                         "description": "iTerm2では左optionを単体で打った場合のみmozc Japanese off (C-0) -> f23 -> f2 -> f15 -> f11 -> f9 -> f3とする。left_control + left_option",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
