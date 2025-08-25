@@ -1,1 +1,4 @@
-{"experimental":true,"debug":true}
+{
+  "debug": true,
+  "experimental": true
+}
