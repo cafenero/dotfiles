@@ -503,6 +503,7 @@ case ${OSTYPE} in
         export PATH=$PATH:/opt/homebrew/share/git-core/contrib/diff-highlight
         export PATH=$PATH:${HOME}/.go/bin:${HOME}/go/bin
         export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+        export PATH="$PATH:${HOME}/.lmstudio/bin"
 
         ## disable for pyenv
         alias python=python3
