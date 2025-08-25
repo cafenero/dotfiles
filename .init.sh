@@ -3,9 +3,11 @@
 TEMP_USER=`whoami`
 OS=$(head -n 1 /etc/os-release)
 
-shopt -s expand_aliases
-alias sudo='sudo -E '
-sudo pwd
+if [ "$EUID" -eq 0 ]; then
+    SUDO=""
+else
+    SUDO="sudo -E"
+fi
 
 case ${OS} in
     *Ubuntu*)
