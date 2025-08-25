@@ -117,7 +117,7 @@ case ${OS} in
              https://github.com/cafenero/build_own_packages/releases/download/2023-03-16-tmux-rpm/tmux-3.3-2023.03.16.10.59.el7.x86_64.rpm\
              mozc
         ;;
-    *Rocky Linux*)
+    *Rocky*)
         sudo yum update -y
         sudo yum install -y epel-release zsh
         sudo yum install --enablerepo=epel -y \
@@ -140,7 +140,6 @@ case ${OS} in
         sudo yum -y install gh
 
         # install ghq
-        # git clone https://github.com/x-motemen/ghq ghq/github.com/x-motemen/ghq
         /usr/local/go/bin/go install github.com/x-motemen/ghq@latest
 
         # fzf
@@ -150,12 +149,23 @@ case ${OS} in
         rm -rf ~/.fzf
 
         # emacs, tmux
-        sudo yum -y install \
-             https://github.com/cafenero/build_own_packages/releases/download/2025-08-09-emacs/emacs-28.2-2025.08.09.08.33.el9.x86_64.rpm \
-             https://github.com/cafenero/build_own_packages/releases/download/2025-08-17-tmux-rpm/tmux-3.5-2025.08.17.09.07.el9.x86_64.rpm \
-             mozc
-        ;;
+        rocky_version=$(cat /etc/os-release  | grep -i ROCKY_SUPPORT_PRODUCT_VERSION | sed 's/"//g' | awk -F= '{print $2}')
+        case ${rocky_version} in
+            8*)
+                sudo yum -y install \
+                     https://github.com/cafenero/build_own_packages/releases/download/2025-08-24-emacs-rocky8/emacs-28.2-2025.08.25.05.14.el8.x86_64.rpm \
+                     https://github.com/cafenero/build_own_packages/releases/download/2025-08-24-tmux-rocky8/tmux-3.5-2025.08.25.04.59.el8.x86_64.rpm \
+                     mozc
+                ;;
+            9*)
+                sudo yum -y install \
+                     https://github.com/cafenero/build_own_packages/releases/download/2025-08-09-emacs/emacs-28.2-2025.08.09.08.33.el9.x86_64.rpm \
+                     https://github.com/cafenero/build_own_packages/releases/download/2025-08-17-tmux-rpm/tmux-3.5-2025.08.17.09.07.el9.x86_64.rpm \
+                     mozc
+                ;;
+        esac
 
+        ;;
 esac
 
 # zsh
@@ -172,6 +182,9 @@ rm -rf termshark
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # init emacs
+mkdir -p ~/.emacs.d/elpa/gnupg/
+gpg --keyserver keyserver.ubuntu.com --recv-keys 645357D2883A0966
+gpg --export 645357D2883A0966 | gpg --homedir ~/.emacs.d/elpa/gnupg --import
 emacs \
     --eval "(defun package-install-selected-packages-no-prompt ()
              \"Install selected packages without prompting for confirmation.\"
