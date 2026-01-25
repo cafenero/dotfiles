@@ -548,6 +548,11 @@ case ${OSTYPE} in
             source ~/API_tokens/token_dockerhub
         fi
 
+        # openai api token
+        if [ -f ~/API_tokens/token_openai_private ]; then
+            source ~/API_tokens/token_openai_private
+        fi
+
         function cd(){
             builtin cd "$@" && gls -l --color && pwd;
         }
