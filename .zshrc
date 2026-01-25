@@ -89,6 +89,7 @@ alias ff='my_ff'
 alias fzg='my_fzg'
 alias diff='diff --color=always'
 alias jq='jq --color-output'
+alias Claude-local='ANTHROPIC_BASE_URL=http://localhost:11434 ANTHROPIC_AUTH_TOKEN=ollama CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 claude'
 
 if type kubectl > /dev/null 2>&1 ; then
     alias     k="/usr/bin/sudo kubectl"
@@ -124,6 +125,7 @@ export WORDCHARS='*?_[]~-=&;!#$%^(){}<>|'
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LESS="-R"
 export PATH=$PATH:${HOME}/bin
+export EDITOR="emacsclient -nw"
 
 # specific exports
 export FZF_DEFAULT_OPTS='
