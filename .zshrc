@@ -52,8 +52,7 @@ alias mt='tmux'
 alias sc='screen'
 alias wa='watch -c -n 1 -d '
 alias termshark='my_termshark'
-alias iftop="my_iftop $@"
-alias vm='my_vm'
+iftop() { my_iftop "$@"; }
 alias pu='pushd'
 alias po='popd'
 alias gs='git status'
@@ -68,7 +67,7 @@ alias grv="git remote -v"
 alias gp="git pull"
 alias gr="git remote -v"
 alias gpoa="git push origin @"
-alias git="my_git"
+git() { my_git "$@"; }
 alias gg='ghq get -l'
 alias vs="sudo ovs-vsctl"
 alias of="sudo ovs-ofctl"
@@ -152,11 +151,6 @@ then
     eval "$(jump shell --bind=z)" > /dev/null
 fi
 
-# alias functions
-function my_vm() {
-    mv $2 $1
-}
-
 function my_gcb() {
     if [ $# -eq 0 ]; then
         git checkout -b "$(date '+%Y-%m-%d-%H-%M')"
@@ -203,11 +197,11 @@ function my_cdg() {
 }
 
 # Ref: https://girigiribauer.com/tech/20170208/
-function d() {
+function insert_date() {
     zle -U "$(date "+%Y-%m-%d-%H-%M")"
 }
-zle -N d
-bindkey "^Xd" d
+zle -N insert_date
+bindkey "^Xd" insert_date
 
 function my_mssh() {
     if [[ -e "$1" ]]; then
@@ -357,11 +351,11 @@ function my__fzg() {
 }
 
 function my_jq() {
-    cat "$1" | jq
+    jq . "$1"
 }
 
 function my_mkdir() {
-    mkdir $1 && cd $1
+    mkdir -p -- "$1" && cd -- "$1"
 }
 
 my_git() {
