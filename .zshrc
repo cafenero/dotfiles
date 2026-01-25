@@ -5,9 +5,8 @@
 # common settings
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit colors vcs_info select-word-style
-compinit -i
+compinit -C
 colors
-vcs_info
 stty stop undef
 select-word-style default
 
@@ -422,7 +421,10 @@ function MyPwdWithoutLastDir() {
 }
 
 function precmd() {
-    vcs_info
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        vcs_info
+    fi
+
     if [ ${MY_OPTION_SHORTEN_PATH} -eq 0 ]; then
         MYPWD=$(MyPwdShorten "$(print -P "%~")")
     elif [ ${MY_OPTION_SHORTEN_PATH} -eq 1 ]; then
