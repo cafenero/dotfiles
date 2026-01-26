@@ -89,6 +89,7 @@ alias fzg='my_fzg'
 alias diff='diff --color=always'
 alias jq='jq --color-output'
 alias Claude-local='ANTHROPIC_BASE_URL=http://localhost:11434 ANTHROPIC_AUTH_TOKEN=ollama CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 claude'
+alias gemini='NODE_OPTIONS="--no-deprecation" PATH="$HOME/bin:$PATH" command gemini'
 
 if type kubectl > /dev/null 2>&1 ; then
     alias     k="/usr/bin/sudo kubectl"
