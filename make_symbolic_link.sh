@@ -22,9 +22,9 @@ for str in ${dotfile[@]}; do
 	echo "ln -s ${PWD}/${str} $HOME"
     if [ ${FLAG_FORCED} == 1 ]; then
 		rm $HOME/${str}
-		ln -s ${PWD}/${str} $HOME
+		ln -s ${PWD}/${str} $HOME/${str}
     else
-		ln -s ${PWD}/${str} $HOME
+		ln -s ${PWD}/${str} $HOME/${str}
     fi
 done
 

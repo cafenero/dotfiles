@@ -22,4 +22,5 @@ declare -a dotfile=(
 	".init.sh"
     ".gitignore"
     ".lesskey"
+    ".gemini/settings.json"
 )
